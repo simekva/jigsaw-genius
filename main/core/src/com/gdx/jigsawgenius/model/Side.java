@@ -3,7 +3,7 @@ package com.gdx.jigsawgenius.model;
 public class Side {
     private String terrainType;
 
-    String[] legalTerrainTypes = new String[]{"plains", "village", "field", "forest", "desert"};
+    static String[] legalTerrainTypes = new String[]{"plains", "village", "field", "forest", "desert"};
 
     public Side(String terrainType) {
         boolean containsString = false;
