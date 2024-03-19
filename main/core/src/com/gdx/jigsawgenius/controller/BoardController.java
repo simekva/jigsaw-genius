@@ -57,12 +57,26 @@ public class BoardController {
         return this.hand;
     }
 
+    public List<Tile> getAdjacentTiles(int x, int y) {
+        int[] dx = {-2, -1, 1, 2, 1, -1};
+        int[] dy = {0, 1, 1, 0, -1, -1};
+
+        List<Tile> adacjentTiles = new ArrayList<Tile>();
+        for (int i = 0; i < 6; i++) {
+            try {
+                adacjentTiles.add(this.board.getTile(x + dx[i], y + dy[i]));
+            }
+            catch(Exception e) {
+            }
+        }
+        return adacjentTiles;
+    }
+
     public static void main(String[] args) {
         BoardController main = new BoardController();
         main.initHand();
         main.initBoard();
-        System.out.println(main.getHand().get(14));
-        main.placeTileFromHand(2, 0);
-        System.out.println(main.getBoard().getTile(2, 0));
+        main.placeTileFromHand(-2, 0);
+        System.out.println("test");
     }
 }
