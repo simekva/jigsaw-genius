@@ -58,15 +58,14 @@ public class BoardController {
     }
 
     public List<Tile> getAdjacentTiles(int x, int y) {
-        int[] dx = {-2, -1, 1, 2, 1, -1};
-        int[] dy = {0, 1, 1, 0, -1, -1};
+        int[] dx = { -2, -1, 1, 2, 1, -1 };
+        int[] dy = { 0, 1, 1, 0, -1, -1 };
 
         List<Tile> adacjentTiles = new ArrayList<Tile>();
         for (int i = 0; i < 6; i++) {
             try {
                 adacjentTiles.add(this.board.getTile(x + dx[i], y + dy[i]));
-            }
-            catch(Exception e) {
+            } catch (Exception e) {
             }
         }
         return adacjentTiles;
@@ -76,7 +75,12 @@ public class BoardController {
         BoardController main = new BoardController();
         main.initHand();
         main.initBoard();
+        main.placeTileFromHand(2, 0);
+        main.placeTileFromHand(1, -1);
+        main.placeTileFromHand(-1, -1);
         main.placeTileFromHand(-2, 0);
-        System.out.println("test");
+        main.placeTileFromHand(-1, 1);
+        main.placeTileFromHand(1, 1);
+        System.out.println("Test");
     }
 }
