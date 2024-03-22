@@ -42,48 +42,62 @@ public class Board {
         }
 
         if (x < (0 + lowestx) && y < (0 + lowestx)) {
-            int n = board.length;
-            Tile[][] newBoard = new Tile[n + 1][n + 1];
+            Tile[][] newBoard = new Tile[rows + 1][columns + 1];
             
-            for (int i = 0; i < n; i++) {
-                for (int j = 0; j < n; j++) {
+            for (int i = 0; i < rows; i++) {
+                for (int j = 0; j < columns; j++) {
                     newBoard[i + 1][j + 1] = board[i][j];
                 }
             }
             board = newBoard;
             lowestx++;
             lowesty++;
+            columns++;
+            rows++;
         }
 
         else if (x < (0 + lowestx)) {
-            int n = board.length;
-            Tile[][] newBoard = new Tile[n + 2][n];
+            Tile[][] newBoard = new Tile[rows + 2][columns];
 
-            for (int i = 0; i < n; i++) {
-                for (int j = 0; j < n; j++) {
+            for (int i = 0; i < rows; i++) {
+                for (int j = 0; j < columns; j++) {
                     newBoard[i + 2][j] = board[i][j];
                 }
             } 
             board = newBoard;
             lowestx += 2;
+            rows += 2;
         }
 
         else if (y < (0 + lowesty)) {
-            int n = board.length;
-            Tile[][] newBoard = new Tile[n][n + 2];
+            Tile[][] newBoard = new Tile[rows][columns + 2];
 
-            for (int i = 0; i < n; i++) {
-                for (int j = 0; j < n; j++) {
+            for (int i = 0; i < rows; i++) {
+                for (int j = 0; j < columns; j++) {
                     newBoard[i][j + 2] = board[i][j];
                 }
             }
             board = newBoard;
             lowesty += 2;
+            columns += 2;
+        }
+
+        // Extend in positive x
+        else if ((x + lowestx) > rows) {
+            Tile[][] newBoard = new Tile[rows + 2][columns];
+
+            for (int i = 0; i < rows; i++) {
+                for (int j = 0; j < columns; j++) {
+                    newBoard[i][j] = board[i][j];
+                }
+            }
+            board = newBoard;
+            rows += 2;
         }
 
         if ((x + y) % 2 == 0) {
 
-            if (x >= board.length || y >= board[0].length) {
+            if (x >= board.length - lowestx || y >= board[0].length - lowesty) {
                 int newRows = Math.max(x + 1, board.length);
                 int newColumns = Math.max(y + 1, board[0].length);
                 this.rows++;
