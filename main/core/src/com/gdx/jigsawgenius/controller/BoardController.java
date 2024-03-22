@@ -75,12 +75,15 @@ public class BoardController {
         BoardController main = new BoardController();
         main.initHand();
         main.initBoard();
+        for (int i = 0; i < 6; i++) {
+            System.out.println(main.getHand().get(i + 9));
+        }
         main.placeTileFromHand(2, 0);
         main.placeTileFromHand(1, -1);
         main.placeTileFromHand(-1, -1);
         main.placeTileFromHand(-2, 0);
         main.placeTileFromHand(-1, 1);
         main.placeTileFromHand(1, 1);
-        System.out.println(main.board.toString());
+        System.out.println(main.getAdjacentTiles(0, 0));
     }
 }

@@ -16,20 +16,24 @@ public class Board {
 
     public Tile getTile(int x, int y) {
 
-        // Outside in positive direction
-        if (x > Math.floor(rows / 2) - 1 || y > Math.floor(columns / 2) - 1) {
+        // // Outside in positive direction
+        // if (x > Math.floor(rows / 2) - 1 || y > Math.floor(columns / 2) - 1) {
+        // return null;
+        // }
+
+        // // Outside in negative direction
+        // if (x < -lowestx || y < -lowesty) {
+        // return null;
+        // }
+
+        try {
+            if ((x + y) % 2 == 0) {
+                return this.board[x + lowestx][y + lowesty];
+            }
+            throw new IllegalArgumentException("Invalid coordinates.");
+        } catch (Exception e) {
             return null;
         }
-
-        // Outside in negative direction
-        if (x < -lowestx || y < -lowesty) {
-            return null;
-        }
-
-        if ((x + y) % 2 == 0) {
-            return this.board[x + lowestx][y + lowesty];
-        }
-        throw new IllegalArgumentException("Invalid coordinates.");
     }
 
     public void addTile(Tile tile, int x, int y) {
