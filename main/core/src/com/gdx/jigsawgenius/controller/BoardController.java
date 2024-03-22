@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 
+import com.badlogic.gdx.utils.Collections;
 import com.gdx.jigsawgenius.model.Board;
 import com.gdx.jigsawgenius.model.Side;
 import com.gdx.jigsawgenius.model.Tile;
@@ -68,6 +69,7 @@ public class BoardController {
             } catch (Exception e) {
             }
         }
+        adacjentTiles.removeAll(java.util.Collections.singleton(null));
         return adacjentTiles;
     }
 
@@ -75,15 +77,15 @@ public class BoardController {
         BoardController main = new BoardController();
         main.initHand();
         main.initBoard();
-        for (int i = 0; i < 6; i++) {
-            System.out.println(main.getHand().get(i + 9));
-        }
-        main.placeTileFromHand(2, 0);
-        main.placeTileFromHand(1, -1);
-        main.placeTileFromHand(-1, -1);
-        main.placeTileFromHand(-2, 0);
-        main.placeTileFromHand(-1, 1);
+
         main.placeTileFromHand(1, 1);
+        main.placeTileFromHand(3, 1);
+        main.placeTileFromHand(5, 1);
+        main.placeTileFromHand(7, 1);
+        main.placeTileFromHand(-2, 0);
+        main.placeTileFromHand(-3, 1);
+        main.placeTileFromHand(1, -1);
         System.out.println(main.getAdjacentTiles(0, 0));
+        System.out.println(main.getAdjacentTiles(0, 0).size());
     }
 }
