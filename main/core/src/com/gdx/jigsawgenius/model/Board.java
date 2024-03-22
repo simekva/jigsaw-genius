@@ -17,7 +17,7 @@ public class Board {
     public String toString() {
         String returnString = "";
 
-        for (int i = 0; i < board[0].length; i++) {
+        for (int i = board[0].length - 1; i >= 0; i--) {
             for (int j = 0; j < board.length; j++) {
                 if (board[j][i] != null) {
                     returnString += " T";

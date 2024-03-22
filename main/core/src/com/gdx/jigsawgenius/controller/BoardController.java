@@ -76,12 +76,13 @@ public class BoardController {
         BoardController main = new BoardController();
         main.initHand();
         main.initBoard();
-        main.placeTileFromHand(2, 0);
-        main.placeTileFromHand(1, -1);
-        main.placeTileFromHand(-1, -1);
-        main.placeTileFromHand(-2, 0);
-        main.placeTileFromHand(-1, 1);
         main.placeTileFromHand(1, 1);
+        main.placeTileFromHand(3, 1);
+        main.placeTileFromHand(5, 1);
+        main.placeTileFromHand(7, 1);
+        main.placeTileFromHand(1, -1);
+        main.placeTileFromHand(-2, 0);
+        main.placeTileFromHand(-3, 1);
         System.out.println(main.board.toString());
     }
 }
