@@ -81,7 +81,9 @@ public class BoardController {
         main.placeTileFromHand(-2, 0);
         main.placeTileFromHand(-1, 1);
         main.placeTileFromHand(1, 1);
-        System.out.println(main.getBoard().getTile(0, 0));
-        System.out.println(main.getAdjacentTiles(0, 0));
+        main.placeTileFromHand(4, 0);
+        main.placeTileFromHand(5, 1);
+        main.placeTileFromHand(7, 1);
+        main.placeTileFromHand(8, 2);
     }
 }

@@ -121,7 +121,7 @@ public class Board {
             }
 
             // Extend in positive x
-            if ((x + lowestx) > rows && (!isExtended)) {
+            if ((x + lowestx) > (rows - 1) && (!isExtended)) {
                 Tile[][] newBoard = new Tile[rows + 2][columns];
 
                 for (int i = 0; i < rows; i++) {
