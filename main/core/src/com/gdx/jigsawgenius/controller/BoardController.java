@@ -73,19 +73,28 @@ public class BoardController {
         return adacjentTiles;
     }
 
+    public String toString() {
+        String returnString = "";
+
+        for (int i = board.getColumns() - 1; i >= 0; i--) {
+            for (int j = 0; j < board.getRows(); j++) {
+                if (board.getTile(j, i) != null) {
+                    returnString += "T";
+                } else {
+                    returnString += "-";
+                }
+            }
+            returnString += "\n";
+        }
+
+        return returnString;
+    }
+
     public static void main(String[] args) {
         BoardController main = new BoardController();
         main.initHand();
         main.initBoard();
-
-        main.placeTileFromHand(1, 1);
-        main.placeTileFromHand(3, 1);
-        main.placeTileFromHand(5, 1);
-        main.placeTileFromHand(7, 1);
-        main.placeTileFromHand(-2, 0);
-        main.placeTileFromHand(-3, 1);
         main.placeTileFromHand(1, -1);
-        System.out.println(main.getAdjacentTiles(0, 0));
-        System.out.println(main.getAdjacentTiles(0, 0).size());
+        System.out.println(main.toString());
     }
 }

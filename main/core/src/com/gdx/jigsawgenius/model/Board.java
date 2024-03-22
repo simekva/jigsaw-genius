@@ -36,6 +36,14 @@ public class Board {
         }
     }
 
+    public int getRows() {
+        return this.rows;
+    }
+
+    public int getColumns() {
+        return this.columns;
+    }
+
     public void addTile(Tile tile, int x, int y) {
 
         if (this.getTile(x, y) == null) {
@@ -61,125 +69,56 @@ public class Board {
             }
 
             // Extends in negative x and y
-            if (x < (-lowestx) && y < (-lowestx) && (!isExtended)) {
-                Tile[][] newBoard = new Tile[rows + 1][columns + 1];
-
-                for (int i = 0; i < rows; i++) {
-                    for (int j = 0; j < columns; j++) {
-                        newBoard[i + 1][j + 1] = board[i][j];
-                    }
-                }
-                board = newBoard;
-                lowestx++;
-                lowesty++;
-                columns++;
-                rows++;
+            if (x < (-lowestx) && y < (-lowesty) && (!isExtended)) {
+                negativeExtension(1, 1);
                 isExtended = true;
             }
 
             // Extends in negative x positive y
             if (x < (-lowestx) && (y + lowesty) > (columns - 1) && (!isExtended)) {
-                Tile[][] newBoard = new Tile[rows + 1][columns + 1];
-
-                for (int i = 0; i < rows; i++) {
-                    for (int j = 0; j < rows; j++) {
-                        newBoard[i + 1][j] = board[i][j];
-                    }
-                }
-                board = newBoard;
-                lowestx++;
-                rows++;
-                columns++;
+                negativeExtension(1, 0);
+                positiveExtension(0, 1);
                 isExtended = true;
             }
 
             // Extend if positive x and y
             if ((x + lowestx) > (rows - 1) && (y + lowesty) > (columns - 1) && (!isExtended)) {
+                positiveExtension(1, 1);
+                isExtended = true;
+            }
 
-                Tile[][] newBoard = new Tile[rows + 1][columns + 1];
-
-                for (int i = 0; i < rows; i++) {
-                    for (int j = 0; j < columns; j++) {
-                        newBoard[i][j] = board[i][j];
-                    }
-                }
-                board = newBoard;
-                rows++;
-                columns++;
+            // Extend in positive x, negative y
+            if ((x + lowestx) > (rows - 1) && (y < -lowesty) && (!isExtended)) {
+                positiveExtension(1, 0);
+                negativeExtension(0, 1);
                 isExtended = true;
             }
 
             // Extends in negative x
             if (x < (-lowestx) && (!isExtended)) {
-                Tile[][] newBoard = new Tile[rows + 2][columns];
-
-                for (int i = 0; i < rows; i++) {
-                    for (int j = 0; j < columns; j++) {
-                        newBoard[i + 2][j] = board[i][j];
-                    }
-                }
-                board = newBoard;
-                lowestx += 2;
-                rows += 2;
+                negativeExtension(1, 0);
+                negativeExtension(1, 0);
                 isExtended = true;
             }
 
             // Extend in positive x
             if ((x + lowestx) > (rows - 1) && (!isExtended)) {
-                Tile[][] newBoard = new Tile[rows + 2][columns];
-
-                for (int i = 0; i < rows; i++) {
-                    for (int j = 0; j < columns; j++) {
-                        newBoard[i][j] = board[i][j];
-                    }
-                }
-                board = newBoard;
-                rows += 2;
-                isExtended = true;
-            }
-
-            // Extend in positive x, negative y
-            if ((x + lowestx) > rows && (y < -lowesty) && !isExtended) {
-                Tile[][] newBoard = new Tile[rows + 1][columns + 1];
-
-                for (int i = 0; i < rows; i++) {
-                    for (int j = 0; j < columns; j++) {
-                        newBoard[i][j + 1] = board[i][j];
-                    }
-                }
-                board = newBoard;
-                rows++;
-                columns++;
-                lowesty++;
+                positiveExtension(1, 0);
+                positiveExtension(1, 0);
                 isExtended = true;
             }
 
             // Extend in positive y
-            if (((y + lowesty) > (columns - 1) && (!isExtended))) {
-                Tile[][] newBoard = new Tile[rows][columns + 1];
-
-                for (int i = 0; i < rows; i++) {
-                    for (int j = 0; j < columns; j++) {
-                        newBoard[i][j] = board[i][j];
-                    }
-                }
-                board = newBoard;
-                columns++;
+            if ((y + lowesty) > (columns - 1) && (!isExtended)) {
+                positiveExtension(0, 1);
                 isExtended = true;
             }
 
             // Extend in negative y
-            if ((y < -lowesty) && !isExtended) {
-                Tile[][] newBoard = new Tile[rows][columns + 1];
 
-                for (int i = 0; i < rows; i++) {
-                    for (int j = 0; j < columns; j++) {
-                        newBoard[i][j + 1] = board[i][j];
-                    }
-                }
-                board = newBoard;
-                columns++;
-                lowesty++;
+            if ((y < -lowesty) && (!isExtended)) {
+                negativeExtension(0, 1);
+                negativeExtension(0, 1);
                 isExtended = true;
             }
 
@@ -189,23 +128,39 @@ public class Board {
         }
     }
 
-    public String toString() throws ArrayIndexOutOfBoundsException {
-        String returnString = "";
+    public void positiveExtension(int x, int y) {
+        Tile[][] newBoard = new Tile[rows + x][columns + y];
 
-        for (int i = 1; i < columns; i++) {
-            for (int j = 1; j < rows; j++) {
-                try {
-                    if (board[j][i] != null) {
-                        returnString += "T";
-                    } else {
-                        returnString += "-";
-                    }
-                } catch (Exception e) {
-                }
+        for (int i = 0; i < rows; i++) {
+            for (int j = 0; j < columns; j++) {
+                newBoard[i][j] = board[i][j];
             }
-            returnString += "\n";
         }
+        board = newBoard;
+        if (x > 0) {
+            rows++;
+        }
+        if (y > 0) {
+            columns++;
+        }
+    }
 
-        return returnString;
+    public void negativeExtension(int x, int y) {
+        Tile[][] newBoard = new Tile[rows + x][columns + y];
+
+        for (int i = 0; i < rows; i++) {
+            for (int j = 0; j < columns; j++) {
+                newBoard[i + x][j + y] = board[i][j];
+            }
+        }
+        board = newBoard;
+        if (x > 0) {
+            rows++;
+            lowestx++;
+        }
+        if (y > 0) {
+            columns++;
+            lowesty++;
+        }
     }
 }
