@@ -4,7 +4,6 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 
-import com.badlogic.gdx.utils.Collections;
 import com.gdx.jigsawgenius.model.Board;
 import com.gdx.jigsawgenius.model.Side;
 import com.gdx.jigsawgenius.model.Tile;
@@ -73,28 +72,16 @@ public class BoardController {
         return adacjentTiles;
     }
 
-    public String toString() {
-        String returnString = "";
-
-        for (int i = board.getColumns() - 1; i >= 0; i--) {
-            for (int j = 0; j < board.getRows(); j++) {
-                if (board.getTile(j, i) != null) {
-                    returnString += "T";
-                } else {
-                    returnString += "-";
-                }
-            }
-            returnString += "\n";
-        }
-
-        return returnString;
-    }
-
     public static void main(String[] args) {
         BoardController main = new BoardController();
         main.initHand();
         main.initBoard();
+        main.placeTileFromHand(2, 0);
         main.placeTileFromHand(1, -1);
-        System.out.println(main.toString());
+        main.placeTileFromHand(-1, -1);
+        main.placeTileFromHand(-2, 0);
+        main.placeTileFromHand(-1, 1);
+        main.placeTileFromHand(1, 1);
+        System.out.println(main.board.toString());
     }
 }

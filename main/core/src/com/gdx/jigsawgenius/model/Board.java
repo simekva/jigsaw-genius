@@ -14,6 +14,22 @@ public class Board {
         board = new Tile[rows][columns];
     }
 
+    public String toString() {
+        String returnString = "";
+
+        for (int i = 0; i < board[0].length; i++) {
+            for (int j = 0; j < board.length; j++) {
+                if (board[j][i] != null) {
+                    returnString += " T";
+                } else {
+                    returnString += " -";
+                }
+            }
+            returnString += "\n";
+        }
+        return returnString;
+    }
+
     public Tile getTile(int x, int y) {
 
         // // Outside in positive direction
@@ -42,6 +58,14 @@ public class Board {
 
     public int getColumns() {
         return this.columns;
+    }
+
+    public int getLowestX() {
+        return this.lowestx;
+    }
+
+    public int getLowestY() {
+        return this.lowesty;
     }
 
     public void addTile(Tile tile, int x, int y) {
@@ -97,70 +121,73 @@ public class Board {
             // Extends in negative x
             if (x < (-lowestx) && (!isExtended)) {
                 negativeExtension(1, 0);
-                negativeExtension(1, 0);
                 isExtended = true;
             }
 
             // Extend in positive x
             if ((x + lowestx) > (rows - 1) && (!isExtended)) {
                 positiveExtension(1, 0);
-                positiveExtension(1, 0);
                 isExtended = true;
             }
-
+            // Extends in negative y
+            if (y < (-lowesty) && (!isExtended)) {
+                negativeExtension(0, 1);
+                isExtended = true;
+            }
             // Extend in positive y
             if ((y + lowesty) > (columns - 1) && (!isExtended)) {
                 positiveExtension(0, 1);
                 isExtended = true;
             }
-
-            // Extend in negative y
-
-            if ((y < -lowesty) && (!isExtended)) {
-                negativeExtension(0, 1);
-                negativeExtension(0, 1);
-                isExtended = true;
+            try {
+                board[x + lowestx][y + lowesty] = tile;
+            } catch (Exception e) {
+                this.addTile(tile, x, y);
             }
 
-            board[x + lowestx][y + lowesty] = tile;
         } else {
             throw new IllegalArgumentException("Can't place tile on non-empty space.");
         }
     }
 
     public void positiveExtension(int x, int y) {
-        Tile[][] newBoard = new Tile[rows + x][columns + y];
+        if (x >= 0 && x <= 1 && y >= 0 && y <= 1) {
+            Tile[][] newBoard = new Tile[rows + x][columns + y];
 
-        for (int i = 0; i < rows; i++) {
-            for (int j = 0; j < columns; j++) {
-                newBoard[i][j] = board[i][j];
+            for (int i = 0; i < rows; i++) {
+                for (int j = 0; j < columns; j++) {
+                    newBoard[i][j] = board[i][j];
+                }
+            }
+            board = newBoard;
+            if (x > 0) {
+                rows++;
+            }
+            if (y > 0) {
+                columns++;
             }
         }
-        board = newBoard;
-        if (x > 0) {
-            rows++;
-        }
-        if (y > 0) {
-            columns++;
-        }
+
     }
 
     public void negativeExtension(int x, int y) {
-        Tile[][] newBoard = new Tile[rows + x][columns + y];
+        if (x >= 0 && x <= 1 && y >= 0 && y <= 1) {
+            Tile[][] newBoard = new Tile[rows + x][columns + y];
 
-        for (int i = 0; i < rows; i++) {
-            for (int j = 0; j < columns; j++) {
-                newBoard[i + x][j + y] = board[i][j];
+            for (int i = 0; i < rows; i++) {
+                for (int j = 0; j < columns; j++) {
+                    newBoard[i + x][j + y] = board[i][j];
+                }
             }
-        }
-        board = newBoard;
-        if (x > 0) {
-            rows++;
-            lowestx++;
-        }
-        if (y > 0) {
-            columns++;
-            lowesty++;
+            board = newBoard;
+            if (x > 0) {
+                rows++;
+                lowestx++;
+            }
+            if (y > 0) {
+                columns++;
+                lowesty++;
+            }
         }
     }
 }
