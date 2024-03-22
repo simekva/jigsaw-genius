@@ -17,7 +17,7 @@ public class Board {
     public Tile getTile(int x, int y) {
 
         // Outside in positive direction
-        if (x > rows - 1 || y > columns - 1) {
+        if (x > Math.floor(rows / 2) - 1 || y > Math.floor(columns / 2) - 1) {
             return null;
         }
 
