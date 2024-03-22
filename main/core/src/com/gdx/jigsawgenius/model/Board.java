@@ -184,4 +184,24 @@ public class Board {
             throw new IllegalArgumentException("Can't place tile on non-empty space.");
         }
     }
+
+    public String toString() throws ArrayIndexOutOfBoundsException {
+        String returnString = "";
+
+        for (int i = 1; i < columns; i++) {
+            for (int j = 1; j < rows; j++) {
+                try {
+                    if (board[j][i] != null) {
+                        returnString += "T";
+                    } else {
+                        returnString += "-";
+                    }
+                } catch (Exception e) {
+                }
+            }
+            returnString += "\n";
+        }
+
+        return returnString;
+    }
 }
