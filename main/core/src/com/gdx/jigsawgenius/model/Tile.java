@@ -18,9 +18,9 @@ public class Tile {
     public List<Side> getSides() {
         return this.sides;
     }
- 
+
     public void rotateTile() {
-        //Rotates tile
+        // Rotates tile
         List<Side> tempSides = new LinkedList<Side>();
         tempSides.add(sides.get(5));
         tempSides.add(sides.get(0));

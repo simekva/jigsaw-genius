@@ -1,5 +1,9 @@
 package com.gdx.jigsawgenius.model;
 
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Random;
+
 public class Board {
 
     Tile[][] board;
@@ -40,6 +44,16 @@ public class Board {
         } catch (Exception e) {
             return null;
         }
+    }
+
+    public Tile generateRandomTile() {
+        Random random = new Random();
+        List<Side> list = new ArrayList<Side>();
+        for (int i = 0; i < 6; i++) {
+            list.add(new Side(random.nextInt(5)));
+        }
+        Tile tile = new Tile(list);
+        return tile;
     }
 
     public int getRows() {

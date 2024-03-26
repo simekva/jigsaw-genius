@@ -3,7 +3,7 @@ package com.gdx.jigsawgenius.model;
 public class Side {
     private String terrainType;
 
-    static String[] legalTerrainTypes = new String[]{"plains", "village", "field", "forest", "desert"};
+    String[] legalTerrainTypes = new String[] { "plains", "village", "field", "forest", "desert" };
 
     public Side(String terrainType) {
         boolean containsString = false;
@@ -21,13 +21,16 @@ public class Side {
     public Side(int number) {
         if (number <= 5) {
             this.terrainType = legalTerrainTypes[number];
-        }
-        else {
+        } else {
             throw new IllegalArgumentException("Invalid number in generating side.");
         }
     }
-    
+
     public String getTerrainType() {
         return this.terrainType;
+    }
+
+    public String[] getLegalTerrainTypes() {
+        return this.legalTerrainTypes;
     }
 }
