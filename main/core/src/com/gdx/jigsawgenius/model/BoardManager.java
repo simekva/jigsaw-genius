@@ -1,14 +1,10 @@
-package com.gdx.jigsawgenius.controller;
+package com.gdx.jigsawgenius.model;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 
-import com.gdx.jigsawgenius.model.Board;
-import com.gdx.jigsawgenius.model.Side;
-import com.gdx.jigsawgenius.model.Tile;
-
-public class BoardController {
+public class BoardManager {
 
     private Board board = new Board(1, 1);
     private List<Tile> hand = new ArrayList<Tile>();
@@ -73,7 +69,7 @@ public class BoardController {
     }
 
     public static void main(String[] args) {
-        BoardController main = new BoardController();
+        BoardManager main = new BoardManager();
         main.initHand();
         main.initBoard();
         main.placeTileFromHand(1, 1);
