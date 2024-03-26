@@ -4,43 +4,47 @@ import java.util.LinkedList;
 import java.util.List;
 
 public class Tile {
+    /**
+     * A tile is represented as a linked list with Side objects.
+     */
     private List<Side> sides = new LinkedList<Side>();
-    static final int sidesCount = 6;
+    /**
+     * Number of sides.
+     */
+    static final int SIDESCOUNT = 6;
 
-    public Tile(List<Side> list) {
-        // Tile has to have a size of 6
-        if (list.size() != sidesCount) {
+    /**
+     * Creates a tile object with a given list of tiles.
+     *
+     * @param list List of tiles.
+     */
+    public Tile(final List<Side> list) {
+        if (list.size() != SIDESCOUNT) {
             throw new IllegalArgumentException("Tile has to have 6 sides");
         }
         this.sides = list;
     }
 
+    /**
+     * Returns a list of all sides of the tile.
+     *
+     * @return all sides.
+     */
     public List<Side> getSides() {
         return this.sides;
     }
 
+    /**
+     * Rotates the tile clockwise.
+     */
     public void rotateTile() {
         // Rotates tile
         List<Side> tempSides = new LinkedList<Side>();
-        tempSides.add(sides.get(5));
-        tempSides.add(sides.get(0));
-        tempSides.add(sides.get(1));
-        tempSides.add(sides.get(2));
-        tempSides.add(sides.get(3));
-        tempSides.add(sides.get(4));
-        this.sides = tempSides;
-    }
-
-    @Override
-    public String toString() {
-        String returnString = "Tile: [";
-        for (int i = 0; i < this.sides.size(); i++) {
-            returnString += sides.get(i).getTerrainType();
-            if (i != this.sides.size() - 1) {
-                returnString += ", ";
-            }
+        tempSides.add(sides.get(SIDESCOUNT - 1));
+        for (int i = 0; i < SIDESCOUNT - 2; i++) {
+            tempSides.add(sides.get(i));
         }
-        returnString += "]";
-        return returnString;
+
+        this.sides = tempSides;
     }
 }

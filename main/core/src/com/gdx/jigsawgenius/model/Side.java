@@ -1,36 +1,47 @@
 package com.gdx.jigsawgenius.model;
 
 public class Side {
+    /**
+     * Which terraintype the Side object is.
+     */
     private String terrainType;
 
-    String[] legalTerrainTypes = new String[] { "plains", "village", "field", "forest", "desert" };
+    /**
+     * A list of legal terrain types.
+     */
+    private static String[] legalTerrainTypes = new String[] {
+            "plains", "village", "field", "forest", "desert" };
 
-    public Side(String terrainType) {
-        boolean containsString = false;
-        for (int i = 0; i < legalTerrainTypes.length; i++) {
-            if (legalTerrainTypes[i].equals(terrainType)) {
-                containsString = !containsString;
-            }
-        }
-        if (!containsString) {
-            throw new IllegalArgumentException("Invalid argument");
-        }
-        this.terrainType = terrainType;
-    }
-
-    public Side(int number) {
-        if (number <= 5) {
+    /**
+     * Returns a Side object with a terraintype decided by the parameter.
+     *
+     * @param number number
+     */
+    public Side(final int number) {
+        if (number <= Side.getLegalTerrainTypes().length) {
             this.terrainType = legalTerrainTypes[number];
         } else {
-            throw new IllegalArgumentException("Invalid number in generating side.");
+            throw new IllegalArgumentException(
+                    "Invalid number in generating side.");
         }
     }
 
+    /**
+     * Returns the terraintype of the side.
+     *
+     * @return terraintype of the side.
+     */
     public String getTerrainType() {
         return this.terrainType;
     }
 
-    public String[] getLegalTerrainTypes() {
-        return this.legalTerrainTypes;
+    /**
+     * Returns the legal terrain types.
+     *
+     * @return legal terrain types.
+     */
+    public static String[] getLegalTerrainTypes() {
+        return legalTerrainTypes;
     }
+
 }
