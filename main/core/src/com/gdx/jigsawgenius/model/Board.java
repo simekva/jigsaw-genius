@@ -115,24 +115,6 @@ public class Board {
         return adacjentTiles;
     }
 
-    public List<List<Integer>> getAdjacentTilesPositions(final int x, final int y) {
-
-        List<List<Integer>> lists = new ArrayList<List<Integer>>();
-
-        for (int i = 0; i < Tile.SIDESCOUNT; i++) {
-            try {
-                if (this.getTile(x + this.dx[i], y + this.dy[i]) != null) {
-                    List<Integer> tempList = new ArrayList<Integer>();
-                    tempList.add(dx[i]);
-                    tempList.add(dy[i]);
-                    lists.add(tempList);
-                }
-            } catch (Exception e) {
-            }
-        }
-        return lists;
-    }
-
     public int numberOfMatches(final int x, final int y) {
         int[] biomePositionOne = { 0, 1, 2, 3, 4, 5 };
         int[] biomePositionTwo = { 3, 4, 5, 0, 1, 2 };
