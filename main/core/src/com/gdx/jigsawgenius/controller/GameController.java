@@ -24,6 +24,11 @@ public class GameController {
     private int turn;
 
     /**
+     * Points to get for every matching biome.
+     */
+    static final int POINTMULTIPLIER = 100;
+
+    /**
      * Creates a board with a pure plains tile in the middle, and
      * initializes the hand.
      */
@@ -45,15 +50,34 @@ public class GameController {
         if (turn == 1) {
             board.placeTile(player1.popTile(), x, y);
             turn = 2;
-            System.out.println("Player 1 placed tile on: " + x + ", " + y + ", and scored"
-                    + board.numberOfMatches(x, y) * 100 + " points.");
-            player1.increaseScore(board.numberOfMatches(x, y) * 100);
+            player1.increaseScore(board.numberOfMatches(x, y)
+                    * GameController.POINTMULTIPLIER);
+            System.out.println("Player 1 placed tile on: " + x + ", "
+                    + y + ", and scored"
+                    + board.numberOfMatches(x, y)
+                            * GameController.POINTMULTIPLIER
+                    + " points.");
         } else if (turn == 2) {
             board.placeTile(player2.popTile(), x, y);
             turn = 1;
-            System.out.println("Player 2 placed tile on: " + x + ", " + y + ", and scored"
-                    + board.numberOfMatches(x, y) * 100 + " points.");
-            player2.increaseScore(board.numberOfMatches(x, y) * 100);
+            System.out.println("Player 2 placed tile on: " + x + ", " + y
+                    + ", and scored"
+                    + board.numberOfMatches(x, y)
+                            * GameController.POINTMULTIPLIER
+                    + " points.");
+            player2.increaseScore(board.numberOfMatches(x, y)
+                    * GameController.POINTMULTIPLIER);
+        }
+    }
+
+    /**
+     * Rotates the current players tile. This does not use up the turn.
+     */
+    public void rotateTile() {
+        if (turn == 1) {
+            player1.rotateTile();
+        } else if (turn == 2) {
+            player2.rotateTile();
         }
     }
 
