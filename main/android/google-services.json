@@ -1,0 +1,30 @@
+{
+  "project_info": {
+    "project_number": "1013429338947",
+    "firebase_url": "https://jigsaw-89eb8-default-rtdb.europe-west1.firebasedatabase.app",
+    "project_id": "jigsaw-89eb8",
+    "storage_bucket": "jigsaw-89eb8.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1013429338947:android:5b39afe64640e85fede5f6",
+        "android_client_info": {
+          "package_name": "com.gdx.jigsawgenius"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBM2XMpTC3JWLnn3LmT2m2SmnyrFeHF8s8"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
