@@ -1,7 +1,7 @@
 package com.gdx.jigsawgenius.controller;
 
-import com.gdx.jigsawgenius.model.Board;
-import com.gdx.jigsawgenius.model.Player2;
+import com.gdx.jigsawgenius.model.TileManager;
+import com.gdx.jigsawgenius.model.Player;
 import com.gdx.jigsawgenius.model.Tile;
 
 public class GameController {
@@ -9,15 +9,15 @@ public class GameController {
     /**
      * Board object.
      */
-    private Board board;
+    private TileManager board;
     /**
      * Player 1 object.
      */
-    private Player2 player1;
+    private Player player1;
     /**
      * Player 2 object.
      */
-    private Player2 player2;
+    private Player player2;
     /**
      * Number to know who'se turn it is.
      */
@@ -33,10 +33,10 @@ public class GameController {
      * initializes the hand.
      */
     public GameController() {
-        board = new Board(1, 1);
+        board = new TileManager(1, 1);
         board.placeTile(new Tile(), 0, 0);
-        player1 = new Player2();
-        player2 = new Player2();
+        player1 = new Player();
+        player2 = new Player();
         turn = 1;
     }
 
@@ -86,6 +86,8 @@ public class GameController {
      *
      * @param args
      */
+    
+
     public static void main(String[] args) {
         GameController controller = new GameController();
         controller.placeTile(2, 0);
