@@ -8,6 +8,11 @@ import com.badlogic.gdx.utils.ScreenUtils;
 public class main extends ApplicationAdapter {
 	SpriteBatch batch;
 	Texture img;
+
+
+	
+	FirebaseFirestore db = FirebaseFirestore.getInstance();
+
 	
 	@Override
 	public void create () {
