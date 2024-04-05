@@ -42,6 +42,7 @@ public class Board {
     /**
      * Difference in y-coordinates for different tiles.
      */
+    @SuppressWarnings("checkstyle:WhitespaceAfter")
     private int[] dy = { 1, 0, -1, -1, 0, 1 };
 
     /**
@@ -118,8 +119,8 @@ public class Board {
             }
         }
         adacjentTiles.removeAll(java.util.Collections.singleton(null));
-        System.out.println("Found " + adacjentTiles.size() +
-                " adjacent tile(s) for tile: " + x + ", " + y);
+        System.out.println("Found " + adacjentTiles.size()
+                + " adjacent tile(s) for tile: " + x + ", " + y);
         return adacjentTiles;
     }
 
@@ -141,10 +142,12 @@ public class Board {
             try {
                 Tile tileToCheck = this.getTile(x + this.dx[i], y + this.dy[i]);
                 if (tileToCheck != null) {
-                    Biome currentTileBiome = currentTile.getSides().get(biomePositionOne[i]);
-                    Biome tileToCheckBiome = tileToCheck.getSides().get(biomePositionTwo[i]);
+                    String currentTileBiome = currentTile.getSides()
+                            .get(biomePositionOne[i]).getTerrainType();
+                    String tileToCheckBiome = tileToCheck.getSides()
+                            .get(biomePositionTwo[i]).getTerrainType();
 
-                    if (currentTileBiome.getTerrainType() == tileToCheckBiome.getTerrainType()) {
+                    if (currentTileBiome == tileToCheckBiome) {
                         numberOfMatches++;
                     }
                 }

@@ -14,9 +14,6 @@ public class Tile {
      */
     static final int SIDESCOUNT = 6;
 
-    private int x;
-    private int y;
-
     /**
      * Creates a tile object with a given list of tiles.
      *
@@ -49,6 +46,11 @@ public class Tile {
         return this.sides;
     }
 
+    /**
+     * toString for the tile.
+     *
+     * @return string-representation of the tile.
+     */
     public String toString() {
         String returnString = "";
         for (int i = 0; i < Tile.SIDESCOUNT; i++) {
