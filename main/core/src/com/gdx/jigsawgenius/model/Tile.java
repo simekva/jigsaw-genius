@@ -34,20 +34,6 @@ public class Tile {
         return this.sides;
     }
 
-    /**
-     * Rotates the tile clockwise.
-     */
-    public void rotateTile() {
-        // Rotates tile
-        List<Biome> tempSides = new LinkedList<Biome>();
-        tempSides.add(sides.get(SIDESCOUNT - 1));
-        for (int i = 0; i < SIDESCOUNT - 2; i++) {
-            tempSides.add(sides.get(i));
-        }
-
-        this.sides = tempSides;
-    }
-
     public String toString() {
         String returnString = "";
         for (int i = 0; i < Tile.SIDESCOUNT; i++) {
