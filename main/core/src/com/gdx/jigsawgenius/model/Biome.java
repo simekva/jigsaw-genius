@@ -1,6 +1,6 @@
 package com.gdx.jigsawgenius.model;
 
-public class Side {
+public class Biome {
     /**
      * Which terraintype the Side object is.
      */
@@ -17,8 +17,8 @@ public class Side {
      *
      * @param number number
      */
-    public Side(final int number) {
-        if (number <= Side.getLegalTerrainTypes().length) {
+    public Biome(final int number) {
+        if (number <= Biome.getLegalTerrainTypes().length) {
             this.terrainType = legalTerrainTypes[number];
         } else {
             throw new IllegalArgumentException(

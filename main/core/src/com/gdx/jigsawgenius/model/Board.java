@@ -2,7 +2,6 @@ package com.gdx.jigsawgenius.model;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Random;
 
 /**
  * The Board class represents the board for the game. It
@@ -92,22 +91,6 @@ public class Board {
     }
 
     /**
-     * Generates a random Tile object with 6 sides.
-     *
-     * @return Generated random tile.
-     */
-    public Tile generateRandomTile() {
-        Random random = new Random();
-        List<Side> list = new ArrayList<Side>();
-        for (int i = 0; i < Tile.SIDESCOUNT; i++) {
-            list.add(new Side(random.nextInt(
-                    Side.getLegalTerrainTypes().length)));
-        }
-        Tile tile = new Tile(list);
-        return tile;
-    }
-
-    /**
      * Returns adjacent tiles for a given x and y coordinate.
      *
      * @param x x coordinate of the tile to check adjacent tiles.
@@ -159,7 +142,7 @@ public class Board {
      * @param x    x coordinate to place the tile.
      * @param y    y coordinate to place the tile.
      */
-    public final void addTile(final Tile tile, final int x, final int y) {
+    public final void placeTile(final Tile tile, final int x, final int y) {
 
         if (isOutOfBounds(x, y)) {
             throw new IllegalArgumentException("Out of bounds.");
@@ -229,8 +212,9 @@ public class Board {
         try {
             board[x + lowestx][y + lowesty] = tile;
             System.out.println("Placed tile in position: " + (x + lowestx) + ", " + (y + lowesty));
+            System.out.println("Board dimensions: " + this.rows + ", " + this.columns);
         } catch (Exception e) {
-            this.addTile(tile, x, y);
+            this.placeTile(tile, x, y);
         }
 
     }
@@ -247,9 +231,11 @@ public class Board {
             board = newBoard;
             if (x > 0) {
                 rows++;
+                System.out.println("Extended x.");
             }
             if (y > 0) {
                 columns++;
+                System.out.println("Extended y.");
             }
         }
 

@@ -7,7 +7,7 @@ public class Tile {
     /**
      * A tile is represented as a linked list with Side objects.
      */
-    private List<Side> sides = new LinkedList<Side>();
+    private List<Biome> sides = new LinkedList<Biome>();
     /**
      * Number of sides.
      */
@@ -18,7 +18,7 @@ public class Tile {
      *
      * @param list List of tiles.
      */
-    public Tile(final List<Side> list) {
+    public Tile(final List<Biome> list) {
         if (list.size() != SIDESCOUNT) {
             throw new IllegalArgumentException("Tile has to have 6 sides");
         }
@@ -30,7 +30,7 @@ public class Tile {
      *
      * @return all sides.
      */
-    public List<Side> getSides() {
+    public List<Biome> getSides() {
         return this.sides;
     }
 
@@ -39,7 +39,7 @@ public class Tile {
      */
     public void rotateTile() {
         // Rotates tile
-        List<Side> tempSides = new LinkedList<Side>();
+        List<Biome> tempSides = new LinkedList<Biome>();
         tempSides.add(sides.get(SIDESCOUNT - 1));
         for (int i = 0; i < SIDESCOUNT - 2; i++) {
             tempSides.add(sides.get(i));
