@@ -35,7 +35,13 @@ public class Board {
      */
     private int lowesty = 0;
 
+    /**
+     * Difference in x-coordinates for different tiles.
+     */
     private int[] dx = { 1, 2, 1, -1, -2, -1 };
+    /**
+     * Difference in y-coordinates for different tiles.
+     */
     private int[] dy = { 1, 0, -1, -1, 0, 1 };
 
     /**
@@ -49,7 +55,8 @@ public class Board {
         this.rows = numberRows;
         this.columns = numberColumns;
         board = new Tile[rows][columns];
-        System.out.println("Initiated board with dims: " + numberRows + ", " + numberColumns);
+        System.out.println("Initiated board with dims: " + numberRows + ", "
+                + numberColumns);
     }
 
     /**
@@ -111,11 +118,19 @@ public class Board {
             }
         }
         adacjentTiles.removeAll(java.util.Collections.singleton(null));
-        System.out.println("Found " + adacjentTiles.size() + " adjacent tile(s) for tile: " + x + ", " + y);
+        System.out.println("Found " + adacjentTiles.size() +
+                " adjacent tile(s) for tile: " + x + ", " + y);
         return adacjentTiles;
     }
 
-    public int numberOfMatches(final int x, final int y) {
+    /**
+     * Returns number of matching biomes for a tile with given coordinates.
+     *
+     * @param x
+     * @param y
+     * @return number of matching biomes.
+     */
+    public final int numberOfMatches(final int x, final int y) {
         int[] biomePositionOne = { 0, 1, 2, 3, 4, 5 };
         int[] biomePositionTwo = { 3, 4, 5, 0, 1, 2 };
 
@@ -139,21 +154,6 @@ public class Board {
         }
         return numberOfMatches;
     }
-
-    // public List<Integer> getAdjacentTilesPositions(final int x, final int y) {
-    // int[] dx = { -2, -1, 1, 2, 1, -1 };
-    // int[] dy = { 0, 1, 1, 0, -1, -1 };
-
-    // int[][] adjacentTilesPositions = new int[Tile.SIDESCOUNT][Tile.SIDESCOUNT];
-
-    // for (int i = 0; i < Tile.SIDESCOUNT; i++) {
-    // try {
-    // if (this.getTile(x + dx[i] + lowestx, y + dy[i] + lowesty) != null) {
-    // adjacentTilesPositions[i][i] = {x + dx[i] + lowestx, y + dy[i] + lowesty};
-    // }
-    // }
-    // }
-    // }
 
     private boolean isOutOfBounds(final int x, final int y) {
         if (x > (this.rows) && y > (this.columns)) {
@@ -252,8 +252,10 @@ public class Board {
 
         try {
             board[x + lowestx][y + lowesty] = tile;
-            System.out.println("Placed tile in position: " + (x + lowestx) + ", " + (y + lowesty));
-            System.out.println("Board dimensions: " + this.rows + ", " + this.columns);
+            System.out.println("Placed tile in position: " + (x + lowestx)
+                    + ", " + (y + lowesty));
+            System.out.println("Board dimensions: " + this.rows
+                    + ", " + this.columns);
         } catch (Exception e) {
             this.placeTile(tile, x, y);
         }

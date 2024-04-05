@@ -5,10 +5,23 @@ import com.gdx.jigsawgenius.model.Player2;
 import com.gdx.jigsawgenius.model.Tile;
 
 public class GameController {
-    Board board;
-    Player2 player1;
-    Player2 player2;
-    int turn;
+
+    /**
+     * Board object.
+     */
+    private Board board;
+    /**
+     * Player 1 object.
+     */
+    private Player2 player1;
+    /**
+     * Player 2 object.
+     */
+    private Player2 player2;
+    /**
+     * Number to know who'se turn it is.
+     */
+    private int turn;
 
     /**
      * Creates a board with a pure plains tile in the middle, and
@@ -22,6 +35,12 @@ public class GameController {
         turn = 1;
     }
 
+    /**
+     * Places a tile in the given coordinates.
+     *
+     * @param x
+     * @param y
+     */
     public void placeTile(final int x, final int y) {
         if (turn == 1) {
             board.placeTile(player1.popTile(), x, y);
@@ -38,11 +57,15 @@ public class GameController {
         }
     }
 
+    /**
+     * Testing.
+     *
+     * @param args
+     */
     public static void main(String[] args) {
         GameController controller = new GameController();
         controller.placeTile(2, 0);
         controller.placeTile(-2, 0);
-        System.out.println(controller.board.getAdjacentTilesPositions(0, 0));
         System.out.println(controller.board.numberOfMatches(0, 0));
         System.out.println("test");
     }

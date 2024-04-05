@@ -1,3 +1,4 @@
 {
-  "java.debug.settings.onBuildFailureProceed": true
+  "java.debug.settings.onBuildFailureProceed": true,
+  "java.checkstyle.configuration": "${workspaceFolder}\\main\\sun_checks.xml"
 }
