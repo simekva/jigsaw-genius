@@ -47,6 +47,7 @@ public class Board {
         this.rows = numberRows;
         this.columns = numberColumns;
         board = new Tile[rows][columns];
+        System.out.println("Initiated board with dims: " + numberRows + ", " + numberColumns);
     }
 
     /**
@@ -85,6 +86,7 @@ public class Board {
             }
             throw new IllegalArgumentException("Invalid coordinates.");
         } catch (Exception e) {
+            // System.out.println("No tile in position: " + x + "," + y);
             return null;
         }
     }
@@ -103,6 +105,30 @@ public class Board {
         }
         Tile tile = new Tile(list);
         return tile;
+    }
+
+    /**
+     * Returns adjacent tiles for a given x and y coordinate.
+     *
+     * @param x x coordinate of the tile to check adjacent tiles.
+     * @param y y coordinate of the tile to check adjacent tiles.
+     * @return A list of all adjacent tiles.
+     */
+    public List<Tile> getAdjacentTiles(final int x, final int y) {
+        int[] dx = { -2, -1, 1, 2, 1, -1 };
+        int[] dy = { 0, 1, 1, 0, -1, -1 };
+
+        List<Tile> adacjentTiles = new ArrayList<Tile>();
+        for (int i = 0; i < Tile.SIDESCOUNT; i++) {
+            try {
+                adacjentTiles.add(this.getTile(x + dx[i] + lowestx, y + dy[i] + lowesty));
+            } catch (Exception e) {
+                System.out.println(e);
+            }
+        }
+        adacjentTiles.removeAll(java.util.Collections.singleton(null));
+        System.out.println("Found " + adacjentTiles.size() + " adjacent tile(s) for tile: " + x + ", " + y);
+        return adacjentTiles;
     }
 
     private boolean isOutOfBounds(final int x, final int y) {
@@ -202,6 +228,7 @@ public class Board {
 
         try {
             board[x + lowestx][y + lowesty] = tile;
+            System.out.println("Placed tile in position: " + (x + lowestx) + ", " + (y + lowesty));
         } catch (Exception e) {
             this.addTile(tile, x, y);
         }

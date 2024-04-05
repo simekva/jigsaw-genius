@@ -47,4 +47,15 @@ public class Tile {
 
         this.sides = tempSides;
     }
+
+    public String toString() {
+        String returnString = "";
+        for (int i = 0; i < Tile.SIDESCOUNT; i++) {
+            returnString += this.getSides().get(i).getTerrainType();
+            if (i != Tile.SIDESCOUNT - 1) {
+                returnString += ", ";
+            }
+        }
+        return returnString;
+    }
 }
