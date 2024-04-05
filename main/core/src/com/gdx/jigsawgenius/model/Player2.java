@@ -58,4 +58,8 @@ public class Player2 {
         this.hand.remove(this.getTilesLeft() - 1);
         return removedTile;
     }
+
+    public void increaseScore(int number) {
+        this.score += number;
+    }
 }

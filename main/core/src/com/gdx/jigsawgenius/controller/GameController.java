@@ -26,11 +26,15 @@ public class GameController {
         if (turn == 1) {
             board.placeTile(player1.popTile(), x, y);
             turn = 2;
-            System.out.println("Player 1 placed tile on: " + x + ", " + y);
+            System.out.println("Player 1 placed tile on: " + x + ", " + y + ", and scored"
+                    + board.numberOfMatches(x, y) * 100 + " points.");
+            player1.increaseScore(board.numberOfMatches(x, y) * 100);
         } else if (turn == 2) {
             board.placeTile(player2.popTile(), x, y);
             turn = 1;
-            System.out.println("Player 2 placed tile on: " + x + ", " + y);
+            System.out.println("Player 2 placed tile on: " + x + ", " + y + ", and scored"
+                    + board.numberOfMatches(x, y) * 100 + " points.");
+            player2.increaseScore(board.numberOfMatches(x, y) * 100);
         }
     }
 

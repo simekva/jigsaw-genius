@@ -3,7 +3,7 @@ package com.gdx.jigsawgenius.model;
 import java.util.List;
 
 public class Player {
-    
+
     private int score;
     private List<Tile> hand;
     private TileManager tileManager;
@@ -14,22 +14,28 @@ public class Player {
         hand = tileManager.newSet(15);
     }
 
-    public Tile getTile(int index){
-        if(checkHand()){throw new IllegalStateException("Hand is empty");}
+    public Tile getTile(int index) {
+        if (checkHand()) {
+            throw new IllegalStateException("Hand is empty");
+        }
         return hand.get(index);
     }
 
-    public Tile popTop(){
-        if(checkHand()){throw new IllegalStateException("Hand is empty");}
+    public Tile popTop() {
+        if (checkHand()) {
+            throw new IllegalStateException("Hand is empty");
+        }
         return hand.removeFirst();
     }
 
-    public int getTilesLeft(){
-        if(checkHand()){return 0;}
+    public int getTilesLeft() {
+        if (checkHand()) {
+            return 0;
+        }
         return hand.size();
     }
 
-    public boolean checkHand(){
+    public boolean checkHand() {
         return hand.isEmpty();
     }
 
@@ -52,5 +58,4 @@ public class Player {
     public void setHand(List<Tile> tiles) {
         hand = tiles;
     }
-    
 }
