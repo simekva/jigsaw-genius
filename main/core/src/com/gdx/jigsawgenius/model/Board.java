@@ -3,8 +3,6 @@ package com.gdx.jigsawgenius.model;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.badlogic.gdx.utils.Array;
-
 /**
  * The Board class represents the board for the game. It
  * It uses a 2d-matrix to represent the board, and stores
@@ -36,6 +34,9 @@ public class Board {
      * Lowest y-coordinate, initially 0.
      */
     private int lowesty = 0;
+
+    private int[] dx = { 1, 2, 1, -1, -2, -1 };
+    private int[] dy = { 1, 0, -1, -1, 0, 1 };
 
     /**
      * Constructs a new board object with specified number of rows and columns.
@@ -100,13 +101,11 @@ public class Board {
      * @return A list of all adjacent tiles.
      */
     public List<Tile> getAdjacentTiles(final int x, final int y) {
-        int[] dx = { -2, -1, 1, 2, 1, -1 };
-        int[] dy = { 0, 1, 1, 0, -1, -1 };
 
         List<Tile> adacjentTiles = new ArrayList<Tile>();
         for (int i = 0; i < Tile.SIDESCOUNT; i++) {
             try {
-                adacjentTiles.add(this.getTile(x + dx[i], y + dy[i]));
+                adacjentTiles.add(this.getTile(x + this.dx[i], y + this.dy[i]));
             } catch (Exception e) {
                 System.out.println(e);
             }
@@ -117,14 +116,12 @@ public class Board {
     }
 
     public List<List<Integer>> getAdjacentTilesPositions(final int x, final int y) {
-        int[] dx = { -2, -1, 1, 2, 1, -1 };
-        int[] dy = { 0, 1, 1, 0, -1, -1 };
 
         List<List<Integer>> lists = new ArrayList<List<Integer>>();
 
         for (int i = 0; i < Tile.SIDESCOUNT; i++) {
             try {
-                if (this.getTile(x + dx[i], y + dy[i]) != null) {
+                if (this.getTile(x + this.dx[i], y + this.dy[i]) != null) {
                     List<Integer> tempList = new ArrayList<Integer>();
                     tempList.add(dx[i]);
                     tempList.add(dy[i]);
@@ -134,6 +131,31 @@ public class Board {
             }
         }
         return lists;
+    }
+
+    public int numberOfMatches(final int x, final int y) {
+        int[] biomePositionOne = { 0, 1, 2, 3, 4, 5 };
+        int[] biomePositionTwo = { 3, 4, 5, 0, 1, 2 };
+
+        int numberOfMatches = 0;
+
+        Tile currentTile = this.getTile(x, y);
+        for (int i = 0; i < Tile.SIDESCOUNT; i++) {
+            try {
+                Tile tileToCheck = this.getTile(x + this.dx[i], y + this.dy[i]);
+                if (tileToCheck != null) {
+                    Biome currentTileBiome = currentTile.getSides().get(biomePositionOne[i]);
+                    Biome tileToCheckBiome = tileToCheck.getSides().get(biomePositionTwo[i]);
+
+                    if (currentTileBiome.getTerrainType() == tileToCheckBiome.getTerrainType()) {
+                        numberOfMatches++;
+                    }
+                }
+            } catch (Exception e) {
+
+            }
+        }
+        return numberOfMatches;
     }
 
     // public List<Integer> getAdjacentTilesPositions(final int x, final int y) {

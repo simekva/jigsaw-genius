@@ -19,8 +19,6 @@ public class GameController {
         board.placeTile(new Tile(), 0, 0);
         player1 = new Player2();
         player2 = new Player2();
-        player1.initHand();
-        player2.initHand();
         turn = 1;
     }
 
@@ -41,6 +39,7 @@ public class GameController {
         controller.placeTile(2, 0);
         controller.placeTile(-2, 0);
         System.out.println(controller.board.getAdjacentTilesPositions(0, 0));
+        System.out.println(controller.board.numberOfMatches(0, 0));
         System.out.println("test");
     }
 }
