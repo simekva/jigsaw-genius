@@ -9,6 +9,7 @@ public class Player2 {
 
     private int score;
     private List<Tile> hand = new ArrayList<Tile>();
+    public static int HANDSIZE = 15;
 
     public int getTilesLeft() {
         return this.hand.size();
@@ -46,7 +47,15 @@ public class Player2 {
         return new Tile(list);
     }
 
-    public void popTile() {
+    public Tile popTile() {
+        Tile removedTile = this.hand.get(this.getTilesLeft() - 1);
         this.hand.remove(this.getTilesLeft() - 1);
+        return removedTile;
+    }
+
+    public void initHand() {
+        for (int i = 0; i < Player2.HANDSIZE; i++) {
+            this.hand.add(this.generateRandomTile());
+        }
     }
 }

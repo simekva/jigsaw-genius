@@ -3,6 +3,8 @@ package com.gdx.jigsawgenius.model;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.badlogic.gdx.utils.Array;
+
 /**
  * The Board class represents the board for the game. It
  * It uses a 2d-matrix to represent the board, and stores
@@ -104,7 +106,7 @@ public class Board {
         List<Tile> adacjentTiles = new ArrayList<Tile>();
         for (int i = 0; i < Tile.SIDESCOUNT; i++) {
             try {
-                adacjentTiles.add(this.getTile(x + dx[i] + lowestx, y + dy[i] + lowesty));
+                adacjentTiles.add(this.getTile(x + dx[i], y + dy[i]));
             } catch (Exception e) {
                 System.out.println(e);
             }
@@ -113,6 +115,41 @@ public class Board {
         System.out.println("Found " + adacjentTiles.size() + " adjacent tile(s) for tile: " + x + ", " + y);
         return adacjentTiles;
     }
+
+    public List<List<Integer>> getAdjacentTilesPositions(final int x, final int y) {
+        int[] dx = { -2, -1, 1, 2, 1, -1 };
+        int[] dy = { 0, 1, 1, 0, -1, -1 };
+
+        List<List<Integer>> lists = new ArrayList<List<Integer>>();
+
+        for (int i = 0; i < Tile.SIDESCOUNT; i++) {
+            try {
+                if (this.getTile(x + dx[i], y + dy[i]) != null) {
+                    List<Integer> tempList = new ArrayList<Integer>();
+                    tempList.add(dx[i]);
+                    tempList.add(dy[i]);
+                    lists.add(tempList);
+                }
+            } catch (Exception e) {
+            }
+        }
+        return lists;
+    }
+
+    // public List<Integer> getAdjacentTilesPositions(final int x, final int y) {
+    // int[] dx = { -2, -1, 1, 2, 1, -1 };
+    // int[] dy = { 0, 1, 1, 0, -1, -1 };
+
+    // int[][] adjacentTilesPositions = new int[Tile.SIDESCOUNT][Tile.SIDESCOUNT];
+
+    // for (int i = 0; i < Tile.SIDESCOUNT; i++) {
+    // try {
+    // if (this.getTile(x + dx[i] + lowestx, y + dy[i] + lowesty) != null) {
+    // adjacentTilesPositions[i][i] = {x + dx[i] + lowestx, y + dy[i] + lowesty};
+    // }
+    // }
+    // }
+    // }
 
     private boolean isOutOfBounds(final int x, final int y) {
         if (x > (this.rows) && y > (this.columns)) {

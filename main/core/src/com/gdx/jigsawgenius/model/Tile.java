@@ -1,5 +1,6 @@
 package com.gdx.jigsawgenius.model;
 
+import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -13,6 +14,9 @@ public class Tile {
      */
     static final int SIDESCOUNT = 6;
 
+    private int x;
+    private int y;
+
     /**
      * Creates a tile object with a given list of tiles.
      *
@@ -21,6 +25,17 @@ public class Tile {
     public Tile(final List<Biome> list) {
         if (list.size() != SIDESCOUNT) {
             throw new IllegalArgumentException("Tile has to have 6 sides");
+        }
+        this.sides = list;
+    }
+
+    /**
+     * Creates a tile object with only plains sides.
+     */
+    public Tile() {
+        List<Biome> list = new ArrayList<Biome>();
+        for (int i = 0; i < Tile.SIDESCOUNT; i++) {
+            list.add(new Biome(0));
         }
         this.sides = list;
     }
