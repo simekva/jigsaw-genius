@@ -11,19 +11,19 @@ public class main extends ApplicationAdapter {
 	// private Assets assets;
 	SpriteBatch batch;
 	BiomeDrawer drawer;
+	Biome biome = new Biome(0);
 
 	@Override
 	public void create() {
-		Biome biome = new Biome(0);
 		batch = new SpriteBatch();
-		drawer = new BiomeDrawer(biome);
+		drawer = new BiomeDrawer();
 	}
 
 	@Override
 	public void render() {
 		ScreenUtils.clear(1, 0, 0, 1);
 		batch.begin();
-		drawer.drawBiome(batch, 0, 0, 10, 10);
+		drawer.drawBiome(biome, batch, 0, 0, 100, 100, 0);
 		batch.end();
 	}
 
