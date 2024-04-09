@@ -9,17 +9,17 @@ public class PolygonDrawer {
 
     private float[] vertices;
 
-    private float[] calculateVertices(float x, float y) {
+    private float[] calculateVertices() {
         vertices = new float[] {
-                x, y,
-                (float) (x + Config.TILE_SIZE), y,
-                (float) ((x + Config.TILE_SIZE) / 2), (float) (y + Config.TILE_SIZE)
+                0, 0,
+                (float) (Config.TILE_SIZE), 0,
+                (float) ((Config.TILE_SIZE) / 2), (float) (Config.TILE_SIZE)
         };
         return vertices;
     }
 
     public PolygonRegion drawPolygon(Texture texture, float x, float y) {
-        this.vertices = this.calculateVertices(x, y);
+        this.vertices = this.calculateVertices();
         PolygonRegion polyReg = new PolygonRegion(new TextureRegion(texture), vertices, new short[] {
                 0, 1, 2
         });
