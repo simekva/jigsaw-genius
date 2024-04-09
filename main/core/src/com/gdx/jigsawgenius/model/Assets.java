@@ -24,7 +24,7 @@ public class Assets {
         }
     }
 
-    public String getAssetURL(int n) {
+    public static String getAssetURL(int n) {
         return Assets.getAssetsURLs().get(n);
     }
 
@@ -47,16 +47,5 @@ public class Assets {
             // Handle exception as per your requirement
         }
         return initializedStrings;
-    }
-
-    public static void main(String[] args) {
-        Assets assets = new Assets();
-        assets.manager.finishLoading();
-
-        Biome biome = new Biome(0);
-
-        Texture plainsTexture = assets.manager.get(Biome.getLegalTerrainTypes()[0]);
-
-        // Texture plainsTexture = assets.manager.get(Assets.PLAINSURL, Texture.class);
     }
 }

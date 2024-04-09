@@ -17,6 +17,6 @@ public class BiomeDrawer {
     }
 
     public void drawBiome(SpriteBatch batch, float x, float y, float height, float width) {
-        batch.draw(assets.manager.get(this.biome.getID(), Texture.class), x, y);
+        batch.draw(assets.manager.get(Assets.getAssetURL(this.biome.getBiomeID()), Texture.class), x, y);
     }
 }
