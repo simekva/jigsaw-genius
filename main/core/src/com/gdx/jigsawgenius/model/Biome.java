@@ -2,11 +2,10 @@ package com.gdx.jigsawgenius.model;
 
 public class Biome {
 
-    private int ID;
-
     /**
-     * A list of legal terrain types.
+     * id for the biome.
      */
+    private int id;
 
     /**
      * Returns a Side object with a terraintype decided by the parameter.
@@ -15,14 +14,19 @@ public class Biome {
      */
     public Biome(final int number) {
         if (number <= Config.legalTerrainTypes.length) {
-            this.ID = number;
+            this.id = number;
         } else {
             throw new IllegalArgumentException(
                     "Invalid number in generating side.");
         }
     }
 
-    public int getBiomeID() {
-        return this.ID;
+    /**
+     * Returns the biomes id.
+     *
+     * @return id
+     */
+    public final int getBiomeID() {
+        return this.id;
     }
 }

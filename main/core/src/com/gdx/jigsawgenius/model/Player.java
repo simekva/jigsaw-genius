@@ -72,7 +72,8 @@ public class Player {
         Random random = new Random();
         List<Biome> list = new ArrayList<Biome>();
         for (int i = 0; i < Config.SIDESCOUNT; i++) {
-            list.add(new Biome(random.nextInt(Config.legalTerrainTypes.length)));
+            list.add(new Biome(random
+                    .nextInt(Config.legalTerrainTypes.length)));
         }
         return new Tile(list);
     }

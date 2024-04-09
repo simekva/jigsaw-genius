@@ -11,22 +11,21 @@ public class GameController {
      * Board object.
      */
     private TileManager board;
+
     /**
      * Player 1 object.
      */
     private Player player1;
+
     /**
      * Player 2 object.
      */
     private Player player2;
+
     /**
      * Number to know who'se turn it is.
      */
     private int turn;
-
-    /**
-     * Points to get for every matching biome.
-     */
 
     /**
      * Creates a board with a pure plains tile in the middle, and

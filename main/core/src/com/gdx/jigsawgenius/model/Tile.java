@@ -11,10 +11,6 @@ public class Tile {
     private List<Biome> sides = new LinkedList<Biome>();
 
     /**
-     * Number of sides.
-     */
-
-    /**
      * Creates a tile object with a given list of tiles.
      *
      * @param list List of tiles.
@@ -54,7 +50,8 @@ public class Tile {
     public String toString() {
         String returnString = "";
         for (int i = 0; i < Config.SIDESCOUNT; i++) {
-            returnString += Config.legalTerrainTypes[this.getSides().get(i).getBiomeID()];
+            returnString += Config.legalTerrainTypes[this.getSides()
+                    .get(i).getBiomeID()];
             // returnString += this.getSides().get(i).getTerrainType();
             if (i != Config.SIDESCOUNT - 1) {
                 returnString += ", ";
