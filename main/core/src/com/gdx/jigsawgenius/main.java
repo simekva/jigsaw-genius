@@ -3,27 +3,28 @@ package com.gdx.jigsawgenius;
 import com.badlogic.gdx.ApplicationAdapter;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.utils.ScreenUtils;
-import com.gdx.jigsawgenius.model.Biome;
-import com.gdx.jigsawgenius.view.BiomeDrawer;
+import com.gdx.jigsawgenius.model.Tile;
+import com.gdx.jigsawgenius.view.TileDrawer;
 
 public class main extends ApplicationAdapter {
 
 	// private Assets assets;
 	SpriteBatch batch;
-	BiomeDrawer drawer;
-	Biome biome = new Biome(0);
+	Tile tile;
+	TileDrawer drawer;
 
 	@Override
 	public void create() {
 		batch = new SpriteBatch();
-		drawer = new BiomeDrawer();
+		tile = new Tile();
+		drawer = new TileDrawer();
 	}
 
 	@Override
 	public void render() {
 		ScreenUtils.clear(1, 0, 0, 1);
 		batch.begin();
-		drawer.drawBiome(biome, batch, 0, 0, 100, 100, 0);
+		drawer.drawTile(tile, batch, 0, 0, 50, 50);
 		batch.end();
 	}
 
