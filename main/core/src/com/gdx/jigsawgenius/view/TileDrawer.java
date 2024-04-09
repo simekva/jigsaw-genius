@@ -13,13 +13,13 @@ public class TileDrawer {
     BiomeDrawer biomeDrawer;
     int[] rotationAngles = { 0, 60, 120, 180, 240, 300 };
     float triangleHeight;
-    List<Double> xOffsets;
-    List<Double> yOffsets;
+    List<Float> xOffsets;
+    List<Float> yOffsets;
 
     public TileDrawer() {
         biomeDrawer = new BiomeDrawer();
-        xOffsets = new ArrayList<Double>();
-        yOffsets = new ArrayList<Double>();
+        xOffsets = new ArrayList<Float>();
+        yOffsets = new ArrayList<Float>();
         this.calculateOffsets();
         System.out.println(this.getOffsets());
     }
@@ -29,27 +29,29 @@ public class TileDrawer {
     public void drawTile(Tile tile, PolygonSpriteBatch batch, float x, float y, float width, float height) {
         for (int i = 0; i < Config.SIDESCOUNT; i++) {
             Biome biome = tile.getSides().get(i);
-            this.biomeDrawer.drawBiome(biome, batch, x, y, width, height, rotationAngles[i]);
+            this.biomeDrawer.drawBiome(biome, batch, x + xOffsets.get(i), y + yOffsets.get(i), width,
+                    height,
+                    rotationAngles[i]);
         }
     }
 
     public void calculateOffsets() {
-        xOffsets.add(0.0);
-        xOffsets.add(Config.TILE_SIZE);
-        xOffsets.add(Config.TILE_SIZE + Config.TILE_SIZE * 0.5);
-        xOffsets.add(Config.TILE_SIZE);
-        xOffsets.add(0.0);
-        xOffsets.add(-Config.TILE_SIZE * 0.5);
+        xOffsets.add((float) 0.0);
+        xOffsets.add((float) Config.TILE_SIZE);
+        xOffsets.add((float) (Config.TILE_SIZE + Config.TILE_SIZE * 0.5));
+        xOffsets.add((float) Config.TILE_SIZE);
+        xOffsets.add((float) 0.0);
+        xOffsets.add((float) (-Config.TILE_SIZE * 0.5));
 
-        yOffsets.add(0.0);
-        yOffsets.add(0.0);
-        yOffsets.add(Math.cos(30) * Config.TILE_SIZE);
-        yOffsets.add(Math.cos(30) * Config.TILE_SIZE * 2);
-        yOffsets.add(Math.cos(30) * Config.TILE_SIZE * 2);
-        yOffsets.add(Math.cos(30) * Config.TILE_SIZE);
+        yOffsets.add((float) 0.0);
+        yOffsets.add((float) 0.0);
+        yOffsets.add((float) (Math.cos(30) * Config.TILE_SIZE));
+        yOffsets.add((float) (Math.cos(30) * Config.TILE_SIZE * 2));
+        yOffsets.add((float) (Math.cos(30) * Config.TILE_SIZE * 2));
+        yOffsets.add((float) (Math.cos(30) * Config.TILE_SIZE));
     }
 
-    public List<Double> getOffsets() {
+    public List<Float> getOffsets() {
         return this.yOffsets;
     }
 
