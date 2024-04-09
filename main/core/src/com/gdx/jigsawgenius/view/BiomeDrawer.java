@@ -8,15 +8,16 @@ import com.gdx.jigsawgenius.model.Biome;
 public class BiomeDrawer {
 
     Assets assets;
-    Biome biome;
 
-    public BiomeDrawer(Biome biome) {
+    public BiomeDrawer() {
         assets = new Assets();
         assets.manager.finishLoading();
-        this.biome = biome;
     }
 
-    public void drawBiome(SpriteBatch batch, float x, float y, float height, float width) {
-        batch.draw(assets.manager.get(Assets.getAssetURL(this.biome.getBiomeID()), Texture.class), x, y);
+    public void drawBiome(Biome biome, SpriteBatch batch, float x, float y, float width, float height,
+            float rotationAngle) {
+        Texture texture = assets.manager.get(Assets.getAssetURL(biome.getBiomeID()), Texture.class);
+        batch.draw(texture, x, y, width / 2, height / 2, width, height, 1, 1, rotationAngle, 0, 0, texture.getWidth(),
+                texture.getHeight(), false, false);
     }
 }
