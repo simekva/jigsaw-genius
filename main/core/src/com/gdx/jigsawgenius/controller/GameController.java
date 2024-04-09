@@ -1,6 +1,7 @@
 package com.gdx.jigsawgenius.controller;
 
 import com.gdx.jigsawgenius.model.TileManager;
+import com.gdx.jigsawgenius.model.Config;
 import com.gdx.jigsawgenius.model.Player;
 import com.gdx.jigsawgenius.model.Tile;
 
@@ -26,7 +27,6 @@ public class GameController {
     /**
      * Points to get for every matching biome.
      */
-    static final int POINTMULTIPLIER = 100;
 
     /**
      * Creates a board with a pure plains tile in the middle, and
@@ -51,11 +51,11 @@ public class GameController {
             board.placeTile(player1.popTile(), x, y);
             turn = 2;
             player1.increaseScore(board.numberOfMatches(x, y)
-                    * GameController.POINTMULTIPLIER);
+                    * Config.POINTMULTIPLIER);
             System.out.println("Player 1 placed tile on: " + x + ", "
                     + y + ", and scored"
                     + board.numberOfMatches(x, y)
-                            * GameController.POINTMULTIPLIER
+                            * Config.POINTMULTIPLIER
                     + " points.");
         } else if (turn == 2) {
             board.placeTile(player2.popTile(), x, y);
@@ -63,10 +63,10 @@ public class GameController {
             System.out.println("Player 2 placed tile on: " + x + ", " + y
                     + ", and scored"
                     + board.numberOfMatches(x, y)
-                            * GameController.POINTMULTIPLIER
+                            * Config.POINTMULTIPLIER
                     + " points.");
             player2.increaseScore(board.numberOfMatches(x, y)
-                    * GameController.POINTMULTIPLIER);
+                    * Config.POINTMULTIPLIER);
         }
     }
 
@@ -86,7 +86,6 @@ public class GameController {
      *
      * @param args
      */
-    
 
     public static void main(String[] args) {
         GameController controller = new GameController();

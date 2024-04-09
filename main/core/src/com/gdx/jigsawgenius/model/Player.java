@@ -47,8 +47,8 @@ public class Player {
         // Rotates tile
         Tile topTile = this.getTopTile();
         List<Biome> tempSides = new LinkedList<Biome>();
-        tempSides.add(topTile.getSides().get(Tile.SIDESCOUNT - 1));
-        for (int i = 0; i < Tile.SIDESCOUNT - 1; i++) {
+        tempSides.add(topTile.getSides().get(Config.SIDESCOUNT - 1));
+        for (int i = 0; i < Config.SIDESCOUNT - 1; i++) {
             tempSides.add(topTile.getSides().get(i));
         }
         this.setTopTile(new Tile(tempSides));
@@ -71,9 +71,8 @@ public class Player {
     public Tile generateRandomTile() {
         Random random = new Random();
         List<Biome> list = new ArrayList<Biome>();
-        for (int i = 0; i < Tile.SIDESCOUNT; i++) {
-            list.add(new Biome(random.nextInt(Biome
-                    .getLegalTerrainTypes().length)));
+        for (int i = 0; i < Config.SIDESCOUNT; i++) {
+            list.add(new Biome(random.nextInt(Config.legalTerrainTypes.length)));
         }
         return new Tile(list);
     }
