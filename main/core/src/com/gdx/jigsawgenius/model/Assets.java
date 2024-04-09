@@ -28,7 +28,7 @@ public class Assets {
         return Assets.getAssetsURLs().get(n);
     }
 
-    private static int getNumberOfAssets() {
+    public static int getNumberOfAssets() {
         return Assets.getAssetsURLs().size();
     }
 

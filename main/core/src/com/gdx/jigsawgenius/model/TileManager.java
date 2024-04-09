@@ -2,6 +2,7 @@ package com.gdx.jigsawgenius.model;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Random;
 
 /**
  * The Board class represents the board for the game. It
@@ -284,7 +285,17 @@ public class TileManager {
                 System.out.println("Extended y.");
             }
         }
+    }
 
+    public Tile generateRandomTile() {
+        List<Biome> list = new ArrayList<Biome>();
+        Random random = new Random();
+
+        for (int i = 0; i < Config.SIDESCOUNT; i++) {
+            list.add(new Biome(random.nextInt(Assets.getNumberOfAssets())));
+        }
+        Tile tile = new Tile(list);
+        return tile;
     }
 
     private void negativeExtension(final int x, final int y) {
