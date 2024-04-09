@@ -1,7 +1,7 @@
 package com.gdx.jigsawgenius;
 
 import com.badlogic.gdx.ApplicationAdapter;
-import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.badlogic.gdx.graphics.g2d.PolygonSpriteBatch;
 import com.badlogic.gdx.utils.ScreenUtils;
 import com.gdx.jigsawgenius.model.Tile;
 import com.gdx.jigsawgenius.view.TileDrawer;
@@ -9,13 +9,13 @@ import com.gdx.jigsawgenius.view.TileDrawer;
 public class main extends ApplicationAdapter {
 
 	// private Assets assets;
-	SpriteBatch batch;
+	PolygonSpriteBatch batch;
 	Tile tile;
 	TileDrawer drawer;
 
 	@Override
 	public void create() {
-		batch = new SpriteBatch();
+		batch = new PolygonSpriteBatch();
 		tile = new Tile();
 		drawer = new TileDrawer();
 	}

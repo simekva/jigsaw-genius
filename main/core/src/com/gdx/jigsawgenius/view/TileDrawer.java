@@ -3,7 +3,7 @@ package com.gdx.jigsawgenius.view;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.badlogic.gdx.graphics.g2d.PolygonSpriteBatch;
 import com.gdx.jigsawgenius.model.Biome;
 import com.gdx.jigsawgenius.model.Config;
 import com.gdx.jigsawgenius.model.Tile;
@@ -26,7 +26,7 @@ public class TileDrawer {
 
     // TODO: Calculate difference in x and y so that tiles don't render on top of
     // each other.
-    public void drawTile(Tile tile, SpriteBatch batch, float x, float y, float width, float height) {
+    public void drawTile(Tile tile, PolygonSpriteBatch batch, float x, float y, float width, float height) {
         for (int i = 0; i < Config.SIDESCOUNT; i++) {
             Biome biome = tile.getSides().get(i);
             this.biomeDrawer.drawBiome(biome, batch, x, y, width, height, rotationAngles[i]);
