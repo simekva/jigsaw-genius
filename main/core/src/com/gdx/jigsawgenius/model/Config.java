@@ -14,6 +14,11 @@ public abstract class Config {
     public static final int SIDESCOUNT = 6;
 
     /**
+     * 200 pixels.
+     */
+    public static final double TILE_SIZE = 200.0;
+
+    /**
      * Point multiplier to be used for points calcualation.
      */
     public static final int POINTMULTIPLIER = 100;

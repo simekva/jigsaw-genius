@@ -24,7 +24,7 @@ public class main extends ApplicationAdapter {
 	public void render() {
 		ScreenUtils.clear(1, 0, 0, 1);
 		batch.begin();
-		drawer.drawTile(tile, batch, 0, 0, 50, 50);
+		drawer.drawTile(tile, batch, 0, 0, 200, 200);
 		batch.end();
 	}
 
