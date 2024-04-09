@@ -8,11 +8,11 @@ import com.badlogic.gdx.graphics.Texture;
 
 public class Assets {
 
-    private static final String PLAINSURL = "plains.PNG";
-    private static final String VILLAGEURL = "village.PNG";
-    private static final String FIELDURL = "field.PNG";
-    private static final String FORESTURL = "forest.PNG";
-    private static final String DESERTURL = "desert.PNG";
+    public static final String PLAINSURL = "plains.PNG";
+    public static final String VILLAGEURL = "village.PNG";
+    public static final String FIELDURL = "field.PNG";
+    public static final String FORESTURL = "forest.PNG";
+    public static final String DESERTURL = "desert.PNG";
 
     public AssetManager manager;
 
@@ -22,6 +22,10 @@ public class Assets {
         for (int i = 0; i < Assets.getNumberOfAssets(); i++) {
             manager.load(Assets.getAssetsURLs().get(i), Texture.class);
         }
+    }
+
+    public String getAssetURL(int n) {
+        return Assets.getAssetsURLs().get(n);
     }
 
     private static int getNumberOfAssets() {
@@ -43,5 +47,16 @@ public class Assets {
             // Handle exception as per your requirement
         }
         return initializedStrings;
+    }
+
+    public static void main(String[] args) {
+        Assets assets = new Assets();
+        assets.manager.finishLoading();
+
+        Biome biome = new Biome(0);
+
+        Texture plainsTexture = assets.manager.get(Biome.getLegalTerrainTypes()[0]);
+
+        // Texture plainsTexture = assets.manager.get(Assets.PLAINSURL, Texture.class);
     }
 }

@@ -12,7 +12,7 @@ public class Tile {
     /**
      * Number of sides.
      */
-    static final int SIDESCOUNT = 6;
+    public static final int SIDESCOUNT = 6;
 
     /**
      * Creates a tile object with a given list of tiles.
