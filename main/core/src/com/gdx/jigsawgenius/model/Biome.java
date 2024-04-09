@@ -1,16 +1,11 @@
 package com.gdx.jigsawgenius.model;
 
 public class Biome {
-    /**
-     * Which terraintype the Side object is.
-     */
-    private String terrainType;
 
     /**
-     * A list of legal terrain types.
+     * id for the biome.
      */
-    private static String[] legalTerrainTypes = new String[] {
-            "plains", "village", "field", "forest", "desert" };
+    private int id;
 
     /**
      * Returns a Side object with a terraintype decided by the parameter.
@@ -18,8 +13,8 @@ public class Biome {
      * @param number number
      */
     public Biome(final int number) {
-        if (number <= Biome.getLegalTerrainTypes().length) {
-            this.terrainType = legalTerrainTypes[number];
+        if (number <= Config.legalTerrainTypes.length) {
+            this.id = number;
         } else {
             throw new IllegalArgumentException(
                     "Invalid number in generating side.");
@@ -27,21 +22,11 @@ public class Biome {
     }
 
     /**
-     * Returns the terraintype of the side.
+     * Returns the biomes id.
      *
-     * @return terraintype of the side.
+     * @return id
      */
-    public String getTerrainType() {
-        return this.terrainType;
+    public final int getBiomeID() {
+        return this.id;
     }
-
-    /**
-     * Returns the legal terrain types.
-     *
-     * @return legal terrain types.
-     */
-    public static String[] getLegalTerrainTypes() {
-        return legalTerrainTypes;
-    }
-
 }

@@ -111,7 +111,7 @@ public class TileManager {
     public List<Tile> getAdjacentTiles(final int x, final int y) {
 
         List<Tile> adacjentTiles = new ArrayList<Tile>();
-        for (int i = 0; i < Tile.SIDESCOUNT; i++) {
+        for (int i = 0; i < Config.SIDESCOUNT; i++) {
             try {
                 adacjentTiles.add(this.getTile(x + this.dx[i], y + this.dy[i]));
             } catch (Exception e) {
@@ -138,14 +138,14 @@ public class TileManager {
         int numberOfMatches = 0;
 
         Tile currentTile = this.getTile(x, y);
-        for (int i = 0; i < Tile.SIDESCOUNT; i++) {
+        for (int i = 0; i < Config.SIDESCOUNT; i++) {
             try {
                 Tile tileToCheck = this.getTile(x + this.dx[i], y + this.dy[i]);
                 if (tileToCheck != null) {
-                    String currentTileBiome = currentTile.getSides()
-                            .get(biomePositionOne[i]).getTerrainType();
-                    String tileToCheckBiome = tileToCheck.getSides()
-                            .get(biomePositionTwo[i]).getTerrainType();
+                    int currentTileBiome = currentTile.getSides()
+                            .get(biomePositionOne[i]).getBiomeID();
+                    int tileToCheckBiome = tileToCheck.getSides()
+                            .get(biomePositionTwo[i]).getBiomeID();
 
                     if (currentTileBiome == tileToCheckBiome) {
                         numberOfMatches++;
