@@ -2,6 +2,7 @@ package com.gdx.jigsawgenius.view;
 
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.PolygonSpriteBatch;
+import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.gdx.jigsawgenius.model.Assets;
 import com.gdx.jigsawgenius.model.Biome;
 
@@ -20,8 +21,11 @@ public class BiomeDrawer {
             float rotationAngle) {
 
         Texture texture = assets.manager.get(Assets.getAssetURL(biome.getBiomeID()), Texture.class);
-
-        batch.draw(polygonDrawer.drawPolygon(texture, x, y), x, y);
+        Sprite sprite = new Sprite(texture);
+        sprite.setRotation(rotationAngle);
+        // batch.draw(polygonDrawer.drawPolygon(sprite, x, y), x, y);
+        sprite.setPosition(x, y);
+        sprite.draw(batch);
 
         // batch.draw(texture, x, y, width / 2, height / 2, width, height, 1, 1,
         // rotationAngle, 0, 0, texture.getWidth(),

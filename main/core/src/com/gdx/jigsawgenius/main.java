@@ -33,7 +33,9 @@ public class main extends ApplicationAdapter {
 	public void render() {
 		ScreenUtils.clear(1, 0, 0, 1);
 		batch.begin();
-		biomeDrawer.drawBiome(biome, batch, 0, 0, 0, 0, 0);
+		biomeDrawer.drawBiome(biome, batch, 50, 0, 0, 0, 0);
+		biomeDrawer.drawBiome(biome, batch, 125, 41, 0, 0, 60);
+		biomeDrawer.drawBiome(biome, batch, 125, 130, 0, 0, 120);
 		batch.end();
 	}
 

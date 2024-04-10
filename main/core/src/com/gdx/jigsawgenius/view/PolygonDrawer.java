@@ -1,7 +1,7 @@
 package com.gdx.jigsawgenius.view;
 
-import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.PolygonRegion;
+import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.gdx.jigsawgenius.model.Config;
 
@@ -18,11 +18,12 @@ public class PolygonDrawer {
         return vertices;
     }
 
-    public PolygonRegion drawPolygon(Texture texture, float x, float y) {
+    public PolygonRegion drawPolygon(Sprite sprite, float x, float y) {
         this.vertices = this.calculateVertices();
-        PolygonRegion polyReg = new PolygonRegion(new TextureRegion(texture), vertices, new short[] {
+        PolygonRegion polyReg = new PolygonRegion(new TextureRegion(sprite), vertices, new short[] {
                 0, 1, 2
         });
         return polyReg;
+
     }
 }
