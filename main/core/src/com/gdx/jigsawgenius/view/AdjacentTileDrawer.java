@@ -2,12 +2,8 @@ package com.gdx.jigsawgenius.view;
 
 import java.util.List;
 
-import com.badlogic.gdx.graphics.g2d.PolygonSprite;
 import com.badlogic.gdx.graphics.g2d.PolygonSpriteBatch;
-import com.gdx.jigsawgenius.main;
-import com.gdx.jigsawgenius.controller.GameLogicController;
 import com.gdx.jigsawgenius.model.Assets;
-import com.gdx.jigsawgenius.model.Config;
 import com.gdx.jigsawgenius.model.Tile;
 import com.gdx.jigsawgenius.model.TileManager;
 

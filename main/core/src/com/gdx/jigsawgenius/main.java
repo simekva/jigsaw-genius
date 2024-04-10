@@ -7,6 +7,7 @@ import com.badlogic.gdx.graphics.g2d.PolygonSpriteBatch;
 import com.badlogic.gdx.utils.ScreenUtils;
 import com.gdx.jigsawgenius.controller.GameLogicController;
 import com.gdx.jigsawgenius.model.Assets;
+import com.gdx.jigsawgenius.model.GameInputProcessor;
 import com.gdx.jigsawgenius.view.AdjacentTileDrawer;
 import com.gdx.jigsawgenius.view.TileDrawer;
 
@@ -18,15 +19,20 @@ public class main extends ApplicationAdapter {
 	PolygonSpriteBatch batch;
 	OrthographicCamera camera;
 
-	GameLogicController controller;
+	static GameLogicController controller;
 	AdjacentTileDrawer drawer;
 	TileDrawer tileDrawer;
+
+	GameInputProcessor inputProcessor;
 
 	@Override
 	public void create() {
 
 		assets = new Assets();
 		batch = new PolygonSpriteBatch();
+
+		inputProcessor = new GameInputProcessor();
+		Gdx.input.setInputProcessor(inputProcessor);
 
 		camera = new OrthographicCamera(30, 30 * (Gdx.graphics.getHeight() / Gdx.graphics.getWidth()));
 		camera.position.set(camera.viewportWidth / 2f, camera.viewportHeight / 2f, 0);
@@ -96,4 +102,9 @@ public class main extends ApplicationAdapter {
 	@Override
 	public void pause() {
 	}
+
+	public static void placeTile(int x, int y) {
+		controller.placeTile(x, y);
+	}
+
 }
