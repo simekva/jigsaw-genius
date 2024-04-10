@@ -17,7 +17,7 @@ public class BiomeDrawer {
         polygonDrawer = new PolygonDrawer();
     }
 
-    public void drawBiome(Biome biome, PolygonSpriteBatch batch, float x, float y, float width, float height,
+    public void drawBiome(Biome biome, PolygonSpriteBatch batch, float x, float y,
             float rotationAngle) {
 
         Texture texture = assets.manager.get(Assets.getAssetURL(biome.getBiomeID()), Texture.class);
