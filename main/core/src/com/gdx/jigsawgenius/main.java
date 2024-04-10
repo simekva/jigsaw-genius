@@ -1,5 +1,6 @@
 package com.gdx.jigsawgenius;
 
+/* 
 import com.badlogic.gdx.ApplicationAdapter;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
@@ -29,3 +30,22 @@ public class main extends ApplicationAdapter {
 		img.dispose();
 	}
 }
+*/
+
+import com.badlogic.gdx.Game;
+
+public class main extends Game {
+
+    @Override
+    public void create() {
+        Assets.load(); // Load assets if necessary
+        setScreen(new MainMenuScreen(this));
+    }
+
+    @Override
+    public void dispose() {
+        super.dispose();
+        Assets.dispose(); // Dispose of assets if necessary
+    }
+}
+
