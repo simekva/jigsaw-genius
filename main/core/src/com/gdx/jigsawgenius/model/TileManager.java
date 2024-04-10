@@ -295,6 +295,7 @@ public class TileManager {
             list.add(new Biome(random.nextInt(Assets.getNumberOfAssets())));
         }
         Tile tile = new Tile(list);
+        System.out.println(tile.toString());
         return tile;
     }
 
