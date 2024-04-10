@@ -5,7 +5,7 @@ import com.gdx.jigsawgenius.model.Config;
 import com.gdx.jigsawgenius.model.Player;
 import com.gdx.jigsawgenius.model.Tile;
 
-public class GameController {
+public class GameLogicController {
 
     /**
      * Board object.
@@ -31,12 +31,16 @@ public class GameController {
      * Creates a board with a pure plains tile in the middle, and
      * initializes the hand.
      */
-    public GameController() {
+    public GameLogicController() {
         board = new TileManager(1, 1);
         board.placeTile(new Tile(), 0, 0);
         player1 = new Player();
         player2 = new Player();
         turn = 1;
+    }
+
+    public TileManager getBoard() {
+        return this.board;
     }
 
     /**
@@ -87,7 +91,7 @@ public class GameController {
      */
 
     public static void main(String[] args) {
-        GameController controller = new GameController();
+        GameLogicController controller = new GameLogicController();
         controller.placeTile(2, 0);
         controller.placeTile(-2, 0);
         System.out.println(controller.board.numberOfMatches(0, 0));

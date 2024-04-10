@@ -4,17 +4,31 @@ import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
 
+import com.badlogic.gdx.utils.Null;
+
 public class Tile {
     /**
      * A tile is represented as a linked list with Side objects.
      */
     private List<Biome> sides = new LinkedList<Biome>();
 
+    private int x;
+    private int y;
+
     /**
      * Creates a tile object with a given list of tiles.
      *
      * @param list List of tiles.
      */
+    public Tile(final List<Biome> list, int x, int y) {
+        if (list.size() != Config.SIDESCOUNT) {
+            throw new IllegalArgumentException("Tile has to have 6 sides");
+        }
+        this.sides = list;
+        this.x = x;
+        this.y = y;
+    }
+
     public Tile(final List<Biome> list) {
         if (list.size() != Config.SIDESCOUNT) {
             throw new IllegalArgumentException("Tile has to have 6 sides");
@@ -40,6 +54,22 @@ public class Tile {
      */
     public List<Biome> getSides() {
         return this.sides;
+    }
+
+    public int getX() {
+        return this.x;
+    }
+
+    public int getY() {
+        return this.y;
+    }
+
+    public void setX(int n) {
+        this.x = n;
+    }
+
+    public void setY(int n) {
+        this.y = n;
     }
 
     /**

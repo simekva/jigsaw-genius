@@ -125,6 +125,14 @@ public class TileManager {
         return adacjentTiles;
     }
 
+    public int getLowestX() {
+        return this.lowestx;
+    }
+
+    public int getLowestY() {
+        return this.lowesty;
+    }
+
     /**
      * Returns number of matching biomes for a tile with given coordinates.
      *
@@ -255,6 +263,8 @@ public class TileManager {
         }
 
         try {
+            tile.setX(x);
+            tile.setY(y);
             board[x + lowestx][y + lowesty] = tile;
             System.out.println("Placed tile in position: " + (x + lowestx)
                     + ", " + (y + lowesty));
@@ -320,7 +330,7 @@ public class TileManager {
         }
     }
 
-    public Tile[][] getBoard() {
+    public Tile[][] getAllTiles() {
         return this.board;
     }
 }
