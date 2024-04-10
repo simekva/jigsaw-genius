@@ -12,8 +12,8 @@ public class PolygonDrawer {
     private float[] calculateVertices() {
         vertices = new float[] {
                 0, 0,
-                (float) (Config.TILE_SIZE), 0,
-                (float) ((Config.TILE_SIZE) / 2), (float) (Config.TILE_SIZE)
+                (float) (Config.TILE_WIDTH), 0,
+                (float) ((Config.TILE_WIDTH) / 2), (float) (Config.TILE_HEIGTH)
         };
         return vertices;
     }
