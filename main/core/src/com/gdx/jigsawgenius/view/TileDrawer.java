@@ -7,14 +7,15 @@ import com.gdx.jigsawgenius.model.Tile;
 
 public class TileDrawer {
 
-    float hexagonSpacing = (float) Config.TILE_HEIGTH * 0.75f;
+    float hexagonSpacing = (float) (Config.TILE_WIDTH * 0.75f);
+
     float[][] offsets = new float[][] {
-            { hexagonSpacing * 0.5f, (float) (Config.TILE_HEIGTH * 0.866f) }, // Top-right
-            { -hexagonSpacing * 0.5f, (float) (Config.TILE_HEIGTH * 0.866f) }, // Top-left
-            { -hexagonSpacing, 0 }, // Left
-            { -hexagonSpacing * 0.5f, (float) (-Config.TILE_HEIGTH * 0.866f) }, // Bottom-left
-            { hexagonSpacing * 0.5f, (float) (-Config.TILE_HEIGTH * 0.866f) }, // Bottom-right
-            { hexagonSpacing, 0 } // Right
+            { hexagonSpacing * 0.5f, (float) (Config.TILE_HEIGHT * 0.866f) }, // Top-right
+            { 0, (float) (Config.TILE_HEIGHT * 0.866f) }, // Top
+            { -hexagonSpacing * 0.5f, (float) (Config.TILE_HEIGHT * 0.433f) }, // Top-left
+            { -hexagonSpacing * 0.5f, (float) (-Config.TILE_HEIGHT * 0.433f) }, // Bottom-left
+            { 0, (float) (-Config.TILE_HEIGHT * 0.866f) }, // Bottom
+            { hexagonSpacing * 0.5f, (float) (-Config.TILE_HEIGHT * 0.433f) }, // Bottom-right
     };
 
     int[] angleOffset = { 120, 180, 240, 300, 0, 60 };

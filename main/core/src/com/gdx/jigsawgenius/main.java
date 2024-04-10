@@ -36,7 +36,7 @@ public class main extends ApplicationAdapter {
 	public void render() {
 		ScreenUtils.clear(1, 0, 0, 1);
 		batch.begin();
-		drawer.drawTile(tile, batch, 300, 300);
+		drawer.drawTile(tile, batch, 200, 200);
 		// biomeDrawer.drawBiome(biome, batch, 50, 0, 0);
 		// biomeDrawer.drawBiome(biome, batch, 125, 41, 60);
 		// biomeDrawer.drawBiome(biome, batch, 125, 130, 120);

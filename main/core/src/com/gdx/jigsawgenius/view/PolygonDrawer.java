@@ -13,7 +13,7 @@ public class PolygonDrawer {
         vertices = new float[] {
                 0, 0,
                 (float) (Config.TILE_WIDTH), 0,
-                (float) ((Config.TILE_WIDTH) / 2), (float) (Config.TILE_HEIGTH)
+                (float) ((Config.TILE_WIDTH) / 2), (float) (Config.TILE_HEIGHT)
         };
         return vertices;
     }
