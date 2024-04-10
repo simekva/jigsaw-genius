@@ -8,6 +8,9 @@ import com.gdx.jigsawgenius.view.TileDrawer;
 
 public class DrawingController {
 
+    Tile originTile;
+    Tile[][] allTiles;
+
     int[][] tileOffset = new int[][] {
             { 1, 1 },
             { 2, 0 },
@@ -31,10 +34,11 @@ public class DrawingController {
 
     public DrawingController() {
         drawer = new TileDrawer();
+        originTile = board.getTile(0, 0);
+        allTiles = board.getAllTiles();
     };
 
     public void drawBoard(Assets assets, PolygonSpriteBatch batch) {
-        Tile[][] allTiles = board.getAllTiles();
 
         for (int i = 0; i < allTiles[0].length; i++) {
             for (int j = 0; j < allTiles.length; j++) {
@@ -42,5 +46,4 @@ public class DrawingController {
             }
         }
     }
-
 }
