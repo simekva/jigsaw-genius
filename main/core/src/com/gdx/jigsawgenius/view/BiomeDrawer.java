@@ -9,10 +9,7 @@ import com.gdx.jigsawgenius.model.Config;
 
 public class BiomeDrawer {
 
-    PolygonDrawer polygonDrawer;
-
     public BiomeDrawer() {
-        polygonDrawer = new PolygonDrawer();
     }
 
     public void drawBiome(Assets assets, Biome biome, PolygonSpriteBatch batch, float x, float y,

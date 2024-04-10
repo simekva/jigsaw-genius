@@ -319,4 +319,8 @@ public class TileManager {
             }
         }
     }
+
+    public Tile[][] getBoard() {
+        return this.board;
+    }
 }

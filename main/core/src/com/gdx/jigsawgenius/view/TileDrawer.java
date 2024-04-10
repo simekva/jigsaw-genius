@@ -8,18 +8,16 @@ import com.gdx.jigsawgenius.model.Tile;
 
 public class TileDrawer {
 
-    float hexagonSpacing = (float) (Config.TILE_WIDTH);
-
     float[][] offsets = new float[][] {
-            { (float) (Config.TILE_WIDTH / 2.7), (float) (Config.TILE_HEIGHT * 0.75) }, // Top-right
-            { (float) ((float) Config.TILE_WIDTH / 2.7), (float) (Config.TILE_HEIGHT / 4) }, // Bottom-right
-            { 0, 0 }, // Bottom
-            { (float) (-Config.TILE_WIDTH * 0.37), (float) (Config.TILE_HEIGHT / 4) }, // Bottom-left
-            { (float) ((float) -Config.TILE_WIDTH * 0.37), (float) ((float) (Config.TILE_HEIGHT) * 0.75) }, // Top-left
-            { 0, (float) (Config.TILE_HEIGHT) }, // Top
+            { (float) (Config.TILE_WIDTH * 0.25), (float) (Config.TILE_HEIGHT * 0.44) }, // Top-right
+            { (float) (Config.TILE_WIDTH * 0.46), 0 }, // Right
+            { (float) (Config.TILE_WIDTH * 0.25), (float) (-Config.TILE_HEIGHT * 0.445) }, // Bottom-right
+            { (float) (-Config.TILE_WIDTH * 0.175), (float) (-Config.TILE_HEIGHT * 0.445) }, // Bottom-left
+            { (float) (-Config.TILE_WIDTH * 0.4), 0 }, // Left
+            { (float) (-Config.TILE_WIDTH * 0.175), (float) (Config.TILE_HEIGHT * 0.44) }, // Top-left
     };
 
-    int[] angleOffset = { 120, 60, 0, 300, 240, 180 };
+    int[] angleOffset = { 150, 90, 30, 330, 270, 210 };
 
     BiomeDrawer biomeDrawer;
 
