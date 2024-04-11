@@ -23,7 +23,7 @@ public class BiomeDrawer {
         // Set position
         sprite.setPosition(x - Assets.pieceWidth / 2, y - Assets.pieceHeight);
 
-        sprite.setOrigin(0, 0);
+        sprite.setOrigin(Assets.pieceWidth / 2, Assets.pieceHeight);
 
         // Draw the sprite
         sprite.draw(batch);

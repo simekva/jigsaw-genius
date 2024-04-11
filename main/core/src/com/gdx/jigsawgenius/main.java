@@ -71,7 +71,7 @@ public class main extends ApplicationAdapter {
 		// drawer.drawAdjacentTiles(assets, batch, Assets.WORLD_SIZE / 2,
 		// Assets.WORLD_SIZE / 2);
 
-		// biomeDrawer.drawBiome(assets, biome, batch, 500, 500, 0);
+		// biomeDrawer.drawBiome(assets, biome, batch, 500, 500, 30);
 		tileDrawer.drawTile(assets, tile, batch, 500, 500);
 		batch.end();
 		assets.manager.update();
