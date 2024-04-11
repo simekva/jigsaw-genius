@@ -92,6 +92,11 @@ public class GameLogicController {
 
     public static void main(String[] args) {
         GameLogicController controller = new GameLogicController();
+
+        controller.placeTile(-1, 1);
+        controller.placeTile(-2, 2);
+        controller.placeTile(-3, 3);
+
         System.out.println("test");
     }
 }

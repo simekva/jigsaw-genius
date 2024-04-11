@@ -174,10 +174,10 @@ public class TileManager {
         int minX = -maxX;
         int minY = -maxY;
 
-        if (x == this.rows + 1 && y == this.rows - 1) {
+        if (x == this.rows + 1 && y == this.columns - 1) {
             return false;
         }
-        if (-x == this.rows + 1 && -y == this.rows - 1) {
+        if (-x == this.rows + 1 && -y == this.columns - 1) {
             return false;
         }
 
