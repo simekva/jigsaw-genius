@@ -1,6 +1,7 @@
 package com.gdx.jigsawgenius.controller;
 
 import com.gdx.jigsawgenius.model.TileManager;
+import com.gdx.jigsawgenius.model.Assets;
 import com.gdx.jigsawgenius.model.Config;
 import com.gdx.jigsawgenius.model.Player;
 import com.gdx.jigsawgenius.model.Tile;
@@ -96,7 +97,7 @@ public class GameLogicController {
         controller.placeTile(-1, 1);
         controller.placeTile(-2, 2);
         controller.placeTile(-3, 3);
-
+        System.out.println(controller.getBoard().getTile(-3, 3).getXCoord());
         System.out.println("test");
     }
 }

@@ -273,8 +273,7 @@ public class TileManager {
         }
 
         try {
-            tile.setX(x * Assets.pieceHeight);
-            tile.setY((float) (y * Assets.pieceHeight * 1.732));
+
             board[x + lowestx][y + lowesty] = tile;
             System.out.println("Placed tile in position: " + (x + lowestx)
                     + ", " + (y + lowesty));
@@ -283,7 +282,10 @@ public class TileManager {
         } catch (Exception e) {
             this.placeTile(tile, x, y);
         }
-
+        tile.setXCoord(x * Assets.pieceHeight);
+        tile.setYCoord((float) (y * Assets.pieceHeight * 1.732));
+        tile.setX(x);
+        tile.setY(y);
     }
 
     private void positiveExtension(final int x, final int y) {

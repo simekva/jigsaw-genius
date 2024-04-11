@@ -10,21 +10,24 @@ public class Tile {
      */
     private List<Biome> sides = new LinkedList<Biome>();
 
-    private float x;
-    private float y;
+    private float xCoord;
+    private float yCoord;
+
+    private int x;
+    private int y;
 
     /**
      * Creates a tile object with a given list of tiles.
      *
      * @param list List of tiles.
      */
-    public Tile(final List<Biome> list, int x, int y) {
+    public Tile(final List<Biome> list, int xCoord, int yCoord) {
         if (list.size() != Config.SIDESCOUNT) {
             throw new IllegalArgumentException("Tile has to have 6 sides");
         }
         this.sides = list;
-        this.x = x;
-        this.y = y;
+        this.xCoord = xCoord;
+        this.yCoord = yCoord;
     }
 
     public Tile(final List<Biome> list) {
@@ -43,8 +46,8 @@ public class Tile {
             list.add(new Biome(0));
         }
         this.sides = list;
-        this.x = 0;
-        this.y = 0;
+        this.xCoord = 0;
+        this.yCoord = 0;
     }
 
     /**
@@ -56,19 +59,28 @@ public class Tile {
         return this.sides;
     }
 
-    public float getX() {
-        return this.x;
+    public float getXCoord() {
+        return this.xCoord;
     }
 
-    public float getY() {
-        return this.y;
+    public float getYCoord() {
+        return this.yCoord;
     }
 
-    public void setX(float n) {
+    public void setXCoord(float n) {
+        this.xCoord = n;
+    }
+
+    public void setYCoord(float n) {
+        this.yCoord = n;
+    }
+
+    public void setX(int n) {
         this.x = n;
     }
 
-    public void setY(float n) {
+    public void setY(int n) {
         this.y = n;
     }
+
 }

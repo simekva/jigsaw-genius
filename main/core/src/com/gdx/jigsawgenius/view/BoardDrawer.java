@@ -17,7 +17,7 @@ public class BoardDrawer {
         for (Tile[] tileList : manager.getAllTiles()) {
             for (Tile tile : tileList) {
                 try {
-                    tileDrawer.drawTile(assets, tile, batch, tile.getX() + centerX, tile.getY() + centerY);
+                    tileDrawer.drawTile(assets, tile, batch, tile.getXCoord() + centerX, tile.getYCoord() + centerY);
                 } catch (Exception e) {
                 }
             }
