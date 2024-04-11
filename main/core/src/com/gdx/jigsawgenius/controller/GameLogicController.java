@@ -92,9 +92,6 @@ public class GameLogicController {
 
     public static void main(String[] args) {
         GameLogicController controller = new GameLogicController();
-        controller.placeTile(2, 0);
-        controller.placeTile(-2, 0);
-        System.out.println(controller.board.numberOfMatches(0, 0));
         System.out.println("test");
     }
 }

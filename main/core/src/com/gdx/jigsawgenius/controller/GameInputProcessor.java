@@ -44,8 +44,6 @@ public class GameInputProcessor implements InputProcessor {
         float worldY = worldCoordinates.y;
 
         System.out.println("clicked at: " + worldX + ", " + worldY);
-
-        main.placeTile(2, 0);
         return true;
 
     }

@@ -168,23 +168,29 @@ public class TileManager {
     }
 
     private boolean isOutOfBounds(final int x, final int y) {
-        if (x > (this.rows) && y > (this.columns)) {
-            return true;
+        // Calculate the maximum and minimum allowed values for x and y
+        int maxX = this.rows;
+        int maxY = this.columns;
+        int minX = -maxX;
+        int minY = -maxY;
+
+        if (x == this.rows + 1 && y == this.rows - 1) {
+            return false;
         }
-        if (-x > (this.rows) && -y > (this.columns)) {
-            return true;
+        if (-x == this.rows + 1 && -y == this.rows - 1) {
+            return false;
         }
-        if (-x > (this.rows + 1) && -y > (this.columns + 1)) {
+
+        // Check if the coordinates are out of bounds
+        if (x < minX || x > maxX || y < minY || y > maxY) {
             return true;
         }
 
-        if (x > (this.rows + 2) || -x > (this.rows + 2)) {
+        // Check if the coordinates fall outside the main hexagonal pattern
+        if (Math.abs(x) > this.rows || Math.abs(y) > this.columns) {
             return true;
         }
 
-        if (y > (this.columns + 2) || -y > (this.columns + 2)) {
-            return true;
-        }
         return false;
     }
 
@@ -263,8 +269,8 @@ public class TileManager {
         }
 
         try {
-            tile.setX(x * Assets.pieceHeight * 2);
-            tile.setY(y * Assets.pieceHeight * 2);
+            tile.setX(x * Assets.pieceHeight);
+            tile.setY((float) (y * Assets.pieceHeight * 1.732));
             board[x + lowestx][y + lowesty] = tile;
             System.out.println("Placed tile in position: " + (x + lowestx)
                     + ", " + (y + lowesty));

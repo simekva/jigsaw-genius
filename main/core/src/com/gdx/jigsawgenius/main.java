@@ -64,21 +64,21 @@ public class main extends ApplicationAdapter {
 
 	@Override
 	public void render() {
-		assets.manager.finishLoading();
-		handleCamera();
-		camera.update();
-		batch.setProjectionMatrix(camera.combined);
-		ScreenUtils.clear(1, 0, 0, 1);
-		batch.begin();
-		// drawer.drawAdjacentTiles(assets, batch, Assets.WORLD_SIZE / 2,
-		// Assets.WORLD_SIZE / 2);
+		if (assets.manager.update()) {
+			handleCamera();
+			camera.update();
+			batch.setProjectionMatrix(camera.combined);
+			ScreenUtils.clear(1, 0, 0, 1);
+			batch.begin();
+			// drawer.drawAdjacentTiles(assets, batch, Assets.WORLD_SIZE / 2,
+			// Assets.WORLD_SIZE / 2);
 
-		// biomeDrawer.drawBiome(assets, biome, batch, 500, 500, 30);
-		// tileDrawer.drawTile(assets, tile, batch, 500, 500);
-		// tileDrawer.drawTile(assets, tile, batch, 500 + Assets.pieceHeight * 2, 500);
-		boardDrawer.drawBoard(controller.getBoard(), assets, batch, 500, 500);
-		batch.end();
-		assets.manager.update();
+			// biomeDrawer.drawBiome(assets, biome, batch, 500, 500, 30);
+			// tileDrawer.drawTile(assets, tile, batch, 500, 500);
+			// tileDrawer.drawTile(assets, tile, batch, 500 + Assets.pieceHeight * 2, 500);
+			boardDrawer.drawBoard(controller.getBoard(), assets, batch, 500, 500);
+			batch.end();
+		}
 	}
 
 	@Override

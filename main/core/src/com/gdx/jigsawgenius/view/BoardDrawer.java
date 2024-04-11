@@ -16,7 +16,10 @@ public class BoardDrawer {
     public void drawBoard(TileManager manager, Assets assets, SpriteBatch batch, float centerX, float centerY) {
         for (Tile[] tileList : manager.getAllTiles()) {
             for (Tile tile : tileList) {
-                tileDrawer.drawTile(assets, tile, batch, tile.getX() + centerX, tile.getY() + centerY);
+                try {
+                    tileDrawer.drawTile(assets, tile, batch, tile.getX() + centerX, tile.getY() + centerY);
+                } catch (Exception e) {
+                }
             }
         }
     }
