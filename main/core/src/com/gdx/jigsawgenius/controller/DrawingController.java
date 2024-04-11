@@ -42,7 +42,7 @@ public class DrawingController {
 
         for (int i = 0; i < allTiles[0].length; i++) {
             for (int j = 0; j < allTiles.length; j++) {
-                drawer.drawTile(assets, board.getTile(i, j), batch, i, j);
+                // drawer.drawTile(assets, board.getTile(i, j), batch, i, j);
             }
         }
     }

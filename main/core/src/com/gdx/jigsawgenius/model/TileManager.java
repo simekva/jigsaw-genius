@@ -120,8 +120,8 @@ public class TileManager {
             }
         }
         adacjentTiles.removeAll(java.util.Collections.singleton(null));
-        System.out.println("Found " + adacjentTiles.size()
-                + " adjacent tile(s) for tile: " + x + ", " + y);
+        // System.out.println("Found " + adacjentTiles.size()
+        // + " adjacent tile(s) for tile: " + x + ", " + y);
         return adacjentTiles;
     }
 

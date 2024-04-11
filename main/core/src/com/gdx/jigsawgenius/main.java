@@ -3,7 +3,7 @@ package com.gdx.jigsawgenius;
 import com.badlogic.gdx.ApplicationAdapter;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.OrthographicCamera;
-import com.badlogic.gdx.graphics.g2d.PolygonSpriteBatch;
+import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.utils.ScreenUtils;
 import com.gdx.jigsawgenius.controller.GameLogicController;
 import com.gdx.jigsawgenius.model.Assets;
@@ -16,7 +16,7 @@ public class main extends ApplicationAdapter {
 	static final int WORLD_WIDTH = 10000;
 	static final int WORLD_HEIGHT = 10000;
 	Assets assets;
-	PolygonSpriteBatch batch;
+	SpriteBatch batch;
 	OrthographicCamera camera;
 
 	static GameLogicController controller;
@@ -29,14 +29,14 @@ public class main extends ApplicationAdapter {
 	public void create() {
 
 		assets = new Assets();
-		batch = new PolygonSpriteBatch();
+		batch = new SpriteBatch();
 
 		inputProcessor = new GameInputProcessor();
 		Gdx.input.setInputProcessor(inputProcessor);
 
 		camera = new OrthographicCamera(30, 30 * (Gdx.graphics.getHeight() / Gdx.graphics.getWidth()));
 		camera.position.set(camera.viewportWidth / 2f, camera.viewportHeight / 2f, 0);
-		camera.zoom = 25;
+		camera.zoom = 50;
 		camera.update();
 
 		controller = new GameLogicController();

@@ -2,7 +2,7 @@ package com.gdx.jigsawgenius.view;
 
 import java.util.List;
 
-import com.badlogic.gdx.graphics.g2d.PolygonSpriteBatch;
+import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.gdx.jigsawgenius.model.Assets;
 import com.gdx.jigsawgenius.model.Tile;
 import com.gdx.jigsawgenius.model.TileManager;
@@ -30,14 +30,16 @@ public class AdjacentTileDrawer {
     TileDrawer drawer;
     Tile tile;
     List<Tile> adjacentTiles;
+    TileManager manager;
 
     public AdjacentTileDrawer(Tile tile, TileManager manager) {
         this.tile = tile;
         this.adjacentTiles = manager.getAdjacentTiles(tile.getX(), tile.getY());
+        this.manager = manager;
         drawer = new TileDrawer();
     }
 
-    public void drawAdjacentTiles(Assets assets, PolygonSpriteBatch batch, float x, float y) {
+    public void drawAdjacentTiles(Assets assets, SpriteBatch batch, float x, float y) {
         for (int i = 0; i < adjacentTiles.size(); i++) {
             int tempx = this.adjacentTiles.get(i).getX() - this.tile.getX();
             int tempy = this.adjacentTiles.get(i).getY() - this.tile.getY();
@@ -59,6 +61,7 @@ public class AdjacentTileDrawer {
         }
 
         drawer.drawTile(assets, tile, batch, x, y);
+        this.adjacentTiles = this.manager.getAdjacentTiles(tile.getX(), tile.getY());
     }
 
     // public static void main(String[] args) {

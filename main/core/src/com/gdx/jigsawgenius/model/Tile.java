@@ -42,7 +42,7 @@ public class Tile {
     public Tile() {
         List<Biome> list = new ArrayList<Biome>();
         for (int i = 0; i < Config.SIDESCOUNT; i++) {
-            list.add(new Biome(0));
+            list.add(new Biome(2));
         }
         this.sides = list;
     }
