@@ -43,23 +43,9 @@ public class GameInputProcessor implements InputProcessor {
         float worldX = worldCoordinates.x;
         float worldY = worldCoordinates.y;
 
-        int actualX = x - origin;
-        int actualY = y - origin;
-
-        int relativeX;
-        int relativeY;
-
         System.out.println("clicked at: " + worldX + ", " + worldY);
-        System.out.println(origin);
 
-        // If click is inside origin piece
-        if (-originTileXOffset < x && x < originTileXOffset && -originTileYOffset < y && y < originTileYOffset) {
-            relativeX = 0;
-            relativeY = 0;
-            System.out.println("Can't click in origin tile");
-        }
-
-        // main.placeTile(relativeX, relativeY);
+        main.placeTile(2, 0);
         return true;
 
     }

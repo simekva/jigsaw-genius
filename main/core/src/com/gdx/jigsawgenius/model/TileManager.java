@@ -263,8 +263,8 @@ public class TileManager {
         }
 
         try {
-            tile.setX(x);
-            tile.setY(y);
+            tile.setX(x * Assets.pieceHeight * 2);
+            tile.setY(y * Assets.pieceHeight * 2);
             board[x + lowestx][y + lowesty] = tile;
             System.out.println("Placed tile in position: " + (x + lowestx)
                     + ", " + (y + lowesty));

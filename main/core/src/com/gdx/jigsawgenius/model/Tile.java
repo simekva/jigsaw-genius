@@ -4,16 +4,14 @@ import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
 
-import com.badlogic.gdx.utils.Null;
-
 public class Tile {
     /**
      * A tile is represented as a linked list with Side objects.
      */
     private List<Biome> sides = new LinkedList<Biome>();
 
-    private int x;
-    private int y;
+    private float x;
+    private float y;
 
     /**
      * Creates a tile object with a given list of tiles.
@@ -42,9 +40,11 @@ public class Tile {
     public Tile() {
         List<Biome> list = new ArrayList<Biome>();
         for (int i = 0; i < Config.SIDESCOUNT; i++) {
-            list.add(new Biome(2));
+            list.add(new Biome(0));
         }
         this.sides = list;
+        this.x = 0;
+        this.y = 0;
     }
 
     /**
@@ -56,19 +56,19 @@ public class Tile {
         return this.sides;
     }
 
-    public int getX() {
+    public float getX() {
         return this.x;
     }
 
-    public int getY() {
+    public float getY() {
         return this.y;
     }
 
-    public void setX(int n) {
+    public void setX(float n) {
         this.x = n;
     }
 
-    public void setY(int n) {
+    public void setY(float n) {
         this.y = n;
     }
 }

@@ -26,22 +26,22 @@ public class AdjacentTileDrawer {
 
     public AdjacentTileDrawer(Tile tile, TileManager manager) {
         this.tile = tile;
-        this.adjacentTiles = manager.getAdjacentTiles(tile.getX(), tile.getY());
+        // this.adjacentTiles = manager.getAdjacentTiles(tile.getX(), tile.getY());
         this.manager = manager;
         drawer = new TileDrawer();
     }
 
     public void drawAdjacentTiles(Assets assets, SpriteBatch batch, float x, float y) {
         for (int i = 0; i < adjacentTiles.size(); i++) {
-            int tempx = this.adjacentTiles.get(i).getX() - this.tile.getX();
-            int tempy = this.adjacentTiles.get(i).getY() - this.tile.getY();
+            // int tempx = this.adjacentTiles.get(i).getX() - this.tile.getX();
+            // int tempy = this.adjacentTiles.get(i).getY() - this.tile.getY();
 
             double positionX = 0;
             double positionY = 0;
 
             for (int j = 0; j < tileOffset.length; j++) {
                 int[] list = new int[] {
-                        tempx, tempy
+                        // tempx, tempy
                 };
                 if (tileOffset[j][0] == list[0] && tileOffset[j][1] == list[1]) {
                     // positionX = positionOffset[j][0] * assets.getTileWidth();
@@ -60,7 +60,7 @@ public class AdjacentTileDrawer {
         }
 
         drawer.drawTile(assets, tile, batch, x, y);
-        this.adjacentTiles = this.manager.getAdjacentTiles(tile.getX(), tile.getY());
+        // this.adjacentTiles = this.manager.getAdjacentTiles(tile.getX(), tile.getY());
     }
 
     // public static void main(String[] args) {
