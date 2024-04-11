@@ -2,28 +2,36 @@ package com.gdx.jigsawgenius;
 
 import com.badlogic.gdx.ApplicationAdapter;
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.graphics.Camera;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+
 import com.badlogic.gdx.utils.ScreenUtils;
+import com.gdx.jigsawgenius.controller.GameInputProcessor;
 import com.gdx.jigsawgenius.controller.GameLogicController;
 import com.gdx.jigsawgenius.model.Assets;
-import com.gdx.jigsawgenius.model.GameInputProcessor;
+import com.gdx.jigsawgenius.model.Biome;
+import com.gdx.jigsawgenius.model.Tile;
 import com.gdx.jigsawgenius.view.AdjacentTileDrawer;
+import com.gdx.jigsawgenius.view.BiomeDrawer;
 import com.gdx.jigsawgenius.view.TileDrawer;
 
 public class main extends ApplicationAdapter {
 
-	static final int WORLD_WIDTH = 10000;
-	static final int WORLD_HEIGHT = 10000;
 	Assets assets;
 	SpriteBatch batch;
 	OrthographicCamera camera;
 
 	static GameLogicController controller;
 	AdjacentTileDrawer drawer;
-	TileDrawer tileDrawer;
 
 	GameInputProcessor inputProcessor;
+
+	// TESTING
+	Biome biome;
+	BiomeDrawer biomeDrawer;
+	Tile tile;
+	TileDrawer tileDrawer;
 
 	@Override
 	public void create() {
@@ -31,17 +39,25 @@ public class main extends ApplicationAdapter {
 		assets = new Assets();
 		batch = new SpriteBatch();
 
-		inputProcessor = new GameInputProcessor();
+		inputProcessor = new GameInputProcessor(this);
 		Gdx.input.setInputProcessor(inputProcessor);
 
 		camera = new OrthographicCamera(30, 30 * (Gdx.graphics.getHeight() / Gdx.graphics.getWidth()));
 		camera.position.set(camera.viewportWidth / 2f, camera.viewportHeight / 2f, 0);
 		camera.zoom = 50;
+		camera.position.set(Assets.WORLD_SIZE / 2, Assets.WORLD_SIZE / 2, 0);
 		camera.update();
 
 		controller = new GameLogicController();
 		drawer = new AdjacentTileDrawer(controller.getBoard().getTile(0, 0), controller.getBoard());
 		System.out.println(camera.position.x);
+
+		// TESTING
+		biome = new Biome(0);
+		biomeDrawer = new BiomeDrawer();
+		tile = new Tile();
+		tileDrawer = new TileDrawer();
+
 	}
 
 	@Override
@@ -52,7 +68,11 @@ public class main extends ApplicationAdapter {
 		batch.setProjectionMatrix(camera.combined);
 		ScreenUtils.clear(1, 0, 0, 1);
 		batch.begin();
-		drawer.drawAdjacentTiles(assets, batch, 0, 0);
+		// drawer.drawAdjacentTiles(assets, batch, Assets.WORLD_SIZE / 2,
+		// Assets.WORLD_SIZE / 2);
+
+		// biomeDrawer.drawBiome(assets, biome, batch, 500, 500, 0);
+		tileDrawer.drawTile(assets, tile, batch, 500, 500);
 		batch.end();
 		assets.manager.update();
 	}
@@ -103,8 +123,12 @@ public class main extends ApplicationAdapter {
 	public void pause() {
 	}
 
-	public static void placeTile(int x, int y) {
+	public void placeTile(int x, int y) {
 		controller.placeTile(x, y);
+	}
+
+	public Camera getCamera() {
+		return this.camera;
 	}
 
 }

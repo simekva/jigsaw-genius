@@ -47,11 +47,11 @@ public class AdjacentTileDrawer {
                     // positionX = positionOffset[j][0] * assets.getTileWidth();
                     // positionY = positionOffset[j][1] * assets.getTileHeight();
                     if (tileOffset[j][0] % 2 == 0) {
-                        positionX = tileOffset[j][0] * assets.getPieceWidth();
-                        positionY = tileOffset[j][1] * assets.getPieceHeight();
+                        positionX = tileOffset[j][0] * Assets.pieceWidth;
+                        positionY = tileOffset[j][1] * Assets.pieceHeight;
                     } else {
-                        positionX = tileOffset[j][0] * assets.getPieceHeight() * MathUtils.cosDeg(60) * 2;
-                        positionY = tileOffset[j][1] * assets.getPieceHeight() * MathUtils.sinDeg(60) * 2;
+                        positionX = tileOffset[j][0] * Assets.pieceHeight * MathUtils.cosDeg(60) * 2;
+                        positionY = tileOffset[j][1] * Assets.pieceHeight * MathUtils.sinDeg(60) * 2;
                     }
                 }
             }

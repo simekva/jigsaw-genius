@@ -13,8 +13,12 @@ public class Assets {
     public static final String FIELDURL = "field.PNG";
     public static final String FORESTURL = "forest.PNG";
     public static final String DESERTURL = "desert.PNG";
-    public float pieceHeight;
-    public float pieceWidth;
+    public static float pieceHeight;
+    public static float pieceWidth;
+    public static float tileWidth;
+    public static float tileHeight;
+
+    public static int WORLD_SIZE = 1000;
 
     public AssetManager manager;
 
@@ -28,14 +32,9 @@ public class Assets {
         Texture texture = manager.get(getAssetURL(0), Texture.class);
         pieceHeight = texture.getHeight();
         pieceWidth = texture.getWidth();
-    }
 
-    public float getPieceHeight() {
-        return this.pieceHeight;
-    }
-
-    public float getPieceWidth() {
-        return this.pieceWidth;
+        tileWidth = 2 * pieceHeight;
+        tileHeight = 2 * pieceWidth;
     }
 
     public static String getAssetURL(int n) {

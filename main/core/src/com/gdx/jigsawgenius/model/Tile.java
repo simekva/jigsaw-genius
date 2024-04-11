@@ -71,22 +71,4 @@ public class Tile {
     public void setY(int n) {
         this.y = n;
     }
-
-    /**
-     * toString for the tile.
-     *
-     * @return string-representation of the tile.
-     */
-    public String toString() {
-        String returnString = "";
-        for (int i = 0; i < Config.SIDESCOUNT; i++) {
-            returnString += Config.legalTerrainTypes[this.getSides()
-                    .get(i).getBiomeID()];
-            // returnString += this.getSides().get(i).getTerrainType();
-            if (i != Config.SIDESCOUNT - 1) {
-                returnString += ", ";
-            }
-        }
-        return returnString;
-    }
 }

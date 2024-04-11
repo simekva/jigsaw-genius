@@ -5,7 +5,6 @@ import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.gdx.jigsawgenius.model.Assets;
 import com.gdx.jigsawgenius.model.Biome;
-import com.gdx.jigsawgenius.model.Config;
 
 public class BiomeDrawer {
 
@@ -17,9 +16,16 @@ public class BiomeDrawer {
 
         Texture texture = assets.manager.get(Assets.getAssetURL(biome.getBiomeID()), Texture.class);
         Sprite sprite = new Sprite(texture);
+
+        // Set rotation angle
         sprite.setRotation(rotationAngle);
-        sprite.setPosition(x, y);
-        sprite.setSize((float) Config.TILE_WIDTH, (float) Config.TILE_HEIGHT);
+
+        // Set position
+        sprite.setPosition(x - Assets.pieceWidth / 2, y - Assets.pieceHeight);
+
+        sprite.setOrigin(0, 0);
+
+        // Draw the sprite
         sprite.draw(batch);
 
         // batch.draw(texture, x, y, width / 2, height / 2, width, height, 1, 1,

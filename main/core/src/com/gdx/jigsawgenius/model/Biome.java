@@ -13,7 +13,7 @@ public class Biome {
      * @param number number
      */
     public Biome(final int number) {
-        if (number <= Config.legalTerrainTypes.length) {
+        if (number <= Assets.getNumberOfAssets()) {
             this.id = number;
         } else {
             throw new IllegalArgumentException(
