@@ -83,4 +83,12 @@ public class Tile {
         this.y = n;
     }
 
+    public int getX() {
+        return this.x;
+    }
+
+    public int getY() {
+        return this.y;
+    }
+
 }

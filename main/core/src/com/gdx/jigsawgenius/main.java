@@ -63,7 +63,7 @@ public class main extends ApplicationAdapter {
 			handleCamera();
 			camera.update();
 			batch.setProjectionMatrix(camera.combined);
-			ScreenUtils.clear(1, 0, 0, 1);
+			ScreenUtils.clear(255, 5, 5, 1);
 			batch.begin();
 
 			boardDrawer.drawBoard(controller.getBoard(), assets, batch, 500, 500);

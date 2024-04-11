@@ -55,9 +55,7 @@ public class Assets {
                     initializedStrings.add((String) field.get(clazz));
                 }
             }
-        } catch (IllegalAccessException e) {
-            e.printStackTrace();
-            // Handle exception as per your requirement
+        } catch (Exception e) {
         }
         return initializedStrings;
     }
