@@ -33,6 +33,8 @@ public class main extends ApplicationAdapter {
 */
 
 import com.badlogic.gdx.Game;
+import com.gdx.jigsawgenius.menu.Assets;
+import com.gdx.jigsawgenius.menu.MainMenuScreen;
 
 public class main extends Game {
 

@@ -1,4 +1,4 @@
-package com.gdx.jigsawgenius;
+package com.gdx.jigsawgenius.menu;
 
 import com.badlogic.gdx.Game;
 import com.badlogic.gdx.Gdx;
