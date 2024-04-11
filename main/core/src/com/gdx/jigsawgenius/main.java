@@ -54,16 +54,7 @@ public class main extends ApplicationAdapter {
 		camera.update();
 
 		controller = new GameLogicController();
-		drawer = new AdjacentTileDrawer(controller.getBoard().getTile(0, 0), controller.getBoard());
-		System.out.println(camera.position.x);
-
-		// TESTING
-		biome = new Biome(0);
-		biomeDrawer = new BiomeDrawer();
-		tile = new Tile();
-		tileDrawer = new TileDrawer();
 		boardDrawer = new BoardDrawer();
-		emptyTileDrawer = new EmptyTileDrawer();
 	}
 
 	@Override
@@ -74,14 +65,9 @@ public class main extends ApplicationAdapter {
 			batch.setProjectionMatrix(camera.combined);
 			ScreenUtils.clear(1, 0, 0, 1);
 			batch.begin();
-			// drawer.drawAdjacentTiles(assets, batch, Assets.WORLD_SIZE / 2,
-			// Assets.WORLD_SIZE / 2);
 
-			// biomeDrawer.drawBiome(assets, biome, batch, 500, 500, 30);
-			// tileDrawer.drawTile(assets, tile, batch, 500, 500);
-			// tileDrawer.drawTile(assets, tile, batch, 500 + Assets.pieceHeight * 2, 500);
 			boardDrawer.drawBoard(controller.getBoard(), assets, batch, 500, 500);
-			// emptyTileDrawer.drawTile(assets, batch, 800, 500);
+
 			batch.end();
 		}
 	}
