@@ -13,15 +13,29 @@ public class Assets {
     public static final String FIELDURL = "field.PNG";
     public static final String FORESTURL = "forest.PNG";
     public static final String DESERTURL = "desert.PNG";
+    public float pieceHeight;
+    public float pieceWidth;
 
     public AssetManager manager;
 
     public Assets() {
         manager = new AssetManager();
 
-        for (int i = 0; i < Assets.getNumberOfAssets(); i++) {
-            manager.load(Assets.getAssetsURLs().get(i), Texture.class);
+        for (String url : getAssetsURLs()) {
+            manager.load(url, Texture.class);
         }
+        manager.finishLoading();
+        Texture texture = manager.get(getAssetURL(0), Texture.class);
+        pieceHeight = texture.getHeight();
+        pieceWidth = texture.getWidth();
+    }
+
+    public float getPieceHeight() {
+        return this.pieceHeight;
+    }
+
+    public float getPieceWidth() {
+        return this.pieceWidth;
     }
 
     public static String getAssetURL(int n) {

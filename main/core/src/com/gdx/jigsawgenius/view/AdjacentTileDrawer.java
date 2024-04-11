@@ -3,6 +3,7 @@ package com.gdx.jigsawgenius.view;
 import java.util.List;
 
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.badlogic.gdx.math.MathUtils;
 import com.gdx.jigsawgenius.model.Assets;
 import com.gdx.jigsawgenius.model.Tile;
 import com.gdx.jigsawgenius.model.TileManager;
@@ -16,15 +17,6 @@ public class AdjacentTileDrawer {
             { -1, -1 },
             { -2, 0 },
             { -1, 1 }
-    };
-
-    double[][] positionOffset = new double[][] {
-            { 172.5, 300.0 },
-            { 345, 0 },
-            { 172.5, -300 },
-            { -172.5, -300 },
-            { -345, 0 },
-            { -172.5, 300 }
     };
 
     TileDrawer drawer;
@@ -47,13 +39,20 @@ public class AdjacentTileDrawer {
             double positionX = 0;
             double positionY = 0;
 
-            for (int j = 0; j < positionOffset.length; j++) {
+            for (int j = 0; j < tileOffset.length; j++) {
                 int[] list = new int[] {
                         tempx, tempy
                 };
                 if (tileOffset[j][0] == list[0] && tileOffset[j][1] == list[1]) {
-                    positionX = positionOffset[j][0];
-                    positionY = positionOffset[j][1];
+                    // positionX = positionOffset[j][0] * assets.getTileWidth();
+                    // positionY = positionOffset[j][1] * assets.getTileHeight();
+                    if (tileOffset[j][0] % 2 == 0) {
+                        positionX = tileOffset[j][0] * assets.getPieceWidth();
+                        positionY = tileOffset[j][1] * assets.getPieceHeight();
+                    } else {
+                        positionX = tileOffset[j][0] * assets.getPieceHeight() * MathUtils.cosDeg(60) * 2;
+                        positionY = tileOffset[j][1] * assets.getPieceHeight() * MathUtils.sinDeg(60) * 2;
+                    }
                 }
             }
             drawer.drawTile(assets, adjacentTiles.get(i), batch, (float) positionX + x,

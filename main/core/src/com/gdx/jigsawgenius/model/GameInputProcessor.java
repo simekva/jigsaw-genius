@@ -22,7 +22,7 @@ public class GameInputProcessor implements InputProcessor {
 
     @Override
     public boolean touchDown(int x, int y, int pointer, int button) {
-        main.placeTile(2, 0);
+        main.placeTile(-1, 1);
         return true;
     }
 
