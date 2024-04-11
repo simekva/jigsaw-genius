@@ -13,7 +13,7 @@ public class Biome {
      * @param number number
      */
     public Biome(final int number) {
-        if (number <= Assets.getNumberOfAssets()) {
+        if (number <= Assets.getNumberOfAssets() - 1) {
             this.id = number;
         } else {
             throw new IllegalArgumentException(

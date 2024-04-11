@@ -314,7 +314,14 @@ public class TileManager {
         Random random = new Random();
 
         for (int i = 0; i < Config.SIDESCOUNT; i++) {
-            list.add(new Biome(random.nextInt(Assets.getNumberOfAssets())));
+            Biome biome = new Biome(random.nextInt(Assets.getNumberOfAssets() - 1));
+
+            if (biome.getBiomeID() != Assets.getNumberOfAssets() - 1) {
+                list.add(biome);
+            } else {
+                i -= 1;
+            }
+
         }
         Tile tile = new Tile(list);
         System.out.println(tile.toString());

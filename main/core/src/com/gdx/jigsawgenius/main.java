@@ -7,15 +7,10 @@ import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 
 import com.badlogic.gdx.utils.ScreenUtils;
+import com.gdx.jigsawgenius.controller.DrawerController;
 import com.gdx.jigsawgenius.controller.GameInputController;
 import com.gdx.jigsawgenius.controller.GameLogicController;
 import com.gdx.jigsawgenius.model.Assets;
-import com.gdx.jigsawgenius.model.Biome;
-import com.gdx.jigsawgenius.model.Tile;
-import com.gdx.jigsawgenius.view.AdjacentTileDrawer;
-import com.gdx.jigsawgenius.view.BiomeDrawer;
-import com.gdx.jigsawgenius.view.BoardDrawer;
-import com.gdx.jigsawgenius.view.TileDrawer;
 
 public class main extends ApplicationAdapter {
 
@@ -24,16 +19,10 @@ public class main extends ApplicationAdapter {
 	OrthographicCamera camera;
 
 	static GameLogicController controller;
-	AdjacentTileDrawer drawer;
 
 	GameInputController inputProcessor;
 
-	// TESTING
-	Biome biome;
-	BiomeDrawer biomeDrawer;
-	Tile tile;
-	TileDrawer tileDrawer;
-	BoardDrawer boardDrawer;
+	DrawerController boardDrawer;
 
 	@Override
 	public void create() {
@@ -51,7 +40,8 @@ public class main extends ApplicationAdapter {
 		camera.update();
 
 		controller = new GameLogicController();
-		boardDrawer = new BoardDrawer();
+		boardDrawer = new DrawerController();
+
 	}
 
 	@Override
@@ -64,7 +54,6 @@ public class main extends ApplicationAdapter {
 			batch.begin();
 
 			boardDrawer.drawBoard(controller.getBoard(), assets, batch, 500, 500);
-
 			batch.end();
 		}
 	}
