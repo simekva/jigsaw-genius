@@ -54,7 +54,7 @@ public class Player {
         this.setTopTile(new Tile(tempSides));
     }
 
-    private Tile getTopTile() {
+    public Tile getTopTile() {
         return hand.get(hand.size() - 1);
     }
 
@@ -83,10 +83,14 @@ public class Player {
      *
      * @return the removed tile from the top of the hand.
      */
-    public Tile popTile() {
-        Tile removedTile = this.hand.get(this.getTilesLeft() - 1);
+    // public Tile popTile() {
+    // Tile removedTile = this.hand.get(this.getTilesLeft() - 1);
+    // this.hand.remove(this.getTilesLeft() - 1);
+    // return removedTile;
+    // }
+
+    public void removeTopTile() {
         this.hand.remove(this.getTilesLeft() - 1);
-        return removedTile;
     }
 
     /**

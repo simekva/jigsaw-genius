@@ -51,8 +51,10 @@ public class GameLogicController {
      * @param y
      */
     public void placeTile(final int x, final int y) {
-        if (turn == 1) {
-            board.placeTile(player1.popTile(), x, y);
+        boolean placed = false;
+        if (turn == 1 && !placed) {
+            board.placeTile(player1.getTopTile(), x, y);
+            player1.removeTopTile();
             turn = 2;
             player1.increaseScore(board.numberOfMatches(x, y)
                     * Config.POINTMULTIPLIER);
@@ -61,8 +63,10 @@ public class GameLogicController {
                     + board.numberOfMatches(x, y)
                             * Config.POINTMULTIPLIER
                     + " points.");
-        } else if (turn == 2) {
-            board.placeTile(player2.popTile(), x, y);
+            placed = true;
+        } else if (turn == 2 && !placed) {
+            board.placeTile(player2.getTopTile(), x, y);
+            player2.removeTopTile();
             turn = 1;
             System.out.println("Player 2 placed tile on: " + x + ", " + y
                     + ", and scored"
@@ -71,7 +75,10 @@ public class GameLogicController {
                     + " points.");
             player2.increaseScore(board.numberOfMatches(x, y)
                     * Config.POINTMULTIPLIER);
+            placed = true;
         }
+        System.out.println(player1.getTilesLeft());
+        System.out.println(player2.getTilesLeft());
     }
 
     /**
@@ -97,7 +104,8 @@ public class GameLogicController {
         controller.placeTile(-1, 1);
         controller.placeTile(-2, 2);
         controller.placeTile(-3, 3);
-        System.out.println(controller.getBoard().getTile(-3, 3).getXCoord());
+        System.out.println(controller.player1.getTilesLeft());
+        System.out.println(controller.player2.getTilesLeft());
         System.out.println("test");
     }
 }

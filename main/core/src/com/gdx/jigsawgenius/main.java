@@ -67,7 +67,6 @@ public class main extends ApplicationAdapter {
 
 			batch.end();
 		}
-		System.out.println(assets.manager.getProgress());
 	}
 
 	@Override

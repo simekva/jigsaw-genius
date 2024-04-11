@@ -28,44 +28,68 @@ public class GameInputController implements InputProcessor {
         return false;
     }
 
-    @Override
-    public boolean touchDown(int x, int y, int pointer, int button) {
+    // @Override
+    // public boolean touchDown(int x, int y, int pointer, int button) {
 
-        Vector3 worldCoordinates = new Vector3(x, y, 0);
+    // Vector3 worldCoordinates = new Vector3(x, y, 0);
+    // Camera camera = main.getCamera();
+    // camera.unproject(worldCoordinates);
+
+    // float worldX = worldCoordinates.x - Assets.WORLD_SIZE / 2; // 0 is middle of
+    // origin
+    // float worldY = worldCoordinates.y - Assets.WORLD_SIZE / 2; // 0 is middle of
+    // origin
+
+    // int tileX = 0;
+    // int tileY = 0;
+
+    // if (worldX >= 0) {
+    // tileX = (int) (worldX / Assets.pieceHeight) + 1;
+    // }
+    // if (worldX < 0) {
+    // tileX = (int) (worldX / Assets.pieceHeight) - 1;
+    // }
+    // if (worldY >= 0) {
+    // tileY = (int) (worldY / Assets.pieceWidth + 1);
+    // }
+    // if (worldY < 0) {
+    // tileY = (int) (worldY / Assets.pieceWidth - 1);
+    // }
+    // if (worldY < Assets.pieceWidth / 2 && worldY > 0) {
+    // tileY = 0;
+    // }
+    // if (-worldY < Assets.pieceWidth / 2 && -worldY > 0) {
+    // tileY = 0;
+    // }
+    // System.out.println(tileX + ", " + tileY);
+    // try {
+    // main.placeTile(tileX, tileY);
+    // } catch (Exception e) {
+    // }
+    // return true;
+
+    // }
+
+    @Override
+    public boolean touchDown(int screenX, int screenY, int pointer, int button) {
+
+        Vector3 worldCoordinates = new Vector3(screenX, screenY, 0);
         Camera camera = main.getCamera();
         camera.unproject(worldCoordinates);
 
-        float worldX = worldCoordinates.x - Assets.WORLD_SIZE / 2; // 0 is middle of origin
-        float worldY = worldCoordinates.y - Assets.WORLD_SIZE / 2; // 0 is middle of origin
+        float worldX = worldCoordinates.x - Assets.WORLD_SIZE / 2; // 0 is middle of
+        float worldY = worldCoordinates.y - Assets.WORLD_SIZE / 2; // 0 is middle of
 
-        int tileX = 0;
-        int tileY = 0;
+        System.out.println("Clicked on: " + worldX + ", " + worldY);
 
-        if (worldX >= 0) {
-            tileX = (int) (worldX / Assets.pieceHeight) + 1;
-        }
-        if (worldX < 0) {
-            tileX = (int) (worldX / Assets.pieceHeight) - 1;
-        }
-        if (worldY >= 0) {
-            tileY = (int) (worldY / Assets.pieceWidth + 1);
-        }
-        if (worldY < 0) {
-            tileY = (int) (worldY / Assets.pieceWidth - 1);
-        }
-        if (worldY < Assets.pieceWidth / 2 && worldY > 0) {
-            tileY = 0;
-        }
-        if (-worldY < Assets.pieceWidth / 2 && -worldY > 0) {
-            tileY = 0;
-        }
-        System.out.println(tileX + ", " + tileY);
         try {
-            main.placeTile(tileX, tileY);
+            main.placeTile(this.convertToWorldCoords(worldX, worldY)[0],
+                    this.convertToWorldCoords(worldX, worldY)[1]);
         } catch (Exception e) {
+            System.out.println(e);
+            return false;
         }
         return true;
-
     }
 
     @Override
@@ -91,6 +115,12 @@ public class GameInputController implements InputProcessor {
     @Override
     public boolean scrolled(float amountX, float amountY) {
         return false;
+    }
+
+    private int[] convertToWorldCoords(float worldX, float worldY) {
+        return new int[] {
+                (int) (worldX / 172.5), (int) (worldY / 300)
+        };
     }
 
 }
