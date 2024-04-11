@@ -7,7 +7,7 @@ import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 
 import com.badlogic.gdx.utils.ScreenUtils;
-import com.gdx.jigsawgenius.controller.GameInputProcessor;
+import com.gdx.jigsawgenius.controller.GameInputController;
 import com.gdx.jigsawgenius.controller.GameLogicController;
 import com.gdx.jigsawgenius.model.Assets;
 import com.gdx.jigsawgenius.model.Biome;
@@ -15,7 +15,6 @@ import com.gdx.jigsawgenius.model.Tile;
 import com.gdx.jigsawgenius.view.AdjacentTileDrawer;
 import com.gdx.jigsawgenius.view.BiomeDrawer;
 import com.gdx.jigsawgenius.view.BoardDrawer;
-import com.gdx.jigsawgenius.view.EmptyTileDrawer;
 import com.gdx.jigsawgenius.view.TileDrawer;
 
 public class main extends ApplicationAdapter {
@@ -27,7 +26,7 @@ public class main extends ApplicationAdapter {
 	static GameLogicController controller;
 	AdjacentTileDrawer drawer;
 
-	GameInputProcessor inputProcessor;
+	GameInputController inputProcessor;
 
 	// TESTING
 	Biome biome;
@@ -36,15 +35,13 @@ public class main extends ApplicationAdapter {
 	TileDrawer tileDrawer;
 	BoardDrawer boardDrawer;
 
-	EmptyTileDrawer emptyTileDrawer;
-
 	@Override
 	public void create() {
 
 		assets = new Assets();
 		batch = new SpriteBatch();
 
-		inputProcessor = new GameInputProcessor(this);
+		inputProcessor = new GameInputController(this);
 		Gdx.input.setInputProcessor(inputProcessor);
 
 		camera = new OrthographicCamera(30, 30 * (Gdx.graphics.getHeight() / Gdx.graphics.getWidth()));

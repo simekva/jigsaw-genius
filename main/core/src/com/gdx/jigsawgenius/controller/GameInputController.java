@@ -5,7 +5,7 @@ import com.badlogic.gdx.graphics.Camera;
 import com.badlogic.gdx.math.Vector3;
 import com.gdx.jigsawgenius.model.Assets;
 
-public class GameInputProcessor implements InputProcessor {
+public class GameInputController implements InputProcessor {
 
     private int origin = Assets.WORLD_SIZE / 2;
 
@@ -14,7 +14,7 @@ public class GameInputProcessor implements InputProcessor {
 
     private com.gdx.jigsawgenius.main main;
 
-    public GameInputProcessor(com.gdx.jigsawgenius.main main) {
+    public GameInputController(com.gdx.jigsawgenius.main main) {
         this.main = main;
     }
 
@@ -40,32 +40,33 @@ public class GameInputProcessor implements InputProcessor {
         Camera camera = main.getCamera();
         camera.unproject(worldCoordinates);
 
-        float worldX = worldCoordinates.x - Assets.WORLD_SIZE / 2;
-        float worldY = worldCoordinates.y - Assets.WORLD_SIZE / 2;
+        float worldX = worldCoordinates.x - Assets.WORLD_SIZE / 2; // 0 is middle of origin
+        float worldY = worldCoordinates.y - Assets.WORLD_SIZE / 2; // 0 is middle of origin
 
-        float relativeX = worldX;
-        float relativeY = worldY;
+        int tileX = 0;
+        int tileY = 0;
 
-        // Calculate the approximate tile coordinates
-        float tileX = relativeX / originTileXOffset;
-        float tileY = relativeY / originTileYOffset;
-
-        // Adjust the tile coordinates for the hexagonal grid
-        tileY = Math.round(tileY); // Round to nearest integer
-        tileX = Math.round(tileX); // Adjust for hexagonal grid
-
-        // Convert to integer tile coordinates
-        int tileXInt = (int) tileX;
-        int tileYInt = (int) tileY;
-
-        System.out.println(tileXInt + ", " + tileYInt);
-
-        // double tileX = (worldX / Assets.pieceHeight * 2);
-        // double tileY = (worldY / Assets.pieceWidth);
-
-        System.out.println("clicked at: " + worldX + ", " + worldY);
+        if (worldX >= 0) {
+            tileX = (int) (worldX / Assets.pieceHeight) + 1;
+        }
+        if (worldX < 0) {
+            tileX = (int) (worldX / Assets.pieceHeight) - 1;
+        }
+        if (worldY >= 0) {
+            tileY = (int) (worldY / Assets.pieceWidth + 1);
+        }
+        if (worldY < 0) {
+            tileY = (int) (worldY / Assets.pieceWidth - 1);
+        }
+        if (worldY < Assets.pieceWidth / 2 && worldY > 0) {
+            tileY = 0;
+        }
+        if (-worldY < Assets.pieceWidth / 2 && -worldY > 0) {
+            tileY = 0;
+        }
+        System.out.println(tileX + ", " + tileY);
         try {
-            main.placeTile(tileXInt, tileYInt);
+            main.placeTile(tileX, tileY);
         } catch (Exception e) {
         }
         return true;
