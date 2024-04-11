@@ -7,11 +7,6 @@ import com.gdx.jigsawgenius.model.Assets;
 
 public class GameInputController implements InputProcessor {
 
-    private int origin = Assets.WORLD_SIZE / 2;
-
-    private float originTileXOffset = Assets.pieceHeight;
-    private float originTileYOffset = Assets.pieceWidth;
-
     private com.gdx.jigsawgenius.main main;
 
     public GameInputController(com.gdx.jigsawgenius.main main) {
