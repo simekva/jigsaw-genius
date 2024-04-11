@@ -212,6 +212,10 @@ public class TileManager {
                     "Can't place tile on non-empty space.");
         }
 
+        if (((x + y) % 2) != 0) {
+            throw new IllegalArgumentException("Illegal tile placement.");
+        }
+
         boolean isExtended = false;
         // Extends in negative x and y
         if (x < (-lowestx) && y < (-lowesty)

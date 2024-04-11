@@ -15,6 +15,7 @@ import com.gdx.jigsawgenius.model.Tile;
 import com.gdx.jigsawgenius.view.AdjacentTileDrawer;
 import com.gdx.jigsawgenius.view.BiomeDrawer;
 import com.gdx.jigsawgenius.view.BoardDrawer;
+import com.gdx.jigsawgenius.view.EmptyTileDrawer;
 import com.gdx.jigsawgenius.view.TileDrawer;
 
 public class main extends ApplicationAdapter {
@@ -34,6 +35,8 @@ public class main extends ApplicationAdapter {
 	Tile tile;
 	TileDrawer tileDrawer;
 	BoardDrawer boardDrawer;
+
+	EmptyTileDrawer emptyTileDrawer;
 
 	@Override
 	public void create() {
@@ -60,6 +63,7 @@ public class main extends ApplicationAdapter {
 		tile = new Tile();
 		tileDrawer = new TileDrawer();
 		boardDrawer = new BoardDrawer();
+		emptyTileDrawer = new EmptyTileDrawer();
 	}
 
 	@Override
@@ -77,6 +81,7 @@ public class main extends ApplicationAdapter {
 			// tileDrawer.drawTile(assets, tile, batch, 500, 500);
 			// tileDrawer.drawTile(assets, tile, batch, 500 + Assets.pieceHeight * 2, 500);
 			boardDrawer.drawBoard(controller.getBoard(), assets, batch, 500, 500);
+			// emptyTileDrawer.drawTile(assets, batch, 800, 500);
 			batch.end();
 		}
 	}

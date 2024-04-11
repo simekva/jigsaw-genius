@@ -40,10 +40,34 @@ public class GameInputProcessor implements InputProcessor {
         Camera camera = main.getCamera();
         camera.unproject(worldCoordinates);
 
-        float worldX = worldCoordinates.x;
-        float worldY = worldCoordinates.y;
+        float worldX = worldCoordinates.x - Assets.WORLD_SIZE / 2;
+        float worldY = worldCoordinates.y - Assets.WORLD_SIZE / 2;
+
+        float relativeX = worldX;
+        float relativeY = worldY;
+
+        // Calculate the approximate tile coordinates
+        float tileX = relativeX / originTileXOffset;
+        float tileY = relativeY / originTileYOffset;
+
+        // Adjust the tile coordinates for the hexagonal grid
+        tileY = Math.round(tileY); // Round to nearest integer
+        tileX = Math.round(tileX); // Adjust for hexagonal grid
+
+        // Convert to integer tile coordinates
+        int tileXInt = (int) tileX;
+        int tileYInt = (int) tileY;
+
+        System.out.println(tileXInt + ", " + tileYInt);
+
+        // double tileX = (worldX / Assets.pieceHeight * 2);
+        // double tileY = (worldY / Assets.pieceWidth);
 
         System.out.println("clicked at: " + worldX + ", " + worldY);
+        try {
+            main.placeTile(tileXInt, tileYInt);
+        } catch (Exception e) {
+        }
         return true;
 
     }
