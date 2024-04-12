@@ -25,6 +25,8 @@ public class BiomeDrawer {
 
         sprite.setOrigin(Assets.pieceWidth / 2, Assets.pieceHeight);
 
+        sprite.setSize(Assets.pieceWidth, Assets.pieceHeight);
+
         // Draw the sprite
         sprite.draw(batch);
 

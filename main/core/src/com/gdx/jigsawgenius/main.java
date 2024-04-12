@@ -22,7 +22,7 @@ public class main extends ApplicationAdapter {
 
 	GameInputController inputProcessor;
 
-	DrawerController boardDrawer;
+	DrawerController drawerController;
 
 	@Override
 	public void create() {
@@ -40,7 +40,7 @@ public class main extends ApplicationAdapter {
 		camera.update();
 
 		controller = new GameLogicController();
-		boardDrawer = new DrawerController();
+		drawerController = new DrawerController();
 
 	}
 
@@ -53,7 +53,7 @@ public class main extends ApplicationAdapter {
 			ScreenUtils.clear(255, 5, 5, 1);
 			batch.begin();
 
-			boardDrawer.drawBoard(controller.getBoard(), assets, batch, 500, 500);
+			drawerController.drawBoard(controller.getBoard(), assets, batch, 500, 500);
 			batch.end();
 		}
 	}
