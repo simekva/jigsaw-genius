@@ -10,7 +10,7 @@ public class SinglePlayerScreen extends ScreenAdapter {
 
     @Override
     public void show() {
-        backgroundTexture = new Texture("single.jpg");
+        backgroundTexture = new Texture("single.png");
     }
 
     @Override

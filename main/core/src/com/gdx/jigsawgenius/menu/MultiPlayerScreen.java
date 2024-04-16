@@ -10,7 +10,7 @@ public class MultiPlayerScreen extends ScreenAdapter {
 
     @Override
     public void show() {
-        backgroundTexture = new Texture("multi.jpg");
+        backgroundTexture = new Texture("multi.png");
     }
 
     @Override

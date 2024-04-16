@@ -31,7 +31,7 @@ public class MainMenuScreen extends ScreenAdapter {
     @Override
     public void show() {
         batch = new SpriteBatch();
-        backgroundTexture = new Texture("background.jpg");
+        backgroundTexture = new Texture("background.png");
         stage = new Stage(new StretchViewport(Gdx.graphics.getWidth(), Gdx.graphics.getHeight()));
         Gdx.input.setInputProcessor(stage);
 
