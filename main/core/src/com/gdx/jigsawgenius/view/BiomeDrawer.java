@@ -29,9 +29,5 @@ public class BiomeDrawer {
 
         // Draw the sprite
         sprite.draw(batch);
-
-        // batch.draw(texture, x, y, width / 2, height / 2, width, height, 1, 1,
-        // rotationAngle, 0, 0, texture.getWidth(),
-        // texture.getHeight(), false, false);
     }
 }

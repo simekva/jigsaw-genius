@@ -4,13 +4,14 @@ import com.badlogic.gdx.InputProcessor;
 import com.badlogic.gdx.graphics.Camera;
 import com.badlogic.gdx.math.Vector3;
 import com.gdx.jigsawgenius.model.Assets;
+import com.gdx.jigsawgenius.view.ScreenInterface;
 
 public class GameInputController implements InputProcessor {
 
-    private com.gdx.jigsawgenius.main main;
+    private ScreenInterface screen;
 
-    public GameInputController(com.gdx.jigsawgenius.main main) {
-        this.main = main;
+    public GameInputController(ScreenInterface screen) {
+        this.screen = screen;
     }
 
     @Override
@@ -74,7 +75,7 @@ public class GameInputController implements InputProcessor {
     public boolean touchDown(int screenX, int screenY, int pointer, int button) {
 
         Vector3 worldCoordinates = new Vector3(screenX, screenY, 0);
-        Camera camera = main.getCamera();
+        Camera camera = screen.getCamera();
         camera.unproject(worldCoordinates);
 
         float worldX = worldCoordinates.x - Assets.WORLD_SIZE / 2; // 0 is middle of
@@ -83,7 +84,7 @@ public class GameInputController implements InputProcessor {
         System.out.println("Clicked on: " + worldX + ", " + worldY);
 
         try {
-            main.placeTile(this.convertToWorldCoords(worldX, worldY)[0],
+            screen.placeTile(this.convertToWorldCoords(worldX, worldY)[0],
                     this.convertToWorldCoords(worldX, worldY)[1]);
         } catch (Exception e) {
             System.out.println(e);
