@@ -125,11 +125,21 @@ public class TileManager {
         return adacjentTiles;
     }
 
-    public int getLowestX() {
+    /**
+     * Returns lowest x.
+     *
+     * @return lowest x.
+     */
+    public final int getLowestX() {
         return this.lowestx;
     }
 
-    public int getLowestY() {
+    /**
+     * Returns lowest y.
+     *
+     * @return lowest y.
+     */
+    public final int getLowestY() {
         return this.lowesty;
     }
 
@@ -309,12 +319,19 @@ public class TileManager {
         }
     }
 
-    public Tile generateRandomTile() {
+    /**
+     * Generates a randomly generated tile using Java.Random to generate a
+     * list of random biomes.
+     *
+     * @return random tile.
+     */
+    public final Tile generateRandomTile() {
         List<Biome> list = new ArrayList<Biome>();
         Random random = new Random();
 
         for (int i = 0; i < Config.SIDESCOUNT; i++) {
-            Biome biome = new Biome(random.nextInt(Assets.getNumberOfAssets() - 1));
+            Biome biome = new Biome(random.nextInt(Assets
+                    .getNumberOfAssets() - 1));
 
             if (biome.getBiomeID() != Assets.getNumberOfAssets() - 1) {
                 list.add(biome);
@@ -349,7 +366,12 @@ public class TileManager {
         }
     }
 
-    public Tile[][] getAllTiles() {
+    /**
+     * Returns all tiles in the TileManager.
+     *
+     * @return all tiles.
+     */
+    public final Tile[][] getAllTiles() {
         return this.board;
     }
 }

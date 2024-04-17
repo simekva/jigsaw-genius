@@ -22,6 +22,9 @@ public class Assets {
 
     public AssetManager manager;
 
+    /**
+     * Sets up the asset manager and loads it.
+     */
     public Assets() {
         manager = new AssetManager();
 
@@ -37,10 +40,21 @@ public class Assets {
         tileHeight = 2 * pieceWidth;
     }
 
-    public static String getAssetURL(int n) {
+    /**
+     * Get specific asset.
+     *
+     * @param n
+     * @return asset
+     */
+    public static String getAssetURL(final int n) {
         return Assets.getAssetsURLs().get(n);
     }
 
+    /**
+     * Return number of assets.
+     *
+     * @return number of assets
+     */
     public static int getNumberOfAssets() {
         return Assets.getAssetsURLs().size();
     }
@@ -51,7 +65,8 @@ public class Assets {
             Class<?> clazz = Assets.class;
             java.lang.reflect.Field[] fields = clazz.getDeclaredFields();
             for (java.lang.reflect.Field field : fields) {
-                if (field.getType() == String.class && field.get(clazz) != null) {
+                if (field.getType() == String.class
+                        && field.get(clazz) != null) {
                     initializedStrings.add((String) field.get(clazz));
                 }
             }

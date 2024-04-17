@@ -8,13 +8,22 @@ import com.gdx.jigsawgenius.model.Biome;
 
 public class BiomeDrawer {
 
-    public BiomeDrawer() {
-    }
+    /**
+     * Draws a biome in specified x, y with rotation.
+     *
+     * @param assets
+     * @param biome         biome to draw.
+     * @param batch
+     * @param x             x coordinate to draw it in.
+     * @param y             y coordinate to draw it in.
+     * @param rotationAngle rotation angle in degrees.
+     */
+    public final void drawBiome(final Assets assets, final Biome biome,
+            final SpriteBatch batch, final float x, final float y,
+            final float rotationAngle) {
 
-    public void drawBiome(Assets assets, Biome biome, SpriteBatch batch, float x, float y,
-            float rotationAngle) {
-
-        Texture texture = assets.manager.get(Assets.getAssetURL(biome.getBiomeID()), Texture.class);
+        Texture texture = assets.manager.get(
+                Assets.getAssetURL(biome.getBiomeID()), Texture.class);
         Sprite sprite = new Sprite(texture);
 
         // Set rotation angle

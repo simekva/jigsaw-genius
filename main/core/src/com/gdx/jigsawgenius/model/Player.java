@@ -54,6 +54,11 @@ public class Player {
         this.setTopTile(new Tile(tempSides));
     }
 
+    /**
+     * Returns the top tile of the hand.
+     *
+     * @return top tile.
+     */
     public Tile getTopTile() {
         return hand.get(hand.size() - 1);
     }
@@ -79,16 +84,8 @@ public class Player {
     }
 
     /**
-     * Removes the top tile from the hand and returns it.
-     *
-     * @return the removed tile from the top of the hand.
+     * Removes the top tile of the hand.
      */
-    // public Tile popTile() {
-    // Tile removedTile = this.hand.get(this.getTilesLeft() - 1);
-    // this.hand.remove(this.getTilesLeft() - 1);
-    // return removedTile;
-    // }
-
     public void removeTopTile() {
         this.hand.remove(this.getTilesLeft() - 1);
     }
@@ -102,6 +99,11 @@ public class Player {
         this.score += number;
     }
 
+    /**
+     * Gets score.
+     *
+     * @return score
+     */
     public int getScore() {
         return this.score;
     }

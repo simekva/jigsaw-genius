@@ -18,7 +18,7 @@ import com.gdx.jigsawgenius.model.Assets;
 
 public class MainMenuScreen extends ScreenAdapter {
 
-    Assets assets;
+    private Assets assets;
 
     private final JigsawGenius game;
     private SpriteBatch batch;
@@ -26,7 +26,7 @@ public class MainMenuScreen extends ScreenAdapter {
     private Texture ribbonTexture;
     private Stage stage;
     private Skin skin;
-    BitmapFont font;
+    private BitmapFont font;
 
     public MainMenuScreen(JigsawGenius game) {
         this.game = game;
