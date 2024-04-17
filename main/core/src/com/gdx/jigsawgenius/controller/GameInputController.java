@@ -51,7 +51,7 @@ public class GameInputController implements InputProcessor {
             final int pointer, final int button) {
 
         Vector3 worldCoordinates = new Vector3(screenX, screenY, 0);
-        Camera camera = screen.getCamera();
+        Camera camera = screen.getCameraHandler().getCamera();
         camera.unproject(worldCoordinates);
 
         float worldX = worldCoordinates.x - Assets.WORLD_SIZE / 2;

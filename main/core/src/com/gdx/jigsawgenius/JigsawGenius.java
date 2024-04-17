@@ -16,7 +16,6 @@ public class JigsawGenius extends Game {
 	@Override
 	public void create() {
 		assets = new Assets();
-		// setScreen(new MainMenuScreen(this));
 		setScreen(new MainMenuScreen(this));
 	}
 

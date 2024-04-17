@@ -1,7 +1,5 @@
 package com.gdx.jigsawgenius.view;
 
-import com.badlogic.gdx.graphics.Camera;
-
 public interface ScreenInterface {
 
     /**
@@ -22,11 +20,6 @@ public interface ScreenInterface {
     void dispose();
 
     /**
-     * Method to handle the camera.
-     */
-    void handleCamera();
-
-    /**
      * Method to handle resizing.
      *
      * @param width
@@ -43,10 +36,9 @@ public interface ScreenInterface {
     void placeTile(int x, int y);
 
     /**
-     * Method to return the camera.
+     * Return camerahandler.
      *
-     * @return camera of the screen.
+     * @return camerahandler.
      */
-    Camera getCamera();
-
+    CameraHandler getCameraHandler();
 }
