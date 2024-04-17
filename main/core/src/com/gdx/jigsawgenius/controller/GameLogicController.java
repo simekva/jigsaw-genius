@@ -1,6 +1,10 @@
 package com.gdx.jigsawgenius.controller;
 
 import com.gdx.jigsawgenius.model.TileManager;
+
+import java.util.ArrayList;
+import java.util.List;
+
 import com.gdx.jigsawgenius.model.Assets;
 import com.gdx.jigsawgenius.model.Config;
 import com.gdx.jigsawgenius.model.Player;
@@ -16,12 +20,15 @@ public class GameLogicController {
     /**
      * Player 1 object.
      */
-    private Player player1;
+
+    private List<Player> players;
+
+    // private Player player1;
 
     /**
      * Player 2 object.
      */
-    private Player player2;
+    // private Player player2;
 
     /**
      * Number to know who'se turn it is.
@@ -32,16 +39,28 @@ public class GameLogicController {
      * Creates a board with a pure plains tile in the middle, and
      * initializes the hand.
      */
-    public GameLogicController() {
+    public GameLogicController(int numberOfPlayers) {
         board = new TileManager(1, 1);
         board.placeTile(new Tile(), 0, 0);
-        player1 = new Player();
-        player2 = new Player();
+        if (numberOfPlayers != 1 && numberOfPlayers != 2) {
+            throw new IllegalArgumentException("Couldn't create game controller with " + numberOfPlayers + "players.");
+        }
+        players = new ArrayList<Player>();
+        for (int i = 0; i < numberOfPlayers; i++) {
+            players.add(new Player());
+        }
+
+        // player1 = new Player();
+        // player2 = new Player();
         turn = 1;
     }
 
     public TileManager getBoard() {
         return this.board;
+    }
+
+    public Player getPlayer(int n) {
+        return this.players.get(n - 1);
     }
 
     /**
@@ -53,10 +72,10 @@ public class GameLogicController {
     public void placeTile(final int x, final int y) {
         boolean placed = false;
         if (turn == 1 && !placed) {
-            board.placeTile(player1.getTopTile(), x, y);
-            player1.removeTopTile();
+            board.placeTile(getPlayer(1).getTopTile(), x, y);
+            getPlayer(1).removeTopTile();
             turn = 2;
-            player1.increaseScore(board.numberOfMatches(x, y)
+            getPlayer(1).increaseScore(board.numberOfMatches(x, y)
                     * Config.POINTMULTIPLIER);
             System.out.println("Player 1 placed tile on: " + x + ", "
                     + y + ", and scored"
@@ -65,20 +84,20 @@ public class GameLogicController {
                     + " points.");
             placed = true;
         } else if (turn == 2 && !placed) {
-            board.placeTile(player2.getTopTile(), x, y);
-            player2.removeTopTile();
+            board.placeTile(getPlayer(2).getTopTile(), x, y);
+            getPlayer(2).removeTopTile();
             turn = 1;
             System.out.println("Player 2 placed tile on: " + x + ", " + y
                     + ", and scored"
                     + board.numberOfMatches(x, y)
                             * Config.POINTMULTIPLIER
                     + " points.");
-            player2.increaseScore(board.numberOfMatches(x, y)
+            getPlayer(2).increaseScore(board.numberOfMatches(x, y)
                     * Config.POINTMULTIPLIER);
             placed = true;
         }
-        System.out.println(player1.getTilesLeft());
-        System.out.println(player2.getTilesLeft());
+        System.out.println(getPlayer(1).getTilesLeft());
+        System.out.println(getPlayer(2).getTilesLeft());
     }
 
     /**
@@ -86,9 +105,9 @@ public class GameLogicController {
      */
     public void rotateTile() {
         if (turn == 1) {
-            player1.rotateTile();
+            getPlayer(1).rotateTile();
         } else if (turn == 2) {
-            player2.rotateTile();
+            getPlayer(2).rotateTile();
         }
     }
 
@@ -99,13 +118,13 @@ public class GameLogicController {
      */
 
     public static void main(String[] args) {
-        GameLogicController controller = new GameLogicController();
+        GameLogicController controller = new GameLogicController(2);
 
         controller.placeTile(-1, 1);
         controller.placeTile(-2, 2);
         controller.placeTile(-3, 3);
-        System.out.println(controller.player1.getTilesLeft());
-        System.out.println(controller.player2.getTilesLeft());
+        System.out.println(controller.getPlayer(1).getTilesLeft());
+        System.out.println(controller.getPlayer(2).getTilesLeft());
         System.out.println("test");
     }
 }

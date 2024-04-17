@@ -101,4 +101,8 @@ public class Player {
     public void increaseScore(final int number) {
         this.score += number;
     }
+
+    public int getScore() {
+        return this.score;
+    }
 }

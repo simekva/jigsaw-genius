@@ -39,7 +39,7 @@ public class main extends ApplicationAdapter {
 		camera.position.set(Assets.WORLD_SIZE / 2, Assets.WORLD_SIZE / 2, 0);
 		camera.update();
 
-		controller = new GameLogicController();
+		controller = new GameLogicController(2);
 		drawerController = new DrawerController();
 
 	}
