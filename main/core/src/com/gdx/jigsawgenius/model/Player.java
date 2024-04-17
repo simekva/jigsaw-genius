@@ -47,14 +47,19 @@ public class Player {
         // Rotates tile
         Tile topTile = this.getTopTile();
         List<Biome> tempSides = new LinkedList<Biome>();
-        tempSides.add(topTile.getSides().get(Tile.SIDESCOUNT - 1));
-        for (int i = 0; i < Tile.SIDESCOUNT - 1; i++) {
+        tempSides.add(topTile.getSides().get(Config.SIDESCOUNT - 1));
+        for (int i = 0; i < Config.SIDESCOUNT - 1; i++) {
             tempSides.add(topTile.getSides().get(i));
         }
         this.setTopTile(new Tile(tempSides));
     }
 
-    private Tile getTopTile() {
+    /**
+     * Returns the top tile of the hand.
+     *
+     * @return top tile.
+     */
+    public Tile getTopTile() {
         return hand.get(hand.size() - 1);
     }
 
@@ -71,22 +76,18 @@ public class Player {
     public Tile generateRandomTile() {
         Random random = new Random();
         List<Biome> list = new ArrayList<Biome>();
-        for (int i = 0; i < Tile.SIDESCOUNT; i++) {
-            list.add(new Biome(random.nextInt(Biome
-                    .getLegalTerrainTypes().length)));
+        for (int i = 0; i < Config.SIDESCOUNT; i++) {
+            list.add(new Biome(random
+                    .nextInt(Assets.getNumberOfAssets())));
         }
         return new Tile(list);
     }
 
     /**
-     * Removes the top tile from the hand and returns it.
-     *
-     * @return the removed tile from the top of the hand.
+     * Removes the top tile of the hand.
      */
-    public Tile popTile() {
-        Tile removedTile = this.hand.get(this.getTilesLeft() - 1);
+    public void removeTopTile() {
         this.hand.remove(this.getTilesLeft() - 1);
-        return removedTile;
     }
 
     /**
@@ -96,5 +97,14 @@ public class Player {
      */
     public void increaseScore(final int number) {
         this.score += number;
+    }
+
+    /**
+     * Gets score.
+     *
+     * @return score
+     */
+    public int getScore() {
+        return this.score;
     }
 }

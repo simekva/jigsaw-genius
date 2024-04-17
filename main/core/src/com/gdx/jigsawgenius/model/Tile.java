@@ -9,18 +9,33 @@ public class Tile {
      * A tile is represented as a linked list with Side objects.
      */
     private List<Biome> sides = new LinkedList<Biome>();
+
     /**
-     * Number of sides.
+     * X coordinate to draw in.
      */
-    static final int SIDESCOUNT = 6;
+    private float xCoord;
+    /**
+     * Y coordinate to draw in.
+     */
+    private float yCoord;
+
+    /**
+     * X coordinate in the tile manager.
+     */
+    private int x;
+
+    /**
+     * Y coordinate in the tile manager.
+     */
+    private int y;
 
     /**
      * Creates a tile object with a given list of tiles.
      *
-     * @param list List of tiles.
+     * @param list
      */
     public Tile(final List<Biome> list) {
-        if (list.size() != SIDESCOUNT) {
+        if (list.size() != Config.SIDESCOUNT) {
             throw new IllegalArgumentException("Tile has to have 6 sides");
         }
         this.sides = list;
@@ -31,10 +46,12 @@ public class Tile {
      */
     public Tile() {
         List<Biome> list = new ArrayList<Biome>();
-        for (int i = 0; i < Tile.SIDESCOUNT; i++) {
+        for (int i = 0; i < Config.SIDESCOUNT; i++) {
             list.add(new Biome(0));
         }
         this.sides = list;
+        this.xCoord = 0;
+        this.yCoord = 0;
     }
 
     /**
@@ -47,18 +64,74 @@ public class Tile {
     }
 
     /**
-     * toString for the tile.
+     * Retusn xCoord.
      *
-     * @return string-representation of the tile.
+     * @return xCoord.
      */
-    public String toString() {
-        String returnString = "";
-        for (int i = 0; i < Tile.SIDESCOUNT; i++) {
-            returnString += this.getSides().get(i).getTerrainType();
-            if (i != Tile.SIDESCOUNT - 1) {
-                returnString += ", ";
-            }
-        }
-        return returnString;
+    public final float getXCoord() {
+        return this.xCoord;
+    }
+
+    /**
+     * Retusn yCoord.
+     *
+     * @return yCoord.
+     */
+    public final float getYCoord() {
+        return this.yCoord;
+    }
+
+    /**
+     * Sets xCoord.
+     *
+     * @param n
+     */
+    public final void setXCoord(final float n) {
+        this.xCoord = n;
+    }
+
+    /**
+     * Sets yCoord.
+     *
+     * @param n
+     */
+    public final void setYCoord(final float n) {
+        this.yCoord = n;
+    }
+
+    /**
+     * Sets x.
+     *
+     * @param n
+     */
+    public final void setX(final int n) {
+        this.x = n;
+    }
+
+    /**
+     * Sets y.
+     *
+     * @param n
+     */
+    public final void setY(final int n) {
+        this.y = n;
+    }
+
+    /**
+     * Gets x.
+     *
+     * @return x
+     */
+    public final int getX() {
+        return this.x;
+    }
+
+    /**
+     * Gets y.
+     *
+     * @return y
+     */
+    public final int getY() {
+        return this.y;
     }
 }

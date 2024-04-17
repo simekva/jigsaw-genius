@@ -2,6 +2,7 @@ package com.gdx.jigsawgenius.model;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Random;
 
 /**
  * The Board class represents the board for the game. It
@@ -111,7 +112,7 @@ public class TileManager {
     public List<Tile> getAdjacentTiles(final int x, final int y) {
 
         List<Tile> adacjentTiles = new ArrayList<Tile>();
-        for (int i = 0; i < Tile.SIDESCOUNT; i++) {
+        for (int i = 0; i < Config.SIDESCOUNT; i++) {
             try {
                 adacjentTiles.add(this.getTile(x + this.dx[i], y + this.dy[i]));
             } catch (Exception e) {
@@ -119,9 +120,27 @@ public class TileManager {
             }
         }
         adacjentTiles.removeAll(java.util.Collections.singleton(null));
-        System.out.println("Found " + adacjentTiles.size()
-                + " adjacent tile(s) for tile: " + x + ", " + y);
+        // System.out.println("Found " + adacjentTiles.size()
+        // + " adjacent tile(s) for tile: " + x + ", " + y);
         return adacjentTiles;
+    }
+
+    /**
+     * Returns lowest x.
+     *
+     * @return lowest x.
+     */
+    public final int getLowestX() {
+        return this.lowestx;
+    }
+
+    /**
+     * Returns lowest y.
+     *
+     * @return lowest y.
+     */
+    public final int getLowestY() {
+        return this.lowesty;
     }
 
     /**
@@ -138,14 +157,14 @@ public class TileManager {
         int numberOfMatches = 0;
 
         Tile currentTile = this.getTile(x, y);
-        for (int i = 0; i < Tile.SIDESCOUNT; i++) {
+        for (int i = 0; i < Config.SIDESCOUNT; i++) {
             try {
                 Tile tileToCheck = this.getTile(x + this.dx[i], y + this.dy[i]);
                 if (tileToCheck != null) {
-                    String currentTileBiome = currentTile.getSides()
-                            .get(biomePositionOne[i]).getTerrainType();
-                    String tileToCheckBiome = tileToCheck.getSides()
-                            .get(biomePositionTwo[i]).getTerrainType();
+                    int currentTileBiome = currentTile.getSides()
+                            .get(biomePositionOne[i]).getBiomeID();
+                    int tileToCheckBiome = tileToCheck.getSides()
+                            .get(biomePositionTwo[i]).getBiomeID();
 
                     if (currentTileBiome == tileToCheckBiome) {
                         numberOfMatches++;
@@ -159,23 +178,29 @@ public class TileManager {
     }
 
     private boolean isOutOfBounds(final int x, final int y) {
-        if (x > (this.rows) && y > (this.columns)) {
-            return true;
+        // Calculate the maximum and minimum allowed values for x and y
+        int maxX = this.rows;
+        int maxY = this.columns;
+        int minX = -maxX;
+        int minY = -maxY;
+
+        if (x == this.rows + 1 && y == this.columns - 1) {
+            return false;
         }
-        if (-x > (this.rows) && -y > (this.columns)) {
-            return true;
+        if (-x == this.rows + 1 && -y == this.columns - 1) {
+            return false;
         }
-        if (-x > (this.rows + 1) && -y > (this.columns + 1)) {
+
+        // Check if the coordinates are out of bounds
+        if (x < minX || x > maxX || y < minY || y > maxY) {
             return true;
         }
 
-        if (x > (this.rows + 2) || -x > (this.rows + 2)) {
+        // Check if the coordinates fall outside the main hexagonal pattern
+        if (Math.abs(x) > this.rows || Math.abs(y) > this.columns) {
             return true;
         }
 
-        if (y > (this.columns + 2) || -y > (this.columns + 2)) {
-            return true;
-        }
         return false;
     }
 
@@ -195,6 +220,10 @@ public class TileManager {
         if (this.getTile(x, y) != null) {
             throw new IllegalArgumentException(
                     "Can't place tile on non-empty space.");
+        }
+
+        if (((x + y) % 2) != 0) {
+            throw new IllegalArgumentException("Illegal tile placement.");
         }
 
         boolean isExtended = false;
@@ -254,6 +283,7 @@ public class TileManager {
         }
 
         try {
+
             board[x + lowestx][y + lowesty] = tile;
             System.out.println("Placed tile in position: " + (x + lowestx)
                     + ", " + (y + lowesty));
@@ -262,7 +292,10 @@ public class TileManager {
         } catch (Exception e) {
             this.placeTile(tile, x, y);
         }
-
+        tile.setXCoord(x * Assets.pieceHeight);
+        tile.setYCoord((float) (y * Assets.pieceHeight * 1.732));
+        tile.setX(x);
+        tile.setY(y);
     }
 
     private void positiveExtension(final int x, final int y) {
@@ -284,7 +317,32 @@ public class TileManager {
                 System.out.println("Extended y.");
             }
         }
+    }
 
+    /**
+     * Generates a randomly generated tile using Java.Random to generate a
+     * list of random biomes.
+     *
+     * @return random tile.
+     */
+    public final Tile generateRandomTile() {
+        List<Biome> list = new ArrayList<Biome>();
+        Random random = new Random();
+
+        for (int i = 0; i < Config.SIDESCOUNT; i++) {
+            Biome biome = new Biome(random.nextInt(Assets
+                    .getNumberOfAssets() - 1));
+
+            if (biome.getBiomeID() != Assets.getNumberOfAssets() - 1) {
+                list.add(biome);
+            } else {
+                i -= 1;
+            }
+
+        }
+        Tile tile = new Tile(list);
+        System.out.println(tile.toString());
+        return tile;
     }
 
     private void negativeExtension(final int x, final int y) {
@@ -306,5 +364,14 @@ public class TileManager {
                 lowesty++;
             }
         }
+    }
+
+    /**
+     * Returns all tiles in the TileManager.
+     *
+     * @return all tiles.
+     */
+    public final Tile[][] getAllTiles() {
+        return this.board;
     }
 }
