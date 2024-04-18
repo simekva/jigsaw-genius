@@ -5,7 +5,6 @@ import com.gdx.jigsawgenius.model.TileManager;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.gdx.jigsawgenius.model.Assets;
 import com.gdx.jigsawgenius.model.Config;
 import com.gdx.jigsawgenius.model.Player;
 import com.gdx.jigsawgenius.model.Tile;
@@ -102,8 +101,10 @@ public class GameLogicController {
         boolean placed = false;
         board.placeTile(getPlayer(1).getTopTile(), x, y);
         getPlayer(this.turn).removeTopTile();
+        getPlayer(this.turn).increaseScore(board.numberOfMatches(x, y) * Config.POINTMULTIPLIER);
+        System.out.println(getPlayer(this.turn).getScore());
         turn++;
-        placed = true;
+
         if (turn > this.players.size()) {
             turn = 1;
         }
