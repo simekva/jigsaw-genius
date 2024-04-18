@@ -1,3 +1,4 @@
+
 package com.gdx.jigsawgenius.view;
 
 import com.badlogic.gdx.Gdx;
@@ -20,7 +21,7 @@ import com.gdx.jigsawgenius.model.Assets;
 
 import com.gdx.jigsawgenius.firebase.FirebaseHost;
 
-public class MultiPlayerScreen extends ScreenAdapter {
+public class helpScreen extends ScreenAdapter {
 
     private Assets assets;
     private final JigsawGenius game;
@@ -32,7 +33,7 @@ public class MultiPlayerScreen extends ScreenAdapter {
     private BitmapFont font;
     private TextField codeField;
 
-    public MultiPlayerScreen(JigsawGenius game) {
+    public helpScreen(JigsawGenius game) {
         this.game = game;
     }
 
@@ -54,65 +55,14 @@ public class MultiPlayerScreen extends ScreenAdapter {
         font = new BitmapFont();
 
         skin.add("default-font", font);
-        skin.add("background", new Texture("rectangle.png"));
+        skin.add("background", new Texture("arrow.png"));
 
         TextButton.TextButtonStyle buttonStyle = new TextButton.TextButtonStyle();
         buttonStyle.up = skin.getDrawable("background");
         buttonStyle.down = skin.newDrawable("background", Color.DARK_GRAY);
         buttonStyle.font = skin.getFont("default-font");
 
-        TextButton hostButton = new TextButton("Host Game", buttonStyle);
-        hostButton.setSize(200, 50);
-        hostButton.setPosition(Gdx.graphics.getWidth() / 2 - hostButton.getWidth() / 2, Gdx.graphics.getHeight() / 2);
-        hostButton.addListener(new ClickListener() {
-            @Override
-            public void clicked(InputEvent event, float x, float y) {
-                game.setScreen(new SinglePlayerScreen(assets, game));
-
-                //Create new session in database
-                FirebaseHost.sendData();
-            }
-        });
-
-        //Create a TextField for the 4-digit code
-        TextField.TextFieldStyle textFieldStyle = new TextField.TextFieldStyle();
-        textFieldStyle.font = skin.getFont("default-font");
-        textFieldStyle.fontColor = Color.WHITE;
-        textFieldStyle.background = skin.getDrawable("background");
-
-        codeField = new TextField("", textFieldStyle);
-        codeField.setMessageText("Enter 4-digit code"); 
-        codeField.setSize(200, 50);
-        codeField.setPosition(Gdx.graphics.getWidth() / 2 - codeField.getWidth() / 2, Gdx.graphics.getHeight() / 2 - 150);          //Sets position of text field
-        codeField.setAlignment(Align.center);
-
-        TextButton joinButton = new TextButton("Join Game", buttonStyle);
-        joinButton.setSize(200, 50);
-        joinButton.setPosition(Gdx.graphics.getWidth() / 2 - joinButton.getWidth() / 2, Gdx.graphics.getHeight() / 2 - 100);        //Sets position of button
-
-        //Listener to check for correct 4 digit input
-        joinButton.addListener(new ClickListener() {
-            @Override
-                public void clicked(InputEvent event, float x, float y) {
-                    if (codeField.getText().matches("\\d{4}")) {
-                        game.setScreen(new SinglePlayerScreen(assets, game));
-
-
-                    } else {
-                        codeField.setText("Invalid code! Please try again");
-                        codeField.getStyle().fontColor = Color.RED;
-                    }
-            }
-        });
-
-        //Listener to clear text field when clicked
-        codeField.addListener(new ClickListener() {
-            @Override
-                public void clicked(InputEvent event, float x, float y) {
-                codeField.setText("");
-                codeField.getStyle().fontColor = Color.WHITE;
-            }
-        });
+        
 
         TextButton backButton = new TextButton("Go back", buttonStyle);
         backButton.setSize(100, 100);
@@ -125,10 +75,6 @@ public class MultiPlayerScreen extends ScreenAdapter {
         });
 
         stage.addActor(backButton);
-
-        stage.addActor(hostButton);
-        stage.addActor(joinButton);
-        stage.addActor(codeField);
     }
 
     @Override
@@ -138,9 +84,6 @@ public class MultiPlayerScreen extends ScreenAdapter {
 
         batch.begin();
         batch.draw(backgroundTexture, 0, 0, Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
-        float ribbonWidth = ribbonTexture.getWidth() / 2;
-        float ribbonHeight = ribbonTexture.getHeight() / 2;
-        batch.draw(ribbonTexture, Gdx.graphics.getWidth() / 2 - ribbonWidth / 2, Gdx.graphics.getHeight() - 150, ribbonWidth, ribbonHeight);
         batch.end();
 
         stage.act();
@@ -156,7 +99,6 @@ public class MultiPlayerScreen extends ScreenAdapter {
     public void hide() {
         batch.dispose();
         backgroundTexture.dispose();
-        ribbonTexture.dispose();
         stage.dispose();
         skin.dispose();
         font.dispose();

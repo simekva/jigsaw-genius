@@ -5,6 +5,7 @@ import com.badlogic.gdx.graphics.Camera;
 import com.badlogic.gdx.math.Vector3;
 import com.gdx.jigsawgenius.model.Assets;
 import com.gdx.jigsawgenius.view.ScreenInterface;
+import com.gdx.jigsawgenius.firebase.FirebaseSenderHost;
 
 public class GameInputController implements InputProcessor {
 
@@ -46,6 +47,8 @@ public class GameInputController implements InputProcessor {
         return false;
     }
 
+    int attempt = 0;
+
     @Override
     public final boolean touchDown(final int screenX, final int screenY,
             final int pointer, final int button) {
@@ -58,6 +61,11 @@ public class GameInputController implements InputProcessor {
         float worldY = worldCoordinates.y - Assets.WORLD_SIZE / 2;
 
         System.out.println("Clicked on: " + worldX + ", " + worldY);
+        
+        //Sends data to Firebase based on each click
+        attempt += 1;
+        FirebaseSenderHost.sendData("9051", Integer.toString(attempt), Float.toString(worldX) + Float.toString(worldY));
+
 
         try {
             screen.placeTile(this.convertToWorldCoords(worldX, worldY)[0],

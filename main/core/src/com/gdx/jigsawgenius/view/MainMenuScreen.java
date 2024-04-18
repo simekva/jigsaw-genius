@@ -9,12 +9,20 @@ import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.Stage;
+import com.badlogic.gdx.scenes.scene2d.ui.Image;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.badlogic.gdx.utils.viewport.StretchViewport;
 import com.gdx.jigsawgenius.JigsawGenius;
 import com.gdx.jigsawgenius.model.Assets;
+
+
+import com.gdx.jigsawgenius.firebase.FirebaseHost;
+import com.gdx.jigsawgenius.firebase.FirebaseJoin;
+import com.gdx.jigsawgenius.firebase.FirebaseReader;
+import com.gdx.jigsawgenius.firebase.FirebaseSenderHost;
+import com.gdx.jigsawgenius.firebase.FirebaseSenderJoin;
 
 public class MainMenuScreen extends ScreenAdapter {
 
@@ -47,7 +55,6 @@ public class MainMenuScreen extends ScreenAdapter {
         stage = new Stage(new StretchViewport(Gdx.graphics.getWidth(), Gdx.graphics.getHeight()));
         Gdx.input.setInputProcessor(stage);
 
-        // Create buttons
         skin = new Skin();
         font = new BitmapFont();
 
@@ -67,6 +74,7 @@ public class MainMenuScreen extends ScreenAdapter {
             @Override
             public void clicked(InputEvent event, float x, float y) {
                 game.setScreen(new SinglePlayerScreen(assets, game));
+
             }
         });
 
@@ -77,12 +85,28 @@ public class MainMenuScreen extends ScreenAdapter {
         multiPlayerButton.addListener(new ClickListener() {
             @Override
             public void clicked(InputEvent event, float x, float y) {
-                // TODO game.setScreen(new MultiPlayerScreen(game));
+                game.setScreen(new MultiPlayerScreen(game));
+
+            }
+        });
+
+        //Help screen:
+        Texture helpIconTexture = new Texture("help.png");
+        Image helpIcon = new Image(helpIconTexture);
+        helpIcon.setSize(70, 70); 
+
+        helpIcon.setPosition(60, 60);
+
+        helpIcon.addListener(new ClickListener() {
+            @Override
+            public void clicked(InputEvent event, float x, float y) {
+                game.setScreen(new helpScreen(game));
             }
         });
 
         stage.addActor(singlePlayerButton);
         stage.addActor(multiPlayerButton);
+        stage.addActor(helpIcon);
     }
 
     @Override
@@ -93,7 +117,6 @@ public class MainMenuScreen extends ScreenAdapter {
         batch.begin();
         batch.draw(backgroundTexture, 0, 0, Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
 
-        // Draw the ribbon image above the buttons and scale down by half
         float ribbonWidth = ribbonTexture.getWidth() / 2;
         float ribbonHeight = ribbonTexture.getHeight() / 2;
         batch.draw(ribbonTexture, Gdx.graphics.getWidth() / 2 - ribbonWidth / 2, Gdx.graphics.getHeight() - 150,
@@ -119,4 +142,7 @@ public class MainMenuScreen extends ScreenAdapter {
         skin.dispose();
         font.dispose();
     }
+
+
+    
 }
