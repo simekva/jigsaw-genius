@@ -62,14 +62,16 @@ public class GameInputController implements InputProcessor {
 
         System.out.println("Clicked on: " + worldX + ", " + worldY);
         
-        //Sends data to Firebase based on each click
-        attempt += 1;
-        FirebaseSenderHost.sendData("9051", Integer.toString(attempt), Float.toString(worldX) + Float.toString(worldY));
+        
 
 
         try {
             screen.placeTile(this.convertToWorldCoords(worldX, worldY)[0],
                     this.convertToWorldCoords(worldX, worldY)[1]);
+                    
+                //Sends data to Firebase based on each click
+                attempt += 1;
+                FirebaseSenderHost.sendData("9051", Integer.toString(attempt), Float.toString(worldX), Float.toString(worldY));
         } catch (Exception e) {
             System.out.println(e);
             return false;

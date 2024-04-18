@@ -6,7 +6,7 @@ import java.net.URL;
 import java.nio.charset.StandardCharsets;
 
 public class FirebaseSenderJoin {
-    public static void sendData(String sessionPin, String attempt, String message) {
+    public static void sendData(String sessionPin, String attempt, String message, String message2) {
         try {
             // Proper Firebase URL with path and .json suffix
             URI uri = new URI("https://jigsawgame-e855b-default-rtdb.europe-west1.firebasedatabase.app/session" + sessionPin + "/player2/tiles/pos" + attempt + ".json");
@@ -20,7 +20,7 @@ public class FirebaseSenderJoin {
             connection.setRequestProperty("Content-Type", "application/json");
 
             // Data you want to send, as a JSON string
-            String data = "{\"message\": \"" + message + "\"}";
+            String data = "{\"message\": \"" + message + "__" + message2 + "\"}";
 
             byte[] out = data.getBytes(StandardCharsets.UTF_8);
             connection.getOutputStream().write(out);
