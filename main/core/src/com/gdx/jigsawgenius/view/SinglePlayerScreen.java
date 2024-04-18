@@ -42,6 +42,7 @@ public class SinglePlayerScreen extends ScreenAdapter implements ScreenInterface
         drawerController = new DrawerController();
 
         topTile = gameLogicController.getPlayer(1).getTopTile();
+
         topTileDrawer = new TileDrawer();
 
         font = new BitmapFont();

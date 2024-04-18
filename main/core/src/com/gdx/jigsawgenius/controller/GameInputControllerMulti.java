@@ -1,12 +1,16 @@
 package com.gdx.jigsawgenius.controller;
 
+import java.util.Arrays;
+
 import com.badlogic.gdx.InputProcessor;
 import com.badlogic.gdx.graphics.Camera;
 import com.badlogic.gdx.math.Vector3;
+import com.badlogic.gdx.scenes.scene2d.ui.List;
 import com.gdx.jigsawgenius.model.Assets;
 import com.gdx.jigsawgenius.view.ScreenInterface;
 import com.gdx.jigsawgenius.firebase.FirebaseSender;
 import com.gdx.jigsawgenius.firebase.FirebaseHost;
+import com.gdx.jigsawgenius.model.Tile;
 
 
 public class GameInputControllerMulti implements InputProcessor {
@@ -67,7 +71,8 @@ public class GameInputControllerMulti implements InputProcessor {
         float worldY = worldCoordinates.y - Assets.WORLD_SIZE / 2;
 
         System.out.println("Clicked on: " + worldX + ", " + worldY);
-        
+
+        int[] tileCoords = convertToWorldCoords1(worldX, worldY);     
         
 
 
@@ -79,13 +84,16 @@ public class GameInputControllerMulti implements InputProcessor {
                 attempt++;
                 int sessionPin = FirebaseHost.getPin();
 
+                //TODO: Må klare å importere hvordan tiles ser ut, i tileData, så dette kan sendes
+                java.util.List<String> tileData = Arrays.asList("plains.PNG", "village.PNG", "field.PNG","forest.PNG", "desert.PNG", "desert.PNG" );             
+
+
                 if (isHost) {
                 // Send data for the host player
-                FirebaseSender.sendData(String.valueOf(sessionPin), Integer.toString(attempt), Float.toString(worldX), Float.toString(worldY), true);
+                FirebaseSender.sendData(String.valueOf(sessionPin), Integer.toString(attempt), Float.toString(tileCoords[0]), Float.toString(tileCoords[1]), tileData, true);
                 } else {
                 // Send data for the joining player
-                // Assuming 'pin' is obtained elsewhere in your code for joining players
-                FirebaseSender.sendData(pin, Integer.toString(attempt), Float.toString(worldX), Float.toString(worldY), false);
+                FirebaseSender.sendData(pin, Integer.toString(attempt), Float.toString(tileCoords[0]), Float.toString(tileCoords[1]), tileData, false);
             }
 
         } catch (Exception e) {
@@ -151,5 +159,15 @@ public class GameInputControllerMulti implements InputProcessor {
                 (int) (worldX / 172.5), (int) (worldY / 300)
         };
     }
+
+    public int[] convertToWorldCoords1(final float worldX, final float worldY) {
+    // Calculate the coordinates based on the tile size and orientation
+    int x = (int) (worldX / Assets.pieceHeight);
+    int y = (int) (worldY / (Assets.pieceHeight * 1.732));
+
+    // Return the coordinates as an array
+    return new int[] { x, y };
+}
+
 
 }

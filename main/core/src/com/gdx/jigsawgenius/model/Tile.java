@@ -134,4 +134,19 @@ public class Tile {
     public final int getY() {
         return this.y;
     }
+
+    /**
+     * Gets biome list.
+     *
+     * @return list
+     */
+    public List<Integer> getBiomeIDs(){
+        List<Integer> list = new ArrayList<Integer>();
+
+        for (Biome biome : this.getSides()){
+            list.add(biome.getBiomeID());
+        }
+        return list;
+    }
+
 }
