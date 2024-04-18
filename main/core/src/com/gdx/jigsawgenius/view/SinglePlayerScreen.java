@@ -3,6 +3,8 @@ package com.gdx.jigsawgenius.view;
 import com.badlogic.gdx.Game;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.ScreenAdapter;
+import com.badlogic.gdx.graphics.Color;
+import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.utils.ScreenUtils;
 import com.gdx.jigsawgenius.controller.DrawerController;
@@ -23,6 +25,7 @@ public class SinglePlayerScreen extends ScreenAdapter implements ScreenInterface
     DrawerController drawerController;
     Tile topTile;
     TileDrawer topTileDrawer;
+    BitmapFont font;
 
     public SinglePlayerScreen(Assets assets, Game game) {
         this.game = game;
@@ -41,12 +44,17 @@ public class SinglePlayerScreen extends ScreenAdapter implements ScreenInterface
         topTile = gameLogicController.getPlayer(1).getTopTile();
         topTileDrawer = new TileDrawer();
 
+        font = new BitmapFont();
+        font.setColor(Color.BLACK);
+        font.getData().setScale(3);
+
         Gdx.input.setInputProcessor(inputProcessor);
     }
 
     @Override
     public void render(float delta) {
         super.render(delta);
+
         batch.begin();
 
         if (assets.manager.update()) {
@@ -58,14 +66,18 @@ public class SinglePlayerScreen extends ScreenAdapter implements ScreenInterface
         }
         batch.end();
 
-        batch2.begin();
-        topTileDrawer.drawTile(assets, topTile, batch2, Gdx.graphics.getWidth() / 6, Gdx.graphics.getHeight() / 5,
-                0.5f);
-        batch2.end();
-
         if (Gdx.input.isKeyJustPressed(com.badlogic.gdx.Input.Keys.R)) {
             this.rotateTile();
         }
+        batch2.begin();
+        topTileDrawer.drawTile(assets, topTile, batch2, Gdx.graphics.getWidth() / 6,
+                Gdx.graphics.getHeight() / 5,
+                0.5f);
+        font.draw(batch2,
+                String.valueOf(gameLogicController.getPlayer(1).getScore()),
+                Gdx.graphics.getWidth() / 6,
+                Gdx.graphics.getHeight());
+        batch2.end();
     }
 
     @Override
