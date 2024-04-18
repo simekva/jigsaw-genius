@@ -9,16 +9,20 @@ import com.gdx.jigsawgenius.controller.DrawerController;
 import com.gdx.jigsawgenius.controller.GameInputController;
 import com.gdx.jigsawgenius.controller.GameLogicController;
 import com.gdx.jigsawgenius.model.Assets;
+import com.gdx.jigsawgenius.model.Tile;
 
 public class SinglePlayerScreen extends ScreenAdapter implements ScreenInterface {
 
     SpriteBatch batch;
+    SpriteBatch batch2; // For drawing stuff independent of the camera
     CameraHandler cameraHandler;
     Assets assets;
     Game game;
     static GameLogicController gameLogicController;
     GameInputController inputProcessor;
     DrawerController drawerController;
+    Tile topTile;
+    TileDrawer topTileDrawer;
 
     public SinglePlayerScreen(Assets assets, Game game) {
         this.game = game;
@@ -28,10 +32,14 @@ public class SinglePlayerScreen extends ScreenAdapter implements ScreenInterface
     @Override
     public void show() {
         batch = new SpriteBatch();
+        batch2 = new SpriteBatch();
         cameraHandler = new CameraHandler();
         gameLogicController = new GameLogicController(1);
         inputProcessor = new GameInputController(this);
         drawerController = new DrawerController();
+
+        topTile = gameLogicController.getPlayer(1).getTopTile();
+        topTileDrawer = new TileDrawer();
 
         Gdx.input.setInputProcessor(inputProcessor);
     }
@@ -49,6 +57,11 @@ public class SinglePlayerScreen extends ScreenAdapter implements ScreenInterface
             drawerController.drawBoard(gameLogicController.getBoard(), assets, batch, 500, 500);
         }
         batch.end();
+
+        batch2.begin();
+        topTileDrawer.drawTile(assets, topTile, batch2, Gdx.graphics.getWidth() / 6, Gdx.graphics.getHeight() / 5,
+                0.5f);
+        batch2.end();
     }
 
     @Override

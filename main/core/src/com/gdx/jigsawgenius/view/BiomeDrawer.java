@@ -20,7 +20,7 @@ public class BiomeDrawer {
      */
     public final void drawBiome(final Assets assets, final Biome biome,
             final SpriteBatch batch, final float x, final float y,
-            final float rotationAngle) {
+            final float rotationAngle, final float scale) {
 
         Texture texture = assets.manager.get(
                 Assets.getAssetURL(biome.getBiomeID()), Texture.class);
@@ -35,6 +35,8 @@ public class BiomeDrawer {
         sprite.setOrigin(Assets.pieceWidth / 2, Assets.pieceHeight);
 
         sprite.setSize(Assets.pieceWidth, Assets.pieceHeight);
+
+        sprite.setScale(scale);
 
         // Draw the sprite
         sprite.draw(batch);
