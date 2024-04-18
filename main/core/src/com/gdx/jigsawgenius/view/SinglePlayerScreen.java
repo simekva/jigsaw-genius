@@ -62,6 +62,10 @@ public class SinglePlayerScreen extends ScreenAdapter implements ScreenInterface
         topTileDrawer.drawTile(assets, topTile, batch2, Gdx.graphics.getWidth() / 6, Gdx.graphics.getHeight() / 5,
                 0.5f);
         batch2.end();
+
+        if (Gdx.input.isKeyJustPressed(com.badlogic.gdx.Input.Keys.R)) {
+            this.rotateTile();
+        }
     }
 
     @Override
@@ -80,10 +84,16 @@ public class SinglePlayerScreen extends ScreenAdapter implements ScreenInterface
     @Override
     public void placeTile(int x, int y) {
         gameLogicController.placeTile(x, y);
+        topTile = gameLogicController.getPlayer(1).getTopTile();
     }
 
     @Override
     public CameraHandler getCameraHandler() {
         return this.cameraHandler;
+    }
+
+    public void rotateTile() {
+        gameLogicController.getPlayer(1).rotateTile();
+        topTile = gameLogicController.getPlayer(1).getTopTile();
     }
 }
