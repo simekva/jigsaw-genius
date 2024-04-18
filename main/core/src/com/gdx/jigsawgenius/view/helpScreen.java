@@ -14,12 +14,10 @@ import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 import com.badlogic.gdx.scenes.scene2d.ui.TextField;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
-import com.badlogic.gdx.utils.Align;
 import com.badlogic.gdx.utils.viewport.StretchViewport;
 import com.gdx.jigsawgenius.JigsawGenius;
 import com.gdx.jigsawgenius.model.Assets;
 
-import com.gdx.jigsawgenius.firebase.FirebaseHost;
 
 public class helpScreen extends ScreenAdapter {
 

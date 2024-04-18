@@ -18,10 +18,6 @@ import com.gdx.jigsawgenius.JigsawGenius;
 import com.gdx.jigsawgenius.model.Assets;
 
 
-import com.gdx.jigsawgenius.firebase.FirebaseHost;
-import com.gdx.jigsawgenius.firebase.FirebaseJoin;
-import com.gdx.jigsawgenius.firebase.FirebaseReader;
-
 public class MainMenuScreen extends ScreenAdapter {
 
     private Assets assets;
