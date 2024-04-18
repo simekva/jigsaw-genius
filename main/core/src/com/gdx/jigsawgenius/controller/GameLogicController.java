@@ -5,7 +5,6 @@ import com.gdx.jigsawgenius.model.TileManager;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.gdx.jigsawgenius.model.Assets;
 import com.gdx.jigsawgenius.model.Config;
 import com.gdx.jigsawgenius.model.Player;
 import com.gdx.jigsawgenius.model.Tile;
