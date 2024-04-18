@@ -1,3 +1,4 @@
+
 package com.gdx.jigsawgenius.view;
 
 import com.badlogic.gdx.Gdx;
@@ -9,23 +10,20 @@ import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.Stage;
-import com.badlogic.gdx.scenes.scene2d.ui.Image;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
+import com.badlogic.gdx.scenes.scene2d.ui.TextField;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
+import com.badlogic.gdx.utils.Align;
 import com.badlogic.gdx.utils.viewport.StretchViewport;
 import com.gdx.jigsawgenius.JigsawGenius;
 import com.gdx.jigsawgenius.model.Assets;
 
-
 import com.gdx.jigsawgenius.firebase.FirebaseHost;
-import com.gdx.jigsawgenius.firebase.FirebaseJoin;
-import com.gdx.jigsawgenius.firebase.FirebaseReader;
 
-public class MainMenuScreen extends ScreenAdapter {
+public class helpScreen extends ScreenAdapter {
 
     private Assets assets;
-
     private final JigsawGenius game;
     private SpriteBatch batch;
     private Texture backgroundTexture;
@@ -33,8 +31,9 @@ public class MainMenuScreen extends ScreenAdapter {
     private Stage stage;
     private Skin skin;
     private BitmapFont font;
+    private TextField codeField;
 
-    public MainMenuScreen(JigsawGenius game) {
+    public helpScreen(JigsawGenius game) {
         this.game = game;
     }
 
@@ -46,7 +45,6 @@ public class MainMenuScreen extends ScreenAdapter {
 
         backgroundTexture = new Texture("background.png");
         ribbonTexture = new Texture("ribbon.png");
-        // Scale down the ribbon image
         ribbonTexture.setFilter(Texture.TextureFilter.Linear, Texture.TextureFilter.Linear);
         ribbonTexture.setWrap(Texture.TextureWrap.Repeat, Texture.TextureWrap.Repeat);
 
@@ -57,54 +55,26 @@ public class MainMenuScreen extends ScreenAdapter {
         font = new BitmapFont();
 
         skin.add("default-font", font);
-        skin.add("background", new Texture("rectangle.png"));
+        skin.add("background", new Texture("arrow.png"));
 
         TextButton.TextButtonStyle buttonStyle = new TextButton.TextButtonStyle();
         buttonStyle.up = skin.getDrawable("background");
         buttonStyle.down = skin.newDrawable("background", Color.DARK_GRAY);
         buttonStyle.font = skin.getFont("default-font");
 
-        TextButton singlePlayerButton = new TextButton("Single Player", buttonStyle);
-        singlePlayerButton.setSize(200, 50);
-        singlePlayerButton.setPosition(Gdx.graphics.getWidth() / 2 - singlePlayerButton.getWidth() / 2,
-                Gdx.graphics.getHeight() / 2);
-        singlePlayerButton.addListener(new ClickListener() {
+        
+
+        TextButton backButton = new TextButton("Go back", buttonStyle);
+        backButton.setSize(100, 100);
+        backButton.setPosition(50, Gdx.graphics.getHeight() - backButton.getHeight() - 50);
+        backButton.addListener(new ClickListener() {
             @Override
             public void clicked(InputEvent event, float x, float y) {
-                game.setScreen(new SinglePlayerScreen(assets, game));
-
+                game.setScreen(new MainMenuScreen(game));
             }
         });
 
-        TextButton multiPlayerButton = new TextButton("Multi Player", buttonStyle);
-        multiPlayerButton.setSize(200, 50);
-        multiPlayerButton.setPosition(Gdx.graphics.getWidth() / 2 - multiPlayerButton.getWidth() / 2,
-                Gdx.graphics.getHeight() / 2 - 100);
-        multiPlayerButton.addListener(new ClickListener() {
-            @Override
-            public void clicked(InputEvent event, float x, float y) {
-                game.setScreen(new MultiPlayerScreen(game));
-
-            }
-        });
-
-        //Help screen:
-        Texture helpIconTexture = new Texture("help.png");
-        Image helpIcon = new Image(helpIconTexture);
-        helpIcon.setSize(70, 70); 
-
-        helpIcon.setPosition(60, 60);
-
-        helpIcon.addListener(new ClickListener() {
-            @Override
-            public void clicked(InputEvent event, float x, float y) {
-                game.setScreen(new helpScreen(game));
-            }
-        });
-
-        stage.addActor(singlePlayerButton);
-        stage.addActor(multiPlayerButton);
-        stage.addActor(helpIcon);
+        stage.addActor(backButton);
     }
 
     @Override
@@ -114,12 +84,6 @@ public class MainMenuScreen extends ScreenAdapter {
 
         batch.begin();
         batch.draw(backgroundTexture, 0, 0, Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
-
-        float ribbonWidth = ribbonTexture.getWidth() / 2;
-        float ribbonHeight = ribbonTexture.getHeight() / 2;
-        batch.draw(ribbonTexture, Gdx.graphics.getWidth() / 2 - ribbonWidth / 2, Gdx.graphics.getHeight() - 150,
-                ribbonWidth, ribbonHeight);
-
         batch.end();
 
         stage.act();
@@ -135,12 +99,8 @@ public class MainMenuScreen extends ScreenAdapter {
     public void hide() {
         batch.dispose();
         backgroundTexture.dispose();
-        ribbonTexture.dispose();
         stage.dispose();
         skin.dispose();
         font.dispose();
     }
-
-
-    
 }

@@ -9,20 +9,24 @@ import com.gdx.jigsawgenius.firebase.FirebaseSender;
 import com.gdx.jigsawgenius.firebase.FirebaseHost;
 
 
-public class GameInputController implements InputProcessor {
+public class GameInputControllerMulti implements InputProcessor {
 
     /**
      * Active screen in the game.
      */
     private ScreenInterface screen;
+    private boolean isHost;
+    String pin;
 
     /**
      * Sets the screen to the screen active in the game.
      *
      * @param screenInput
      */
-    public GameInputController(final ScreenInterface screenInput) {
+    public GameInputControllerMulti(final ScreenInterface screenInput, boolean isHost, String pin) {
         this.screen = screenInput;
+        this.isHost = isHost;
+        this.pin = pin;
     }
 
     /**
@@ -71,13 +75,18 @@ public class GameInputController implements InputProcessor {
             screen.placeTile(this.convertToWorldCoords(worldX, worldY)[0],
                     this.convertToWorldCoords(worldX, worldY)[1]);
                     
-                /*//Sends data to Firebase based on each click
-                attempt += 1;
+                //Sends data to Firebase based on each click
+                attempt++;
+                int sessionPin = FirebaseHost.getPin();
 
-                
-                int pin = FirebaseHost.getPin();
-                FirebaseSender.sendData(String.valueOf(pin), Integer.toString(attempt), Float.toString(worldX), Float.toString(worldY), false);
-*/
+                if (isHost) {
+                // Send data for the host player
+                FirebaseSender.sendData(String.valueOf(sessionPin), Integer.toString(attempt), Float.toString(worldX), Float.toString(worldY), true);
+                } else {
+                // Send data for the joining player
+                // Assuming 'pin' is obtained elsewhere in your code for joining players
+                FirebaseSender.sendData(pin, Integer.toString(attempt), Float.toString(worldX), Float.toString(worldY), false);
+            }
 
         } catch (Exception e) {
             System.out.println(e);
