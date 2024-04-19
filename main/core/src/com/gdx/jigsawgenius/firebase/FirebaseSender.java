@@ -18,8 +18,8 @@ public class FirebaseSender {
 
         try {
             // Proper Firebase URL with path and .json suffix
-            URI uri = new URI("https://jigsawgame-e855b-default-rtdb.europe-west1.firebasedatabase.app/session"
-                    + sessionPin + "/" + player + "/tiles/pos" + attempt + ".json");
+            URI uri = new URI("https://jigsawgame-e855b-default-rtdb.europe-west1.firebasedatabase.app"
+                    + "/session" + sessionPin + "/" + player + "/tiles/pos" + attempt + ".json");
 
             // Convert URI to URL
             URL url = uri.toURL();

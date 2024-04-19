@@ -23,7 +23,7 @@ public class FirebaseReader {
         Thread readerThread = new Thread(() -> {
             while (true) {
                 try {
-                    readData();
+                    System.out.println(this.readData());
                     Thread.sleep(5000); // Sleep for 5 seconds
                 } catch (InterruptedException e) {
                     e.printStackTrace();
@@ -41,6 +41,7 @@ public class FirebaseReader {
             player = "player1";
         }
         String url = databaseUrl + "/session" + sessionPin + "/" + player + "/tiles.json";
+        System.out.println(url);
 
         try {
             URI uri = new URI(url);

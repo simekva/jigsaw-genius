@@ -58,14 +58,9 @@ public class MultiPlayerScreen extends ScreenAdapter implements ScreenInterface 
         Gdx.input.setInputProcessor(inputProcessor);
 
         // Setup backend reader
-        String baseURL = "https://jigsawgame-e855b-default-rtdb.europe-west1.firebasedatabase.app/session";
-        String player;
-        if (isHost) {
-            player = "player1";
-        } else {
-            player = "player2";
-        }
-        reader = new FirebaseReader(baseURL + "/session" + pin + "/" + player + "/tiles.json", pin, isHost);
+        String baseURL = "https://jigsawgame-e855b-default-rtdb.europe-west1.firebasedatabase.app";
+        reader = new FirebaseReader(baseURL, pin, isHost);
+        reader.startReading();
     }
 
     @Override
@@ -131,7 +126,10 @@ public class MultiPlayerScreen extends ScreenAdapter implements ScreenInterface 
         return this.gameLogicController;
     }
 
-    public void backendDataParser(String data) {
-
+    /**
+     * Updates gameLogicController with data from backend
+     */
+    public void backendDataParser() {
+        // String data = reader.readData();
     }
 }
