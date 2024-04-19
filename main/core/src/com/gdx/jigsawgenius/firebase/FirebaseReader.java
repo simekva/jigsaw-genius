@@ -1,7 +1,6 @@
 package com.gdx.jigsawgenius.firebase;
 
 import java.io.BufferedReader;
-import java.io.IOException;
 import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.URI;
@@ -65,8 +64,8 @@ public class FirebaseReader {
                 String jsonResponse = response.toString();
                 System.out.println("Received JSON response: " + jsonResponse);
                 this.data = jsonResponse;
+                processData(jsonResponse); // Process the JSON response
                 return jsonResponse;
-                // Process the JSON response here
             } else {
                 System.out.println("Failed to retrieve data. Response code: " + responseCode);
             }
@@ -75,6 +74,32 @@ public class FirebaseReader {
             e.printStackTrace();
         }
         return "";
+    }
+
+    private void processData(String jsonResponse) {
+        int startPos = jsonResponse.indexOf("message");
+        while (startPos != -1) {
+            int endPos = jsonResponse.indexOf("}", startPos);
+            String message = jsonResponse.substring(startPos, endPos);
+            int xStartPos = message.indexOf("[") + 1;
+            int xEndPos = message.indexOf(",", xStartPos);
+            int x = Integer.parseInt(message.substring(xStartPos, xEndPos).trim());
+            int yStartPos = xEndPos + 1;
+            int yEndPos = message.indexOf(",", yStartPos);
+            int y = Integer.parseInt(message.substring(yStartPos, yEndPos).trim());
+            int tilesStartPos = message.indexOf("[", yEndPos) + 1;
+            int tilesEndPos = message.indexOf("]", tilesStartPos);
+            String[] tilesArray = message.substring(tilesStartPos, tilesEndPos).split(",");
+            StringBuilder tilesStringBuilder = new StringBuilder();
+            for (String tile : tilesArray) {
+                tilesStringBuilder.append(tile.trim()).append(",");
+            }
+            String tiles = tilesStringBuilder.toString();
+            System.out.println("x: " + x);
+            System.out.println("y: " + y);
+            System.out.println("tiles: " + tiles);
+            startPos = jsonResponse.indexOf("message", endPos);
+        }
     }
 
     public String getData() {
