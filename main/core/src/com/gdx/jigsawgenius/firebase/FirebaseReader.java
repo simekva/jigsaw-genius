@@ -8,9 +8,6 @@ import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.badlogic.gdx.graphics.g3d.particles.ParticleShader.Config;
-import com.badlogic.gdx.utils.Array;
-
 public class FirebaseReader {
 
     private final String databaseUrl;
@@ -18,11 +15,18 @@ public class FirebaseReader {
     private final boolean isHost;
     private String data;
 
+    private List<Integer> xOutput;
+    private List<Integer> yOutput;
+    private List<List<Integer>> tilesOutput;
+
     public FirebaseReader(String databaseUrl, String sessionPin, boolean isHost) {
         this.databaseUrl = databaseUrl;
         this.sessionPin = sessionPin;
         this.isHost = isHost;
         data = "";
+        xOutput = new ArrayList<>();
+        yOutput = new ArrayList<>();
+        tilesOutput = new ArrayList<>();
     }
 
     public void startReading() {
@@ -99,17 +103,33 @@ public class FirebaseReader {
             List<Integer> tilesArrayInteger = new ArrayList<Integer>();
 
             for (int i = 0; i < tilesArray.length; i++) {
-                tilesArrayInteger.add(Integer.parseInt(tilesArray[i].toString()));
+                tilesArray[i] = tilesArray[i].substring(1, tilesArray[i].length() - 1);
+                tilesArrayInteger.add(Integer.parseInt(tilesArray[i]));
             }
-
-            System.out.println("x: " + x);
-            System.out.println("y: " + y);
-            System.out.println("tiles: " + tilesArrayInteger);
+            System.out.println(x);
+            System.out.println(y);
+            System.out.println(tilesArrayInteger.toArray().toString());
             startPos = jsonResponse.indexOf("message", endPos);
+
+            xOutput.add(x);
+            yOutput.add(y);
+            tilesOutput.add(tilesArrayInteger);
         }
     }
 
     public String getData() {
         return this.data;
+    }
+
+    public List<Integer> getX() {
+        return this.xOutput;
+    }
+
+    public List<Integer> getY() {
+        return this.yOutput;
+    }
+
+    public List<List<Integer>> getTiles() {
+        return this.tilesOutput;
     }
 }

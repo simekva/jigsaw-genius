@@ -70,6 +70,7 @@ public class MultiPlayerScreen extends ScreenAdapter implements ScreenInterface 
     @Override
     public void render(float delta) {
         super.render(delta);
+        backendDataParser();
         batch.begin();
 
         if (assets.manager.update()) {
@@ -134,5 +135,9 @@ public class MultiPlayerScreen extends ScreenAdapter implements ScreenInterface 
      * Updates gameLogicController with data from backend
      */
     public void backendDataParser() {
+        for (Integer n : reader.getX()) {
+            this.gameLogicController.placeTileFromBackend(reader.getX().get(n), reader.getY().get(n),
+                    reader.getTiles().get(n));
+        }
     }
 }
