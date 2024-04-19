@@ -1,5 +1,7 @@
 package com.gdx.jigsawgenius.view;
 
+import com.gdx.jigsawgenius.controller.GameLogicController;
+
 public interface ScreenInterface {
 
     /**
@@ -41,4 +43,6 @@ public interface ScreenInterface {
      * @return camerahandler.
      */
     CameraHandler getCameraHandler();
+
+    GameLogicController getController();
 }

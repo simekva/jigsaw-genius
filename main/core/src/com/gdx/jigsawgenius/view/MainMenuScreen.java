@@ -17,7 +17,6 @@ import com.badlogic.gdx.utils.viewport.StretchViewport;
 import com.gdx.jigsawgenius.JigsawGenius;
 import com.gdx.jigsawgenius.model.Assets;
 
-
 public class MainMenuScreen extends ScreenAdapter {
 
     private Assets assets;
@@ -79,15 +78,15 @@ public class MainMenuScreen extends ScreenAdapter {
         multiPlayerButton.addListener(new ClickListener() {
             @Override
             public void clicked(InputEvent event, float x, float y) {
-                game.setScreen(new MultiPlayerScreen(game));
+                game.setScreen(new MultiPlayerMenu(game));
 
             }
         });
 
-        //Help screen:
+        // Help screen:
         Texture helpIconTexture = new Texture("help.png");
         Image helpIcon = new Image(helpIconTexture);
-        helpIcon.setSize(70, 70); 
+        helpIcon.setSize(70, 70);
 
         helpIcon.setPosition(60, 60);
 
@@ -137,6 +136,4 @@ public class MainMenuScreen extends ScreenAdapter {
         font.dispose();
     }
 
-
-    
 }

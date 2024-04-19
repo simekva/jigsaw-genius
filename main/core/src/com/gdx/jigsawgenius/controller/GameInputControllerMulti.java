@@ -12,7 +12,6 @@ import com.gdx.jigsawgenius.firebase.FirebaseSender;
 import com.gdx.jigsawgenius.firebase.FirebaseHost;
 import com.gdx.jigsawgenius.model.Tile;
 
-
 public class GameInputControllerMulti implements InputProcessor {
 
     /**
@@ -72,28 +71,29 @@ public class GameInputControllerMulti implements InputProcessor {
 
         System.out.println("Clicked on: " + worldX + ", " + worldY);
 
-        int[] tileCoords = convertToWorldCoords1(worldX, worldY);     
-        
-
+        int[] tileCoords = convertToWorldCoords1(worldX, worldY);
 
         try {
             screen.placeTile(this.convertToWorldCoords(worldX, worldY)[0],
                     this.convertToWorldCoords(worldX, worldY)[1]);
-                    
-                //Sends data to Firebase based on each click
-                attempt++;
-                int sessionPin = FirebaseHost.getPin();
 
-                //TODO: Må klare å importere hvordan tiles ser ut, i tileData, så dette kan sendes
-                java.util.List<String> tileData = Arrays.asList("plains.PNG", "village.PNG", "field.PNG","forest.PNG", "desert.PNG", "desert.PNG" );             
+            // Sends data to Firebase based on each click
+            attempt++;
+            int sessionPin = FirebaseHost.getPin();
 
+            // TODO: Må klare å importere hvordan tiles ser ut, i tileData, så dette kan
+            // sendes
 
-                if (isHost) {
+            Tile tile = screen.getController().getBoard().getTile(this.convertToWorldCoords(worldX, worldY)[0],
+                    this.convertToWorldCoords(worldX, worldY)[1]);
+            if (isHost) {
                 // Send data for the host player
-                FirebaseSender.sendData(String.valueOf(sessionPin), Integer.toString(attempt), Float.toString(tileCoords[0]), Float.toString(tileCoords[1]), tileData, true);
-                } else {
+                FirebaseSender.sendData(String.valueOf(sessionPin), Integer.toString(attempt),
+                        Float.toString(tileCoords[0]), Float.toString(tileCoords[1]), tile.getBiomeIDs(), true);
+            } else {
                 // Send data for the joining player
-                FirebaseSender.sendData(pin, Integer.toString(attempt), Float.toString(tileCoords[0]), Float.toString(tileCoords[1]), tileData, false);
+                FirebaseSender.sendData(pin, Integer.toString(attempt), Float.toString(tileCoords[0]),
+                        Float.toString(tileCoords[1]), tile.getBiomeIDs(), false);
             }
 
         } catch (Exception e) {
@@ -161,13 +161,12 @@ public class GameInputControllerMulti implements InputProcessor {
     }
 
     public int[] convertToWorldCoords1(final float worldX, final float worldY) {
-    // Calculate the coordinates based on the tile size and orientation
-    int x = (int) (worldX / Assets.pieceHeight);
-    int y = (int) (worldY / (Assets.pieceHeight * 1.732));
+        // Calculate the coordinates based on the tile size and orientation
+        int x = (int) (worldX / Assets.pieceHeight);
+        int y = (int) (worldY / (Assets.pieceHeight * 1.732));
 
-    // Return the coordinates as an array
-    return new int[] { x, y };
-}
-
+        // Return the coordinates as an array
+        return new int[] { x, y };
+    }
 
 }

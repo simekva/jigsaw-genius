@@ -7,20 +7,20 @@ import java.nio.charset.StandardCharsets;
 import java.util.List;
 
 public class FirebaseSender {
-    public static void sendData(String sessionPin, String attempt, String message, String message2, List<String> tileData, boolean isHost) {
+    public static void sendData(String sessionPin, String attempt, String message, String message2,
+            List<Integer> tileData, boolean isHost) {
         String player;
         if (isHost) {
             player = "player1";
         } else {
             player = "player2";
         }
-        
+
         try {
             // Proper Firebase URL with path and .json suffix
-            URI uri = new URI("https://jigsawgame-e855b-default-rtdb.europe-west1.firebasedatabase.app/session" + sessionPin + "/" + player + "/tiles/pos" + attempt + ".json");
+            URI uri = new URI("https://jigsawgame-e855b-default-rtdb.europe-west1.firebasedatabase.app/session"
+                    + sessionPin + "/" + player + "/tiles/pos" + attempt + ".json");
 
-            
-            
             // Convert URI to URL
             URL url = uri.toURL();
 

@@ -1,178 +1,120 @@
 package com.gdx.jigsawgenius.view;
 
+import com.badlogic.gdx.Game;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.ScreenAdapter;
-import com.badlogic.gdx.graphics.Color;
-import com.badlogic.gdx.graphics.GL20;
-import com.badlogic.gdx.graphics.Texture;
-import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
-import com.badlogic.gdx.scenes.scene2d.InputEvent;
-import com.badlogic.gdx.scenes.scene2d.Stage;
-import com.badlogic.gdx.scenes.scene2d.ui.Skin;
-import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
-import com.badlogic.gdx.scenes.scene2d.ui.TextField;
-import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
-import com.badlogic.gdx.utils.Align;
-import com.badlogic.gdx.utils.viewport.StretchViewport;
-import com.gdx.jigsawgenius.JigsawGenius;
+import com.badlogic.gdx.utils.ScreenUtils;
+import com.gdx.jigsawgenius.controller.DrawerController;
+import com.gdx.jigsawgenius.controller.GameInputControllerMulti;
+import com.gdx.jigsawgenius.controller.GameLogicController;
 import com.gdx.jigsawgenius.model.Assets;
+import com.gdx.jigsawgenius.model.Tile;
+import com.badlogic.gdx.graphics.g2d.BitmapFont;
+import com.badlogic.gdx.graphics.Color;
 
-import com.gdx.jigsawgenius.firebase.FirebaseHost;
+public class MultiPlayerScreen extends ScreenAdapter implements ScreenInterface {
 
-public class MultiPlayerScreen extends ScreenAdapter {
-
-    private Assets assets;
-    private final JigsawGenius game;
-    private SpriteBatch batch;
-    private Texture backgroundTexture;
-    private Texture ribbonTexture;
-    private Stage stage;
-    private Skin skin;
-    private BitmapFont font;
-    private TextField codeField;
-    private boolean isHost = false;
+    SpriteBatch batch;
+    CameraHandler cameraHandler;
+    Assets assets;
+    Game game;
+    GameLogicController gameLogicController;
+    GameInputControllerMulti inputProcessor;
+    DrawerController drawerController;
+    private boolean isHost;
     private String pin;
+    SpriteBatch batch2;
+    Tile topTile;
+    TileDrawer topTileDrawer;
+    BitmapFont font;
 
-    public MultiPlayerScreen(JigsawGenius game) {
+    public MultiPlayerScreen(Assets assets, Game game, String pin, boolean isHost) {
         this.game = game;
+        this.assets = assets;
+        this.pin = pin;
+        this.isHost = isHost;
     }
 
     @Override
     public void show() {
         batch = new SpriteBatch();
+        batch2 = new SpriteBatch();
+        cameraHandler = new CameraHandler();
+        gameLogicController = new GameLogicController(2);
+        inputProcessor = new GameInputControllerMulti(this, isHost, pin);
+        drawerController = new DrawerController();
 
-        assets = game.getAssets();
+        topTile = gameLogicController.getPlayer(1).getTopTile();
+        topTileDrawer = new TileDrawer();
 
-        backgroundTexture = new Texture("background.png");
-        ribbonTexture = new Texture("ribbon.png");
-        ribbonTexture.setFilter(Texture.TextureFilter.Linear, Texture.TextureFilter.Linear);
-        ribbonTexture.setWrap(Texture.TextureWrap.Repeat, Texture.TextureWrap.Repeat);
-
-        stage = new Stage(new StretchViewport(Gdx.graphics.getWidth(), Gdx.graphics.getHeight()));
-        Gdx.input.setInputProcessor(stage);
-
-        skin = new Skin();
         font = new BitmapFont();
+        font.setColor(Color.BLACK);
+        font.getData().setScale(3);
 
-        skin.add("default-font", font);
-        skin.add("background", new Texture("rectangle.png"));
-
-        TextButton.TextButtonStyle buttonStyle = new TextButton.TextButtonStyle();
-        buttonStyle.up = skin.getDrawable("background");
-        buttonStyle.down = skin.newDrawable("background", Color.DARK_GRAY);
-        buttonStyle.font = skin.getFont("default-font");
-
-        TextButton hostButton = new TextButton("Host Game", buttonStyle);
-        hostButton.setSize(200, 50);
-        hostButton.setPosition(Gdx.graphics.getWidth() / 2 - hostButton.getWidth() / 2, Gdx.graphics.getHeight() / 2);
-        hostButton.addListener(new ClickListener() {
-            @Override
-            public void clicked(InputEvent event, float x, float y) {
-
-                isHost = true;
-
-                //Create new session in database
-                FirebaseHost.sendData();
-
-                //Helps display new pin in pinMenu
-                int pin = FirebaseHost.getPin();
-
-                //game.setScreen(new SinglePlayerScreen(assets, game));
-                game.setScreen(new pinMenu(game, String.valueOf(pin), isHost));
-            }
-        });
-
-        //Create a TextField for the 4-digit code
-        TextField.TextFieldStyle textFieldStyle = new TextField.TextFieldStyle();
-        textFieldStyle.font = skin.getFont("default-font");
-        textFieldStyle.fontColor = Color.WHITE;
-        textFieldStyle.background = skin.getDrawable("background");
-
-        codeField = new TextField("", textFieldStyle);
-        codeField.setMessageText("Enter 4-digit code"); 
-        codeField.setSize(200, 50);
-        codeField.setPosition(Gdx.graphics.getWidth() / 2 - codeField.getWidth() / 2, Gdx.graphics.getHeight() / 2 - 150);          //Sets position of text field
-        codeField.setAlignment(Align.center);
-
-        //Listener to clear text field when clicked
-        codeField.addListener(new ClickListener() {
-            @Override
-                public void clicked(InputEvent event, float x, float y) {
-                codeField.setText("");
-                codeField.getStyle().fontColor = Color.WHITE;
-            }
-        });
-
-        TextButton joinButton = new TextButton("Join Game", buttonStyle);
-        joinButton.setSize(200, 50);
-        joinButton.setPosition(Gdx.graphics.getWidth() / 2 - joinButton.getWidth() / 2, Gdx.graphics.getHeight() / 2 - 100);        //Sets position of button
-
-        //Listener to check for correct 4 digit input
-        joinButton.addListener(new ClickListener() {
-            @Override
-                public void clicked(InputEvent event, float x, float y) {
-                    if (codeField.getText().matches("\\d{4}")) {
-
-                        isHost = false;
-                        pin = codeField.getText(); 
-
-                        game.setScreen(new MultiPlayer(assets, game, pin, isHost));
-
-
-                    } else {
-                        codeField.setText("Invalid code! Please try again");
-                        codeField.getStyle().fontColor = Color.RED;
-                    }
-            }
-        });
-
-
-        TextButton backButton = new TextButton("Go back", buttonStyle);
-        backButton.setSize(100, 100);
-        backButton.setPosition(50, Gdx.graphics.getHeight() - backButton.getHeight() - 50);
-        backButton.addListener(new ClickListener() {
-            @Override
-            public void clicked(InputEvent event, float x, float y) {
-                game.setScreen(new MainMenuScreen(game));
-            }
-        });
-
-        stage.addActor(backButton);
-
-        stage.addActor(hostButton);
-        stage.addActor(joinButton);
-        stage.addActor(codeField);
+        Gdx.input.setInputProcessor(inputProcessor);
     }
 
     @Override
     public void render(float delta) {
-        Gdx.gl.glClearColor(0, 0, 0, 1);
-        Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
-
+        super.render(delta);
         batch.begin();
-        batch.draw(backgroundTexture, 0, 0, Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
-        float ribbonWidth = ribbonTexture.getWidth() / 2;
-        float ribbonHeight = ribbonTexture.getHeight() / 2;
-        batch.draw(ribbonTexture, Gdx.graphics.getWidth() / 2 - ribbonWidth / 2, Gdx.graphics.getHeight() - 150, ribbonWidth, ribbonHeight);
+
+        if (assets.manager.update()) {
+            cameraHandler.handleCamera();
+            cameraHandler.update();
+            batch.setProjectionMatrix(cameraHandler.getCamera().combined);
+            ScreenUtils.clear(255, 5, 5, 1);
+            drawerController.drawBoard(gameLogicController.getBoard(), assets, batch, 500, 500);
+        }
         batch.end();
 
-        stage.act();
-        stage.draw();
+        if (Gdx.input.isKeyJustPressed(com.badlogic.gdx.Input.Keys.R)) {
+            this.rotateTile();
+        }
+        batch2.begin();
+        topTileDrawer.drawTile(assets, topTile, batch2, Gdx.graphics.getWidth() / 6,
+                Gdx.graphics.getHeight() / 5,
+                0.5f);
+        font.draw(batch2,
+                String.valueOf(gameLogicController.getPlayer(1).getScore()),
+                Gdx.graphics.getWidth() / 6,
+                Gdx.graphics.getHeight());
+        batch2.end();
+    }
+
+    @Override
+    public void dispose() {
+        batch.dispose();
+        assets.manager.clear();
     }
 
     @Override
     public void resize(int width, int height) {
-        stage.getViewport().update(width, height, true);
+        cameraHandler.getCamera().viewportWidth = 30f;
+        cameraHandler.getCamera().viewportHeight = 30f * height / width;
+        cameraHandler.update();
     }
 
     @Override
-    public void hide() {
-        batch.dispose();
-        backgroundTexture.dispose();
-        ribbonTexture.dispose();
-        stage.dispose();
-        skin.dispose();
-        font.dispose();
+    public void placeTile(int x, int y) {
+        gameLogicController.placeTile(x, y);
+
+        topTile = gameLogicController.getPlayer(1).getTopTile();
+    }
+
+    @Override
+    public CameraHandler getCameraHandler() {
+        return this.cameraHandler;
+    }
+
+    public void rotateTile() {
+        gameLogicController.getPlayer(1).rotateTile();
+        topTile = gameLogicController.getPlayer(1).getTopTile();
+    }
+
+    @Override
+    public GameLogicController getController() {
+        return this.gameLogicController;
     }
 }

@@ -9,7 +9,6 @@ import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.Stage;
-import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 import com.badlogic.gdx.scenes.scene2d.ui.TextField;
@@ -18,14 +17,10 @@ import com.badlogic.gdx.utils.Align;
 import com.badlogic.gdx.utils.viewport.StretchViewport;
 import com.gdx.jigsawgenius.JigsawGenius;
 import com.gdx.jigsawgenius.model.Assets;
+
 import com.gdx.jigsawgenius.firebase.FirebaseHost;
 
-import com.badlogic.gdx.graphics.Texture;
-import com.badlogic.gdx.graphics.g2d.NinePatch;
-import com.badlogic.gdx.scenes.scene2d.ui.Label;
-import com.badlogic.gdx.scenes.scene2d.utils.NinePatchDrawable;
-
-public class pinMenu extends ScreenAdapter {
+public class MultiPlayerMenu extends ScreenAdapter {
 
     private Assets assets;
     private final JigsawGenius game;
@@ -36,16 +31,11 @@ public class pinMenu extends ScreenAdapter {
     private Skin skin;
     private BitmapFont font;
     private TextField codeField;
-
+    private boolean isHost = false;
     private String pin;
-    private boolean isHost;
 
-    public pinMenu(JigsawGenius game, String pin, boolean isHost) {
+    public MultiPlayerMenu(JigsawGenius game) {
         this.game = game;
-
-        this.pin = pin;
-
-        this.isHost = isHost;
     }
 
     @Override
@@ -73,49 +63,86 @@ public class pinMenu extends ScreenAdapter {
         buttonStyle.down = skin.newDrawable("background", Color.DARK_GRAY);
         buttonStyle.font = skin.getFont("default-font");
 
-        TextButton hostButton = new TextButton("Start game", buttonStyle);
+        TextButton hostButton = new TextButton("Host game", buttonStyle);
         hostButton.setSize(200, 50);
         hostButton.setPosition(Gdx.graphics.getWidth() / 2 - hostButton.getWidth() / 2, Gdx.graphics.getHeight() / 2);
         hostButton.addListener(new ClickListener() {
             @Override
             public void clicked(InputEvent event, float x, float y) {
-                boolean isHost = true; // For example, you can set it based on some condition
 
-                // Start the SinglePlayerScreen and pass the pin and isHost variables
-                game.setScreen(new MultiPlayerScreen(assets, game, pin, isHost));
+                isHost = true;
+
+                // Create new session in database
+                FirebaseHost.sendData();
+
+                // Helps display new pin in pinMenu
+                int pin = FirebaseHost.getPin();
+
+                // game.setScreen(new SinglePlayerScreen(assets, game));
+                game.setScreen(new pinMenu(game, String.valueOf(pin), isHost));
             }
         });
 
-        Texture backgroundTexture = new Texture("pinBackground.png");
-        NinePatch backgroundPatch = new NinePatch(backgroundTexture, 12, 12, 12, 12);
-        NinePatchDrawable backgroundDrawable = new NinePatchDrawable(backgroundPatch);
+        // Create a TextField for the 4-digit code
+        TextField.TextFieldStyle textFieldStyle = new TextField.TextFieldStyle();
+        textFieldStyle.font = skin.getFont("default-font");
+        textFieldStyle.fontColor = Color.WHITE;
+        textFieldStyle.background = skin.getDrawable("background");
 
-        Label.LabelStyle labelStyle = new Label.LabelStyle();
-        labelStyle.font = skin.getFont("default-font");
-        labelStyle.fontColor = Color.BLACK;
-        labelStyle.background = backgroundDrawable; // Set the background
+        codeField = new TextField("", textFieldStyle);
+        codeField.setMessageText("Enter 4-digit code");
+        codeField.setSize(200, 50);
+        codeField.setPosition(Gdx.graphics.getWidth() / 2 - codeField.getWidth() / 2,
+                Gdx.graphics.getHeight() / 2 - 150); // Sets position of text field
+        codeField.setAlignment(Align.center);
 
-        Label codeLabel = new Label("Tell the joining player to \n enter this 4-digit code: " + pin, labelStyle);
-        codeLabel.setSize(220, 100);
-        codeLabel.setPosition(Gdx.graphics.getWidth() / 2 - codeLabel.getWidth() / 2,
-                Gdx.graphics.getHeight() / 2 - 150);
-        codeLabel.setAlignment(Align.center);
+        // Listener to clear text field when clicked
+        codeField.addListener(new ClickListener() {
+            @Override
+            public void clicked(InputEvent event, float x, float y) {
+                codeField.setText("");
+                codeField.getStyle().fontColor = Color.WHITE;
+            }
+        });
+
+        TextButton joinButton = new TextButton("Join game", buttonStyle);
+        joinButton.setSize(200, 50);
+        joinButton.setPosition(Gdx.graphics.getWidth() / 2 - joinButton.getWidth() / 2,
+                Gdx.graphics.getHeight() / 2 - 100); // Sets position of button
+
+        // Listener to check for correct 4 digit input
+        joinButton.addListener(new ClickListener() {
+            @Override
+            public void clicked(InputEvent event, float x, float y) {
+                if (codeField.getText().matches("\\d{4}")) {
+
+                    isHost = false;
+                    pin = codeField.getText();
+
+                    game.setScreen(new MultiPlayerScreen(assets, game, pin, isHost));
+
+                } else {
+                    codeField.setText("Invalid code! Please try again");
+                    codeField.getStyle().fontColor = Color.RED;
+                }
+            }
+        });
 
         TextButton backButton = new TextButton("Go back", buttonStyle);
-        backButton.setSize(100, 120);
+        backButton.setSize(100, 100);
         backButton.setPosition(50, Gdx.graphics.getHeight() - backButton.getHeight() - 50);
         backButton.addListener(new ClickListener() {
             @Override
             public void clicked(InputEvent event, float x, float y) {
-                game.setScreen(new MultiPlayerMenu(game));
+                game.setScreen(new MainMenuScreen(game));
             }
         });
 
         stage.addActor(backButton);
 
         stage.addActor(hostButton);
-        stage.addActor(codeLabel);
-
+        stage.addActor(joinButton);
+        stage.addActor(codeField);
     }
 
     @Override
@@ -125,6 +152,10 @@ public class pinMenu extends ScreenAdapter {
 
         batch.begin();
         batch.draw(backgroundTexture, 0, 0, Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
+        float ribbonWidth = ribbonTexture.getWidth() / 2;
+        float ribbonHeight = ribbonTexture.getHeight() / 2;
+        batch.draw(ribbonTexture, Gdx.graphics.getWidth() / 2 - ribbonWidth / 2, Gdx.graphics.getHeight() - 150,
+                ribbonWidth, ribbonHeight);
         batch.end();
 
         stage.act();
@@ -140,6 +171,7 @@ public class pinMenu extends ScreenAdapter {
     public void hide() {
         batch.dispose();
         backgroundTexture.dispose();
+        ribbonTexture.dispose();
         stage.dispose();
         skin.dispose();
         font.dispose();

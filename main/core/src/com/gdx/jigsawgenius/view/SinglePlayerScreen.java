@@ -20,7 +20,7 @@ public class SinglePlayerScreen extends ScreenAdapter implements ScreenInterface
     CameraHandler cameraHandler;
     Assets assets;
     Game game;
-    static GameLogicController gameLogicController;
+    GameLogicController gameLogicController;
     GameInputController inputProcessor;
     DrawerController drawerController;
     Tile topTile;
@@ -108,5 +108,10 @@ public class SinglePlayerScreen extends ScreenAdapter implements ScreenInterface
     public void rotateTile() {
         gameLogicController.getPlayer(1).rotateTile();
         topTile = gameLogicController.getPlayer(1).getTopTile();
+    }
+
+    @Override
+    public GameLogicController getController() {
+        return this.gameLogicController;
     }
 }
