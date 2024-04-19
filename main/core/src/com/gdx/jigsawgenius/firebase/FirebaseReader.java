@@ -24,7 +24,8 @@ public class FirebaseReader {
         Thread readerThread = new Thread(() -> {
             while (true) {
                 try {
-                    System.out.println(this.readData());
+                    readData();
+                    System.out.println(this.getData());
                     Thread.sleep(5000); // Sleep for 5 seconds
                 } catch (InterruptedException e) {
                     e.printStackTrace();
@@ -42,7 +43,6 @@ public class FirebaseReader {
             player = "player1";
         }
         String url = databaseUrl + "/session" + sessionPin + "/" + player + "/tiles.json";
-        System.out.println(url);
 
         try {
             URI uri = new URI(url);
@@ -62,7 +62,7 @@ public class FirebaseReader {
 
                 // Parse JSON response
                 String jsonResponse = response.toString();
-                System.out.println("Received JSON response: " + jsonResponse);
+                // System.out.println("Received JSON response: " + jsonResponse);
                 this.data = jsonResponse;
                 processData(jsonResponse); // Process the JSON response
                 return jsonResponse;
