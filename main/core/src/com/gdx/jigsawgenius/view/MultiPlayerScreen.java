@@ -31,6 +31,8 @@ public class MultiPlayerScreen extends ScreenAdapter {
     private Skin skin;
     private BitmapFont font;
     private TextField codeField;
+    private boolean isHost = false;
+    private String pin;
 
     public MultiPlayerScreen(JigsawGenius game) {
         this.game = game;
@@ -67,10 +69,17 @@ public class MultiPlayerScreen extends ScreenAdapter {
         hostButton.addListener(new ClickListener() {
             @Override
             public void clicked(InputEvent event, float x, float y) {
-                game.setScreen(new SinglePlayerScreen(assets, game));
+
+                isHost = true;
 
                 //Create new session in database
                 FirebaseHost.sendData();
+
+                //Helps display new pin in pinMenu
+                int pin = FirebaseHost.getPin();
+
+                //game.setScreen(new SinglePlayerScreen(assets, game));
+                game.setScreen(new pinMenu(game, String.valueOf(pin), isHost));
             }
         });
 
@@ -86,6 +95,15 @@ public class MultiPlayerScreen extends ScreenAdapter {
         codeField.setPosition(Gdx.graphics.getWidth() / 2 - codeField.getWidth() / 2, Gdx.graphics.getHeight() / 2 - 150);          //Sets position of text field
         codeField.setAlignment(Align.center);
 
+        //Listener to clear text field when clicked
+        codeField.addListener(new ClickListener() {
+            @Override
+                public void clicked(InputEvent event, float x, float y) {
+                codeField.setText("");
+                codeField.getStyle().fontColor = Color.WHITE;
+            }
+        });
+
         TextButton joinButton = new TextButton("Join Game", buttonStyle);
         joinButton.setSize(200, 50);
         joinButton.setPosition(Gdx.graphics.getWidth() / 2 - joinButton.getWidth() / 2, Gdx.graphics.getHeight() / 2 - 100);        //Sets position of button
@@ -95,7 +113,11 @@ public class MultiPlayerScreen extends ScreenAdapter {
             @Override
                 public void clicked(InputEvent event, float x, float y) {
                     if (codeField.getText().matches("\\d{4}")) {
-                        game.setScreen(new SinglePlayerScreen(assets, game));
+
+                        isHost = false;
+                        pin = codeField.getText(); 
+
+                        game.setScreen(new MultiPlayer(assets, game, pin, isHost));
 
 
                     } else {
@@ -105,14 +127,6 @@ public class MultiPlayerScreen extends ScreenAdapter {
             }
         });
 
-        //Listener to clear text field when clicked
-        codeField.addListener(new ClickListener() {
-            @Override
-                public void clicked(InputEvent event, float x, float y) {
-                codeField.setText("");
-                codeField.getStyle().fontColor = Color.WHITE;
-            }
-        });
 
         TextButton backButton = new TextButton("Go back", buttonStyle);
         backButton.setSize(100, 100);

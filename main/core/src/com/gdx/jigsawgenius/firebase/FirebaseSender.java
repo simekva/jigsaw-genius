@@ -5,11 +5,18 @@ import java.net.URI;
 import java.net.URL;
 import java.nio.charset.StandardCharsets;
 
-public class FirebaseSenderJoin {
-    public static void sendData(String sessionPin, String attempt, String message, String message2) {
+public class FirebaseSender {
+    public static void sendData(String sessionPin, String attempt, String message, String message2, boolean isHost) {
+        String player;
+        if (isHost) {
+            player = "player1";
+        } else {
+            player = "player2";
+        }
+        
         try {
             // Proper Firebase URL with path and .json suffix
-            URI uri = new URI("https://jigsawgame-e855b-default-rtdb.europe-west1.firebasedatabase.app/session" + sessionPin + "/player2/tiles/pos" + attempt + ".json");
+            URI uri = new URI("https://jigsawgame-e855b-default-rtdb.europe-west1.firebasedatabase.app/session" + sessionPin + "/" + player + "/tiles/pos" + attempt + ".json");
 
             // Convert URI to URL
             URL url = uri.toURL();
@@ -36,5 +43,3 @@ public class FirebaseSenderJoin {
         }
     }
 }
-
-

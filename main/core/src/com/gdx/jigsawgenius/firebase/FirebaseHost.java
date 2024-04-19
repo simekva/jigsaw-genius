@@ -7,9 +7,12 @@ import java.nio.charset.StandardCharsets;
 import java.util.Random;
 
 public class FirebaseHost {
+    
+    private static int pin;
+
     public static void sendData() {
         try {
-            int pin = generateRandomNumber(1000, 9999);
+            pin = generatePin();
             String sessionName = "session" + pin;
             // Proper Firebase URL with path and .json suffix
             URI uri = new URI("https://jigsawgame-e855b-default-rtdb.europe-west1.firebasedatabase.app/" + sessionName + ".json");
@@ -39,8 +42,15 @@ public class FirebaseHost {
         }
     }
 
-    private static int generateRandomNumber(int min, int max) {
+    public static int generatePin() {
+        int min = 1000;
+        int max = 9999;
         Random random = new Random();
         return random.nextInt(max - min + 1) + min;
     }
+
+    public static int getPin() {
+        return pin;
+    }
+
 }
