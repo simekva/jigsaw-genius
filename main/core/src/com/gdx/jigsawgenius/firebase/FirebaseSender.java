@@ -7,7 +7,7 @@ import java.nio.charset.StandardCharsets;
 import java.util.List;
 
 public class FirebaseSender {
-    public static void sendData(String sessionPin, String attempt, String message, String message2,
+    public static void sendData(String sessionPin, String attempt, int x, int y,
             List<Integer> tileData, boolean isHost) {
         String player;
         if (isHost) {
@@ -40,7 +40,7 @@ public class FirebaseSender {
             tileDataJson.append("]");
 
             // Data you want to send, as a JSON string
-            String data = "{\"message\": \"" + message + "__" + message2 + "\", \"tile\": " + tileData + "}";
+            String data = "{\"message\": \"" + x + "__" + y + "\", \"tile\": " + tileData + "}";
 
             byte[] out = data.getBytes(StandardCharsets.UTF_8);
             connection.getOutputStream().write(out);

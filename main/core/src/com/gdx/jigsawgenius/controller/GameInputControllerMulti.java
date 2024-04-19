@@ -89,11 +89,11 @@ public class GameInputControllerMulti implements InputProcessor {
             if (isHost) {
                 // Send data for the host player
                 FirebaseSender.sendData(String.valueOf(sessionPin), Integer.toString(attempt),
-                        Float.toString(tileCoords[0]), Float.toString(tileCoords[1]), tile.getBiomeIDs(), true);
+                        tileCoords[0], tileCoords[1], tile.getBiomeIDs(), true);
             } else {
                 // Send data for the joining player
-                FirebaseSender.sendData(pin, Integer.toString(attempt), Float.toString(tileCoords[0]),
-                        Float.toString(tileCoords[1]), tile.getBiomeIDs(), false);
+                FirebaseSender.sendData(pin, Integer.toString(attempt), tileCoords[0],
+                        tileCoords[1], tile.getBiomeIDs(), false);
             }
 
         } catch (Exception e) {
