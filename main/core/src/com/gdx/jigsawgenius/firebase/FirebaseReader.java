@@ -35,7 +35,7 @@ public class FirebaseReader {
                 try {
                     readData();
                     processData(this.getData());
-                    Thread.sleep(5000); // Sleep for 5 seconds
+                    Thread.sleep(1000); // Sleep for 5 seconds
                 } catch (InterruptedException e) {
                     e.printStackTrace();
                 }

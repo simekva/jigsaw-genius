@@ -371,7 +371,7 @@ public class TileManager {
             System.out.println("Board dimensions: " + this.rows
                     + ", " + this.columns);
         } catch (Exception e) {
-            this.placeTile(tile, x, y);
+            this.updateTilesFromBackend(tile, x, y);
         }
         tile.setXCoord(x * Assets.pieceHeight);
         tile.setYCoord((float) (y * Assets.pieceHeight * 1.732));
