@@ -39,9 +39,11 @@ public class helpScreen extends ScreenAdapter {
         this.game = game;
         stage = new Stage(new StretchViewport(Gdx.graphics.getWidth(), Gdx.graphics.getHeight()));
         tutorialImages = new ArrayList<Image>();
-        tutorialImages.add(new Image(new Texture("village.PNG")));
-        tutorialImages.add(new Image(new Texture("plains.PNG")));
-        tutorialImages.add(new Image(new Texture("field.PNG")));
+        
+        tutorialImages.add(new Image(new Texture("tutorialSlide1.png")));
+        tutorialImages.add(new Image(new Texture("tutorialSlide2.png")));
+        tutorialImages.add(new Image(new Texture("tutorialSlide3.png")));
+        tutorialImages.add(new Image(new Texture("tutorialSlide4.png")));
         currentTutorial = 0;
         display = tutorialImages.get(currentTutorial);
         display.setSize(Gdx.graphics.getWidth() - 200, Gdx.graphics.getHeight() - 200);
@@ -63,8 +65,7 @@ public class helpScreen extends ScreenAdapter {
         if(currentTutorial >= tutorialImages.size() - 1){
             nextTutorialButton.setTouchable(Touchable.disabled);
             nextTutorialButton.setDisabled(true);
-            System.out.println("Disabled next");
-        }System.out.println(currentTutorial);
+        }
     }
 
     private void prevTutorial() {
