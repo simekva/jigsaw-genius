@@ -300,10 +300,6 @@ public class TileManager {
 
     public void updateTilesFromBackend(Tile tile, int x, int y) {
 
-        if (isOutOfBounds(x, y)) {
-            throw new IllegalArgumentException("Out of bounds.");
-        }
-
         if (((x + y) % 2) != 0) {
             throw new IllegalArgumentException("Illegal tile placement.");
         }
@@ -342,14 +338,14 @@ public class TileManager {
         // Extends in negative x
         if (x < (-lowestx)
                 && (!isExtended)) {
-            negativeExtension(1, 0);
+            negativeExtension(2, 0);
             isExtended = true;
         }
 
         // Extend in positive x
         if ((x + lowestx) > (rows - 1)
                 && (!isExtended)) {
-            positiveExtension(1, 0);
+            positiveExtension(2, 0);
             isExtended = true;
         }
         // Extends in negative y
