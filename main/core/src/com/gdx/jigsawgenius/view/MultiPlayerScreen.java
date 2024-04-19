@@ -130,6 +130,7 @@ public class MultiPlayerScreen extends ScreenAdapter implements ScreenInterface 
      * Updates gameLogicController with data from backend
      */
     public void backendDataParser() {
-        // String data = reader.readData();
+        String data = reader.getData();
+
     }
 }

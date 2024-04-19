@@ -12,11 +12,13 @@ public class FirebaseReader {
     private final String databaseUrl;
     private final String sessionPin;
     private final boolean isHost;
+    private String data;
 
     public FirebaseReader(String databaseUrl, String sessionPin, boolean isHost) {
         this.databaseUrl = databaseUrl;
         this.sessionPin = sessionPin;
         this.isHost = isHost;
+        data = "";
     }
 
     public void startReading() {
@@ -62,6 +64,7 @@ public class FirebaseReader {
                 // Parse JSON response
                 String jsonResponse = response.toString();
                 System.out.println("Received JSON response: " + jsonResponse);
+                this.data = jsonResponse;
                 return jsonResponse;
                 // Process the JSON response here
             } else {
@@ -72,5 +75,9 @@ public class FirebaseReader {
             e.printStackTrace();
         }
         return "";
+    }
+
+    public String getData() {
+        return this.data;
     }
 }
