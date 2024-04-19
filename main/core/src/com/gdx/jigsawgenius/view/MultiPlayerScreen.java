@@ -8,6 +8,7 @@ import com.badlogic.gdx.utils.ScreenUtils;
 import com.gdx.jigsawgenius.controller.DrawerController;
 import com.gdx.jigsawgenius.controller.GameInputControllerMulti;
 import com.gdx.jigsawgenius.controller.GameLogicController;
+import com.gdx.jigsawgenius.firebase.FirebaseReader;
 import com.gdx.jigsawgenius.model.Assets;
 import com.gdx.jigsawgenius.model.Tile;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
@@ -28,6 +29,8 @@ public class MultiPlayerScreen extends ScreenAdapter implements ScreenInterface 
     Tile topTile;
     TileDrawer topTileDrawer;
     BitmapFont font;
+
+    FirebaseReader reader;
 
     public MultiPlayerScreen(Assets assets, Game game, String pin, boolean isHost) {
         this.game = game;
@@ -53,6 +56,16 @@ public class MultiPlayerScreen extends ScreenAdapter implements ScreenInterface 
         font.getData().setScale(3);
 
         Gdx.input.setInputProcessor(inputProcessor);
+
+        // Setup backend reader
+        String baseURL = "https://jigsawgame-e855b-default-rtdb.europe-west1.firebasedatabase.app/session";
+        String player;
+        if (isHost) {
+            player = "player1";
+        } else {
+            player = "player2";
+        }
+        reader = new FirebaseReader(baseURL + "/session" + pin + "/" + player + "/tiles.json", pin, isHost);
     }
 
     @Override
@@ -116,5 +129,9 @@ public class MultiPlayerScreen extends ScreenAdapter implements ScreenInterface 
     @Override
     public GameLogicController getController() {
         return this.gameLogicController;
+    }
+
+    public void backendDataParser(String data) {
+
     }
 }

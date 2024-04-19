@@ -298,6 +298,13 @@ public class TileManager {
         tile.setY(y);
     }
 
+    public void updateTilesFromBackend(Tile tile, int x, int y) {
+        try {
+            board[x + lowestx][y + lowesty] = tile;
+        } catch (Exception e) {
+        }
+    }
+
     private void positiveExtension(final int x, final int y) {
         if (x >= 0 && x <= 1 && y >= 0 && y <= 1) {
             Tile[][] newBoard = new Tile[rows + x][columns + y];

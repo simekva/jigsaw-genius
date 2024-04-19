@@ -33,7 +33,7 @@ public class FirebaseReader {
         readerThread.start();
     }
 
-    private void readData() {
+    private String readData() {
         String player;
         if (isHost) {
             player = "player2";
@@ -61,6 +61,7 @@ public class FirebaseReader {
                 // Parse JSON response
                 String jsonResponse = response.toString();
                 System.out.println("Received JSON response: " + jsonResponse);
+                return jsonResponse;
                 // Process the JSON response here
             } else {
                 System.out.println("Failed to retrieve data. Response code: " + responseCode);
@@ -69,5 +70,6 @@ public class FirebaseReader {
         } catch (Exception e) {
             e.printStackTrace();
         }
+        return "";
     }
 }

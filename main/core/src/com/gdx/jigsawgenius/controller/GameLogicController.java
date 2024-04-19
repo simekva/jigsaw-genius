@@ -86,7 +86,8 @@ public class GameLogicController {
     }
 
     public void placeTileFromBackend(final int x, final int y, final List<Integer> biomeIDs) {
-
+        Tile tile = new Tile(x, y, biomeIDs);
+        this.board.updateTilesFromBackend(tile, x, y);
     }
 
     /**
