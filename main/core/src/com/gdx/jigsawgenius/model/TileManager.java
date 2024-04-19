@@ -338,14 +338,14 @@ public class TileManager {
         // Extends in negative x
         if (x < (-lowestx)
                 && (!isExtended)) {
-            negativeExtension(2, 0);
+            negativeExtension(1, 0);
             isExtended = true;
         }
 
         // Extend in positive x
         if ((x + lowestx) > (rows - 1)
                 && (!isExtended)) {
-            positiveExtension(2, 0);
+            positiveExtension(1, 0);
             isExtended = true;
         }
         // Extends in negative y
