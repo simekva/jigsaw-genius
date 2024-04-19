@@ -5,6 +5,11 @@ import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.URI;
 import java.net.URL;
+import java.util.ArrayList;
+import java.util.List;
+
+import com.badlogic.gdx.graphics.g3d.particles.ParticleShader.Config;
+import com.badlogic.gdx.utils.Array;
 
 public class FirebaseReader {
 
@@ -76,7 +81,7 @@ public class FirebaseReader {
         return "";
     }
 
-    private void processData(String jsonResponse) {
+    public void processData(String jsonResponse) {
         int startPos = jsonResponse.indexOf("message");
         while (startPos != -1) {
             int endPos = jsonResponse.indexOf("}", startPos);
@@ -90,14 +95,16 @@ public class FirebaseReader {
             int tilesStartPos = message.indexOf("[", yEndPos) + 1;
             int tilesEndPos = message.indexOf("]", tilesStartPos);
             String[] tilesArray = message.substring(tilesStartPos, tilesEndPos).split(",");
-            StringBuilder tilesStringBuilder = new StringBuilder();
-            for (String tile : tilesArray) {
-                tilesStringBuilder.append(tile.trim()).append(",");
+
+            List<Integer> tilesArrayInteger = new ArrayList<Integer>();
+
+            for (int i = 0; i < tilesArray.length; i++) {
+                tilesArrayInteger.add(Integer.parseInt(tilesArray[i].toString()));
             }
-            String tiles = tilesStringBuilder.toString();
+
             System.out.println("x: " + x);
             System.out.println("y: " + y);
-            System.out.println("tiles: " + tiles);
+            System.out.println("tiles: " + tilesArrayInteger);
             startPos = jsonResponse.indexOf("message", endPos);
         }
     }

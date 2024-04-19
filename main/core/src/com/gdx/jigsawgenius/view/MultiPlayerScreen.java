@@ -1,9 +1,13 @@
 package com.gdx.jigsawgenius.view;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import com.badlogic.gdx.Game;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.ScreenAdapter;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.badlogic.gdx.utils.Array;
 import com.badlogic.gdx.utils.ScreenUtils;
 import com.gdx.jigsawgenius.controller.DrawerController;
 import com.gdx.jigsawgenius.controller.GameInputControllerMulti;
@@ -130,7 +134,5 @@ public class MultiPlayerScreen extends ScreenAdapter implements ScreenInterface 
      * Updates gameLogicController with data from backend
      */
     public void backendDataParser() {
-        String data = reader.getData();
-
     }
 }
