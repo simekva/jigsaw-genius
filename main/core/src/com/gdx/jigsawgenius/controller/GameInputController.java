@@ -6,7 +6,6 @@ import com.badlogic.gdx.math.Vector3;
 import com.gdx.jigsawgenius.model.Assets;
 import com.gdx.jigsawgenius.view.ScreenInterface;
 
-
 public class GameInputController implements InputProcessor {
 
     /**
@@ -61,9 +60,6 @@ public class GameInputController implements InputProcessor {
         float worldY = worldCoordinates.y - Assets.WORLD_SIZE / 2;
 
         System.out.println("Clicked on: " + worldX + ", " + worldY);
-        
-        
-
 
         try {
             screen.placeTile(this.convertToWorldCoords(worldX, worldY)[0],
@@ -117,7 +113,8 @@ public class GameInputController implements InputProcessor {
      */
     @Override
     public final boolean scrolled(final float amountX, final float amountY) {
-        return false;
+        screen.getCameraHandler().zoom(amountY);
+        return true;
     }
 
     /**
