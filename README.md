@@ -1,6 +1,6 @@
 # JigsawGenius
 
-Welcome to the repository for the *JigsawGenius* Android Game. This project was developed for the course **TDT4240** "Programvarearkitektur", for the Spring of 2024. 
+Welcome to the repository for the *JigsawGenius* Android Game. This project was developed for the course **TDT4240 Programvarearkitektur**, for the Spring of 2024. 
 
 ## Description of game
 
@@ -18,7 +18,7 @@ You can play the game in SinglePlayer- or MultiPlayerMode. In SinglePlayer, you 
 
 Here is the folder structure for JigsawGenius:
 
-`
+'
 |__artwork
 |
 |__main
@@ -58,7 +58,7 @@ Here is the folder structure for JigsawGenius:
 |    |__build.gradle
 |
 |__README.md
-`
+'
 
 ### Description
 
