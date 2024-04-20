@@ -18,7 +18,7 @@ You can play the game in SinglePlayer- or MultiPlayerMode. In SinglePlayer, you 
 
 Here is the folder structure for JigsawGenius:
 
-'
+```
 |__artwork
 |
 |__main
@@ -58,7 +58,7 @@ Here is the folder structure for JigsawGenius:
 |    |__build.gradle
 |
 |__README.md
-'
+```
 
 ### Description
 
