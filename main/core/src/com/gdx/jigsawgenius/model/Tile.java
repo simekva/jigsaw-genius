@@ -54,15 +54,23 @@ public class Tile {
         this.yCoord = 0;
     }
 
-    public Tile(int x, int y, List<Integer> biomeIDs) {
+    /**
+     * Create tile with a list of biome-IDs.
+     *
+     * @param xInput
+     * @param yInput
+     * @param biomeIDs
+     */
+    public Tile(final int xInput, final int yInput,
+            final List<Integer> biomeIDs) {
         List<Biome> biomes = new ArrayList<Biome>();
 
         for (int i = 0; i < Config.SIDESCOUNT; i++) {
             biomes.add(new Biome(biomeIDs.get(i)));
         }
         this.sides = biomes;
-        this.x = x;
-        this.y = y;
+        this.x = xInput;
+        this.y = yInput;
     }
 
     /**

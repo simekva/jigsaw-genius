@@ -1,6 +1,5 @@
 package com.gdx.jigsawgenius.controller;
 
-
 import com.badlogic.gdx.InputProcessor;
 import com.badlogic.gdx.graphics.Camera;
 import com.badlogic.gdx.math.Vector3;
@@ -16,18 +15,27 @@ public class GameInputControllerMultiPlayer implements InputProcessor {
      * Active screen in the game.
      */
     private ScreenInterface screen;
+    /**
+     * True if current player is host. False otherwise.
+     */
     private boolean isHost;
-    String pin;
+    /**
+     * Pin for the game.
+     */
+    private String pin;
 
     /**
      * Sets the screen to the screen active in the game.
      *
      * @param screenInput
+     * @param isHostInput
+     * @param pinInput
      */
-    public GameInputControllerMultiPlayer(final ScreenInterface screenInput, boolean isHost, String pin) {
+    public GameInputControllerMultiPlayer(final ScreenInterface screenInput,
+            final boolean isHostInput, final String pinInput) {
         this.screen = screenInput;
-        this.isHost = isHost;
-        this.pin = pin;
+        this.isHost = isHostInput;
+        this.pin = pinInput;
     }
 
     /**
@@ -54,19 +62,20 @@ public class GameInputControllerMultiPlayer implements InputProcessor {
         return false;
     }
 
-
     /**
-     * Function for placing a tile or trying to place a tile. If a tile is placed succesfully, the data for this tile gets sent to the Firebase Database.
-     * 
-     * @param attempt - nr. of tiles placed (per player)
-     * @param screenX - X cordinations
+     * Function for placing a tile or trying to place a tile.
+     * If a tile is placed succesfully, the data for this tile
+     * gets sent to the Firebase Database.
+     *
+     * @param attempt  - nr. of tiles placed (per player)
+     * @param screenX  - X cordinations
      * @param screenY- Y cordiantions
      * @param pointer
      * @param button
      * @return boolean
      */
 
-    int attempt = 0;
+    private int attempt = 0;
 
     @Override
     public final boolean touchDown(final int screenX, final int screenY,
@@ -87,21 +96,25 @@ public class GameInputControllerMultiPlayer implements InputProcessor {
             screen.placeTile(this.convertToWorldCoords(worldX, worldY)[0],
                     this.convertToWorldCoords(worldX, worldY)[1]);
 
-            //Sends data to Firebase based on each click:
+            // Sends data to Firebase based on each click:
 
-            attempt++;          //Counter for each tile that has been placed                      
+            attempt++; // Counter for each tile that has been placed
 
-            int sessionPin = FirebaseHost.getPin();     //Session pin, belongs to database
+            int sessionPin = FirebaseHost
+                    .getPin(); // Session pin, belongs to database
 
-            Tile tile = screen.getController().getBoard().getTile(this.convertToWorldCoords(worldX, worldY)[0],
-                    this.convertToWorldCoords(worldX, worldY)[1]);
+            Tile tile = screen.getController().getBoard()
+                    .getTile(this.convertToWorldCoords(worldX, worldY)[0],
+                            this.convertToWorldCoords(worldX, worldY)[1]);
             if (isHost) {
                 // Send data for the host player
-                FirebaseSender.sendData(String.valueOf(sessionPin), Integer.toString(attempt),
+                FirebaseSender.sendData(
+                        String.valueOf(sessionPin), Integer.toString(attempt),
                         tileCoords[0], tileCoords[1], tile.getBiomeIDs(), true);
             } else {
                 // Send data for the joining player
-                FirebaseSender.sendData(pin, Integer.toString(attempt), tileCoords[0],
+                FirebaseSender.sendData(
+                        pin, Integer.toString(attempt), tileCoords[0],
                         tileCoords[1], tile.getBiomeIDs(), false);
             }
 
@@ -169,9 +182,9 @@ public class GameInputControllerMultiPlayer implements InputProcessor {
         };
     }
 
-
     /**
-     * Converts the world coordinates to TileManager coordinates. Same as the function above, with slightly different output.
+     * Converts the world coordinates to TileManager coordinates. Same as the
+     * function above, with slightly different output.
      *
      * @param worldX
      * @param worldY

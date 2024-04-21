@@ -46,8 +46,10 @@ public class GameInputController implements InputProcessor {
         return false;
     }
 
-    int attempt = 0;
-
+    /**
+     * Converts cameracoordinates to world-coordinates, then places it into the
+     * board using tilecoordinates.
+     */
     @Override
     public final boolean touchDown(final int screenX, final int screenY,
             final int pointer, final int button) {

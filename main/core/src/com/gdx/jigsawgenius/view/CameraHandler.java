@@ -7,18 +7,28 @@ import com.gdx.jigsawgenius.model.Assets;
 
 public class CameraHandler {
 
-    OrthographicCamera camera;
+    /**
+     * Camera for the application.
+     */
+    private OrthographicCamera camera;
 
+    /**
+     * CameraHandler constructor. Places the camera in the middle of the board,
+     * and sets the zoom.
+     */
     public CameraHandler() {
-        camera = new OrthographicCamera(30, 30 * (Gdx.graphics.getHeight() /
-                Gdx.graphics.getWidth()));
-        camera.position.set(camera.viewportWidth / 2f, camera.viewportHeight / 2f,
-                0);
+        camera = new OrthographicCamera(30, 30
+                * (Gdx.graphics.getHeight() / Gdx.graphics.getWidth()));
+        camera.position.set(camera.viewportWidth / 2f,
+                camera.viewportHeight / 2f, 0);
         camera.zoom = 50;
         camera.position.set(Assets.WORLD_SIZE / 2, Assets.WORLD_SIZE / 2, 0);
         camera.update();
     }
 
+    /**
+     * Handles input to move the camera.
+     */
     public void handleCamera() {
         if (Gdx.input.isKeyPressed(com.badlogic.gdx.Input.Keys.LEFT)) {
             camera.translate(-10, 0, 0);
@@ -37,11 +47,21 @@ public class CameraHandler {
         }
     }
 
+    /**
+     * Returns the camera.
+     *
+     * @return camera.
+     */
     public Camera getCamera() {
         return this.camera;
     }
 
-    public void zoom(float value) {
+    /**
+     * Handles the zoom of the camera.
+     *
+     * @param value
+     */
+    public void zoom(final float value) {
         if (value > 0) {
             if (camera.zoom < 200) {
                 camera.zoom += 10;
@@ -54,6 +74,9 @@ public class CameraHandler {
 
     }
 
+    /**
+     * Updates the camera. Is called every frame in screen.
+     */
     public void update() {
         this.camera.update();
     }

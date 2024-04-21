@@ -298,7 +298,15 @@ public class TileManager {
         tile.setY(y);
     }
 
-    public void updateTilesFromBackend(Tile tile, int x, int y) {
+    /**
+     * Updates tile from backend. Same as placeTile() but with less checks.
+     *
+     * @param tile
+     * @param x
+     * @param y
+     */
+    public void updateTilesFromBackend(
+            final Tile tile, final int x, final int y) {
 
         if (((x + y) % 2) != 0) {
             throw new IllegalArgumentException("Illegal tile placement.");

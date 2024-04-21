@@ -22,14 +22,15 @@ public class FirebaseReader {
     /**
      * Creates a tile object with a given list of tiles.
      *
-     * @param databaseURL
-     * @param sessionPin
-     * @param isHost
+     * @param databaseUrlInput
+     * @param sessionPinInput
+     * @param isHostInput
      */
-    public FirebaseReader(String databaseUrl, String sessionPin, boolean isHost) {
-        this.databaseUrl = databaseUrl;
-        this.sessionPin = sessionPin;
-        this.isHost = isHost;
+    public FirebaseReader(final String databaseUrlInput,
+            final String sessionPinInput, final boolean isHostInput) {
+        this.databaseUrl = databaseUrlInput;
+        this.sessionPin = sessionPinInput;
+        this.isHost = isHostInput;
         data = "";
         xOutput = new ArrayList<>();
         yOutput = new ArrayList<>();
@@ -55,10 +56,11 @@ public class FirebaseReader {
         readerThread.start();
     }
 
-
     /**
-     * Reads the data from the tables in the database. Depending on which players runs the function, a table "player1" or "player2" gets read from.
+     * Reads the data from the tables in the database.Depending on which players
+     * runs the function, a table "player1" or "player2" gets read from.
      *
+     * @return String of data.
      */
     private String readData() {
         String player;
@@ -68,17 +70,22 @@ public class FirebaseReader {
             player = "player1";
         }
 
-        String url = databaseUrl + "/session" + sessionPin + "/" + player + "/tiles.json";          //Changes read-URl based on which player is reading from table
+        String url = databaseUrl + "/session" + sessionPin + "/"
+                + player + "/tiles.json"; // Changes read-URl based on
+                                          // which player is reading
+                                          // from table
 
         try {
             URI uri = new URI(url);
             URL firebaseUrl = uri.toURL();
-            HttpURLConnection connection = (HttpURLConnection) firebaseUrl.openConnection();
+            HttpURLConnection connection = (HttpURLConnection) firebaseUrl
+                    .openConnection();
             connection.setRequestMethod("GET");
 
             int responseCode = connection.getResponseCode();
             if (responseCode == HttpURLConnection.HTTP_OK) {
-                BufferedReader reader = new BufferedReader(new InputStreamReader(connection.getInputStream()));
+                BufferedReader reader = new BufferedReader(
+                        new InputStreamReader(connection.getInputStream()));
                 StringBuilder response = new StringBuilder();
                 String line;
                 while ((line = reader.readLine()) != null) {
@@ -92,7 +99,9 @@ public class FirebaseReader {
                 processData(jsonResponse); // Process the JSON response
                 return jsonResponse;
             } else {
-                System.out.println("Failed to retrieve data. Response code: " + responseCode);              //error code for wrong data format
+                System.out.println("Failed to retrieve data. Response code: "
+                        + responseCode); // error code for wrong
+                                         // data format
             }
             connection.disconnect();
         } catch (Exception e) {
@@ -101,31 +110,35 @@ public class FirebaseReader {
         return "";
     }
 
-
     /**
-     * Process the data fetched from the database. Converts the data from .json to readable data. This data is used when drawing a tile in the game later. 
+     * Process the data from the database. Converts the data from .json to
+     * readable data. This data is used when drawing a tile in the game later.
      *
      * @param jsonResponse
      */
-    public void processData(String jsonResponse) {
+    public void processData(final String jsonResponse) {
         int startPos = jsonResponse.indexOf("message");
         while (startPos != -1) {
             int endPos = jsonResponse.indexOf("}", startPos);
             String message = jsonResponse.substring(startPos, endPos);
             int xStartPos = message.indexOf("[") + 1;
             int xEndPos = message.indexOf(",", xStartPos);
-            int x = Integer.parseInt(message.substring(xStartPos, xEndPos).trim());
+            int x = Integer.parseInt(message.substring(
+                    xStartPos, xEndPos).trim());
             int yStartPos = xEndPos + 1;
             int yEndPos = message.indexOf(",", yStartPos);
-            int y = Integer.parseInt(message.substring(yStartPos, yEndPos).trim());
+            int y = Integer.parseInt(message.substring(
+                    yStartPos, yEndPos).trim());
             int tilesStartPos = message.indexOf("[", yEndPos) + 1;
             int tilesEndPos = message.indexOf("]", tilesStartPos);
-            String[] tilesArray = message.substring(tilesStartPos, tilesEndPos).split(",");
+            String[] tilesArray = message.substring(
+                    tilesStartPos, tilesEndPos).split(",");
 
             List<Integer> tilesArrayInteger = new ArrayList<Integer>();
 
             for (int i = 0; i < tilesArray.length; i++) {
-                tilesArray[i] = tilesArray[i].substring(1, tilesArray[i].length() - 1);
+                tilesArray[i] = tilesArray[i]
+                        .substring(1, tilesArray[i].length() - 1);
                 tilesArrayInteger.add(Integer.parseInt(tilesArray[i]));
             }
             System.out.println(x);
@@ -140,7 +153,7 @@ public class FirebaseReader {
     }
 
     /**
-     * Function to get Data
+     * Function to get Data.
      *
      * @return this.data
      */
@@ -149,7 +162,7 @@ public class FirebaseReader {
     }
 
     /**
-     * Fetches the X-coordinates for tile stored in database
+     * Fetches the X-coordinates for tile stored in database.
      *
      * @return xOutput - X coordinates for tile
      */
@@ -158,7 +171,7 @@ public class FirebaseReader {
     }
 
     /**
-     * Fetches the Y-coordinates for tile stored in database
+     * Fetches the Y-coordinates for tile stored in database.
      *
      * @return yOutput - Y coordinates for tile
      */
@@ -166,9 +179,8 @@ public class FirebaseReader {
         return this.yOutput;
     }
 
-
     /**
-     * Fetches the Biome IDs for tile stored in database
+     * Fetches the Biome IDs for tile stored in database.
      *
      * @return tilesOutput - Biome IDs for the tile
      */

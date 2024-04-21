@@ -10,18 +10,20 @@ public class FirebaseSender {
 
     private static String url = "https://jigsawgame-e855b-default-rtdb.europe-west1.firebasedatabase.app";
 
-     /**
-     * Sends data to Firebase Database, based on the URL of the session. This URL connects to a Direbase Database
-     * 
-     * @params sessionPin
-     * @params attempts
-     * @params x - X coordinate for tile placement
-     * @params y - Y coordinate for tile placement
-     * @params tileData - IDs for biome sectors
-     * @params isHost - boolean, if player is host or not
+    /**
+     * Sends data to Firebase Database, based on the URL of the session.
+     * This URL connects to a Direbase Database.
+     *
+     * @param sessionPin
+     * @param attempt
+     * @param x          - X coordinate for tile placement
+     * @param y          - Y coordinate for tile placement
+     * @param tileData   - IDs for biome sectors
+     * @param isHost     - boolean, if player is host or not
      */
-    public static void sendData(String sessionPin, String attempt, int x, int y,
-                                List<Integer> tileData, boolean isHost) {
+    public static void sendData(final String sessionPin, final String attempt,
+            final int x, final int y, final List<Integer> tileData,
+            final boolean isHost) {
         String player;
         if (isHost) {
             player = "player1";
@@ -32,18 +34,20 @@ public class FirebaseSender {
         try {
             // Proper Firebase URL with path and .json suffix
             URI uri = new URI(url
-                    + "/session" + sessionPin + "/" + player + "/tiles/pos" + attempt + ".json");
+                    + "/session" + sessionPin + "/" + player
+                    + "/tiles/pos" + attempt + ".json");
 
             // Convert URI to URL
             URL url = uri.toURL();
 
-            //Sets up HTTP connection
-            HttpURLConnection connection = (HttpURLConnection) url.openConnection();
+            // Sets up HTTP connection
+            HttpURLConnection connection = (HttpURLConnection) url
+                    .openConnection();
             connection.setRequestMethod("PUT");
             connection.setDoOutput(true);
             connection.setRequestProperty("Content-Type", "application/json");
 
-            //Sends data for biome IDs as a list of 6 integers
+            // Sends data for biome IDs as a list of 6 integers
             StringBuilder tileDataJson = new StringBuilder();
             tileDataJson.append("[");
             for (int i = 0; i < tileData.size(); i++) {
@@ -54,15 +58,18 @@ public class FirebaseSender {
             }
             tileDataJson.append("]");
 
-            String data = "{\"message\": [" + x + ", " + y + ", " + tileDataJson.toString() + "]}";
+            String data = "{\"message\": [" + x + ", " + y + ", "
+                    + tileDataJson.toString() + "]}";
 
             byte[] out = data.getBytes(StandardCharsets.UTF_8);
             connection.getOutputStream().write(out);
             connection.getOutputStream().close();
 
             // Log response code and message to check if it was successful
-            System.out.println("Response Code: " + connection.getResponseCode());
-            System.out.println("Response Message: " + connection.getResponseMessage());
+            System.out.println("Response Code: " + connection
+                    .getResponseCode());
+            System.out.println("Response Message: " + connection
+                    .getResponseMessage());
 
             connection.disconnect();
         } catch (Exception e) {
