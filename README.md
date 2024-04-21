@@ -92,6 +92,8 @@ Here is the folder structure for JigsawGenius:
 
 ### Description
 
+You need **JDK** to run the application. The easiest way to install is to download the release from github: https://github.com/simekva/jigsaw-genius/releases/tag/v1.0 , extract it, and run the **.jar** file.
+
 The *main\core\JigsawGenius.java* is our main class being called in one of the launcher classes. This file is what initializes the whole game, and starts by creating the MainMenuScreen object (which is our home screen).
 
 
