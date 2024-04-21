@@ -35,13 +35,16 @@ public class TileDrawer {
      * @param batch  batch to draw it in.
      * @param x      x coordinate for center of tile.
      * @param y      y coordinate for center of tile.
+     * @param scale  scale.
      */
     public final void drawTile(final Assets assets, final Tile tile,
-            final SpriteBatch batch, final float x, final float y, final float scale) {
+            final SpriteBatch batch, final float x,
+            final float y, final float scale) {
 
         for (int i = 0; i < Config.SIDESCOUNT; i++) {
             Biome biome = tile.getSides().get(i);
-            biomeDrawer.drawBiome(assets, biome, batch, x, y, angleOffset[i], scale);
+            biomeDrawer.drawBiome(
+                    assets, biome, batch, x, y, angleOffset[i], scale);
         }
     }
 }

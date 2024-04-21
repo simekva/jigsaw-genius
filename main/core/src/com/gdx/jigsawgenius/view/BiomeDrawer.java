@@ -17,6 +17,7 @@ public class BiomeDrawer {
      * @param x             x coordinate to draw it in.
      * @param y             y coordinate to draw it in.
      * @param rotationAngle rotation angle in degrees.
+     * @param scale         size.
      */
     public final void drawBiome(final Assets assets, final Biome biome,
             final SpriteBatch batch, final float x, final float y,

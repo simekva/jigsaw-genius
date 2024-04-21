@@ -44,5 +44,10 @@ public interface ScreenInterface {
      */
     CameraHandler getCameraHandler();
 
+    /**
+     * Returns the game logic controller for the game.
+     * 
+     * @return
+     */
     GameLogicController getController();
 }

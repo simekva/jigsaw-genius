@@ -21,14 +21,6 @@ public class GameLogicController {
      */
 
     private List<Player> players;
-
-    // private Player player1;
-
-    /**
-     * Player 2 object.
-     */
-    // private Player player2;
-
     /**
      * Number to know who'se turn it is.
      */
@@ -37,12 +29,16 @@ public class GameLogicController {
     /**
      * Creates a board with a pure plains tile in the middle, and
      * initializes the hand.
+     *
+     * @param numberOfPlayers
      */
-    public GameLogicController(int numberOfPlayers) {
+    public GameLogicController(final int numberOfPlayers) {
         board = new TileManager(1, 1);
         board.placeTile(new Tile(), 0, 0);
         if (numberOfPlayers != 1 && numberOfPlayers != 2) {
-            throw new IllegalArgumentException("Couldn't create game controller with " + numberOfPlayers + "players.");
+            throw new IllegalArgumentException(
+                    "Couldn't create game controller with " + numberOfPlayers
+                            + "players.");
         }
         players = new ArrayList<Player>();
         for (int i = 0; i < numberOfPlayers; i++) {
@@ -54,11 +50,22 @@ public class GameLogicController {
         turn = 1;
     }
 
+    /**
+     * Returns the active board.
+     *
+     * @return board.
+     */
     public TileManager getBoard() {
         return this.board;
     }
 
-    public Player getPlayer(int n) {
+    /**
+     * Returns a specific player based on input.
+     *
+     * @param n
+     * @return Player from players array with index n.
+     */
+    public Player getPlayer(final int n) {
         return this.players.get(n - 1);
     }
 
@@ -69,10 +76,10 @@ public class GameLogicController {
      * @param y
      */
     public void placeTile(final int x, final int y) {
-        boolean placed = false;
         board.placeTile(getPlayer(1).getTopTile(), x, y);
         getPlayer(this.turn).removeTopTile();
-        getPlayer(this.turn).increaseScore(board.numberOfMatches(x, y) * Config.POINTMULTIPLIER);
+        getPlayer(this.turn).increaseScore(
+                board.numberOfMatches(x, y) * Config.POINTMULTIPLIER);
         System.out.println(getPlayer(this.turn).getScore());
         turn++;
 
@@ -85,7 +92,16 @@ public class GameLogicController {
         }
     }
 
-    public void placeTileFromBackend(final int x, final int y, final List<Integer> biomeIDs) {
+    /**
+     * Updates tile from the backend. Same as above but less checks, as checks
+     * are excecuted on sender's application.
+     *
+     * @param x
+     * @param y
+     * @param biomeIDs
+     */
+    public void placeTileFromBackend(
+            final int x, final int y, final List<Integer> biomeIDs) {
         Tile tile = new Tile(x, y, biomeIDs);
         this.board.updateTilesFromBackend(tile, x, y);
     }
@@ -99,21 +115,5 @@ public class GameLogicController {
         } else if (turn == 2) {
             getPlayer(2).rotateTile();
         }
-    }
-
-    /**
-     * Testing.
-     *
-     * @param args
-     */
-
-    public static void main(String[] args) {
-        GameLogicController controller = new GameLogicController(1);
-
-        controller.placeTile(-1, 1);
-        controller.placeTile(-2, 2);
-        controller.placeTile(-3, 3);
-        System.out.println(controller.getPlayer(1).getTilesLeft());
-        System.out.println("test");
     }
 }
