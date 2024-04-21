@@ -20,8 +20,6 @@ import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.badlogic.gdx.utils.viewport.StretchViewport;
 import com.gdx.jigsawgenius.JigsawGenius;
 
-import com.gdx.jigsawgenius.model.Assets;
-
 
 public class helpScreen extends ScreenAdapter {
 

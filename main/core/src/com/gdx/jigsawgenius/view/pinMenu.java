@@ -18,11 +18,7 @@ import com.badlogic.gdx.utils.Align;
 import com.badlogic.gdx.utils.viewport.StretchViewport;
 import com.gdx.jigsawgenius.JigsawGenius;
 import com.gdx.jigsawgenius.model.Assets;
-import com.gdx.jigsawgenius.firebase.FirebaseHost;
-
-import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.NinePatch;
-import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.badlogic.gdx.scenes.scene2d.utils.NinePatchDrawable;
 
 public class pinMenu extends ScreenAdapter {

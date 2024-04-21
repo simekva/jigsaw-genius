@@ -1,11 +1,9 @@
 package com.gdx.jigsawgenius.controller;
 
-import java.util.Arrays;
 
 import com.badlogic.gdx.InputProcessor;
 import com.badlogic.gdx.graphics.Camera;
 import com.badlogic.gdx.math.Vector3;
-import com.badlogic.gdx.scenes.scene2d.ui.List;
 import com.gdx.jigsawgenius.model.Assets;
 import com.gdx.jigsawgenius.view.ScreenInterface;
 import com.gdx.jigsawgenius.firebase.FirebaseSender;
