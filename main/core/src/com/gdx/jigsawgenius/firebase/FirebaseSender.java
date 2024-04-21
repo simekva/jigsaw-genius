@@ -4,19 +4,22 @@ import java.net.HttpURLConnection;
 import java.net.URI;
 import java.net.URL;
 import java.nio.charset.StandardCharsets;
+import java.util.List;
 
 public class FirebaseSender {
-    public static void sendData(String sessionPin, String attempt, String message, String message2, boolean isHost) {
+    public static void sendData(String sessionPin, String attempt, int x, int y,
+                                List<Integer> tileData, boolean isHost) {
         String player;
         if (isHost) {
             player = "player1";
         } else {
             player = "player2";
         }
-        
+
         try {
             // Proper Firebase URL with path and .json suffix
-            URI uri = new URI("https://jigsawgame-e855b-default-rtdb.europe-west1.firebasedatabase.app/session" + sessionPin + "/" + player + "/tiles/pos" + attempt + ".json");
+            URI uri = new URI("https://jigsawgame-e855b-default-rtdb.europe-west1.firebasedatabase.app"
+                    + "/session" + sessionPin + "/" + player + "/tiles/pos" + attempt + ".json");
 
             // Convert URI to URL
             URL url = uri.toURL();
@@ -26,8 +29,18 @@ public class FirebaseSender {
             connection.setDoOutput(true);
             connection.setRequestProperty("Content-Type", "application/json");
 
+            StringBuilder tileDataJson = new StringBuilder();
+            tileDataJson.append("[");
+            for (int i = 0; i < tileData.size(); i++) {
+                tileDataJson.append("\"").append(tileData.get(i)).append("\"");
+                if (i < tileData.size() - 1) {
+                    tileDataJson.append(",");
+                }
+            }
+            tileDataJson.append("]");
+
             // Data you want to send, as a JSON string
-            String data = "{\"message\": \"" + message + "__" + message2 + "\"}";
+            String data = "{\"message\": [" + x + ", " + y + ", " + tileDataJson.toString() + "]}";
 
             byte[] out = data.getBytes(StandardCharsets.UTF_8);
             connection.getOutputStream().write(out);

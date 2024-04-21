@@ -5,9 +5,6 @@ import com.badlogic.gdx.graphics.Camera;
 import com.badlogic.gdx.math.Vector3;
 import com.gdx.jigsawgenius.model.Assets;
 import com.gdx.jigsawgenius.view.ScreenInterface;
-import com.gdx.jigsawgenius.firebase.FirebaseSender;
-import com.gdx.jigsawgenius.firebase.FirebaseHost;
-
 
 public class GameInputController implements InputProcessor {
 
@@ -63,21 +60,10 @@ public class GameInputController implements InputProcessor {
         float worldY = worldCoordinates.y - Assets.WORLD_SIZE / 2;
 
         System.out.println("Clicked on: " + worldX + ", " + worldY);
-        
-        
-
 
         try {
             screen.placeTile(this.convertToWorldCoords(worldX, worldY)[0],
                     this.convertToWorldCoords(worldX, worldY)[1]);
-                    
-                /*//Sends data to Firebase based on each click
-                attempt += 1;
-
-                
-                int pin = FirebaseHost.getPin();
-                FirebaseSender.sendData(String.valueOf(pin), Integer.toString(attempt), Float.toString(worldX), Float.toString(worldY), false);
-*/
 
         } catch (Exception e) {
             System.out.println(e);
@@ -127,7 +113,8 @@ public class GameInputController implements InputProcessor {
      */
     @Override
     public final boolean scrolled(final float amountX, final float amountY) {
-        return false;
+        screen.getCameraHandler().zoom(amountY);
+        return true;
     }
 
     /**

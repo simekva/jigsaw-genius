@@ -54,6 +54,17 @@ public class Tile {
         this.yCoord = 0;
     }
 
+    public Tile(int x, int y, List<Integer> biomeIDs) {
+        List<Biome> biomes = new ArrayList<Biome>();
+
+        for (int i = 0; i < Config.SIDESCOUNT; i++) {
+            biomes.add(new Biome(biomeIDs.get(i)));
+        }
+        this.sides = biomes;
+        this.x = x;
+        this.y = y;
+    }
+
     /**
      * Returns a list of all sides of the tile.
      *
@@ -134,4 +145,19 @@ public class Tile {
     public final int getY() {
         return this.y;
     }
+
+    /**
+     * Gets biome list.
+     *
+     * @return list
+     */
+    public List<Integer> getBiomeIDs() {
+        List<Integer> list = new ArrayList<Integer>();
+
+        for (Biome biome : this.getSides()) {
+            list.add(biome.getBiomeID());
+        }
+        return list;
+    }
+
 }

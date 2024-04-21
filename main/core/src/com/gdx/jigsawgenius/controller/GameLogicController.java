@@ -5,7 +5,6 @@ import com.gdx.jigsawgenius.model.TileManager;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.gdx.jigsawgenius.model.Assets;
 import com.gdx.jigsawgenius.model.Config;
 import com.gdx.jigsawgenius.model.Player;
 import com.gdx.jigsawgenius.model.Tile;
@@ -69,41 +68,14 @@ public class GameLogicController {
      * @param x
      * @param y
      */
-    // public void placeTile(final int x, final int y) {
-    // boolean placed = false;
-    // if (turn == 1 && !placed) {
-    // board.placeTile(getPlayer(1).getTopTile(), x, y);
-    // getPlayer(1).removeTopTile();
-    // turn = 2;
-    // getPlayer(1).increaseScore(board.numberOfMatches(x, y)
-    // * Config.POINTMULTIPLIER);
-    // System.out.println("Player 1 placed tile on: " + x + ", "
-    // + y + ", and scored"
-    // + board.numberOfMatches(x, y)
-    // * Config.POINTMULTIPLIER
-    // + " points.");
-    // placed = true;
-    // } else if (turn == 2 && !placed) {
-    // board.placeTile(getPlayer(2).getTopTile(), x, y);
-    // getPlayer(2).removeTopTile();
-    // turn = 1;
-    // System.out.println("Player 2 placed tile on: " + x + ", " + y
-    // + ", and scored"
-    // + board.numberOfMatches(x, y)
-    // * Config.POINTMULTIPLIER
-    // + " points.");
-    // getPlayer(2).increaseScore(board.numberOfMatches(x, y)
-    // * Config.POINTMULTIPLIER);
-    // placed = true;
-    // }
-    // }
-
     public void placeTile(final int x, final int y) {
         boolean placed = false;
         board.placeTile(getPlayer(1).getTopTile(), x, y);
         getPlayer(this.turn).removeTopTile();
+        getPlayer(this.turn).increaseScore(board.numberOfMatches(x, y) * Config.POINTMULTIPLIER);
+        System.out.println(getPlayer(this.turn).getScore());
         turn++;
-        placed = true;
+
         if (turn > this.players.size()) {
             turn = 1;
         }
@@ -111,6 +83,11 @@ public class GameLogicController {
         for (int i = 0; i < players.size(); i++) {
             System.out.println(players.get(i).getTilesLeft());
         }
+    }
+
+    public void placeTileFromBackend(final int x, final int y, final List<Integer> biomeIDs) {
+        Tile tile = new Tile(x, y, biomeIDs);
+        this.board.updateTilesFromBackend(tile, x, y);
     }
 
     /**

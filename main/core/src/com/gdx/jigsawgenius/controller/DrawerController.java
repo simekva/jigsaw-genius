@@ -38,7 +38,7 @@ public class DrawerController {
                 try {
                     tileDrawer.drawTile(assets, tile, batch,
                             tile.getXCoord() + centerX,
-                            tile.getYCoord() + centerY);
+                            tile.getYCoord() + centerY, 1);
 
                 } catch (Exception e) {
                 }

@@ -20,17 +20,6 @@ public class CameraHandler {
     }
 
     public void handleCamera() {
-        if (Gdx.input.isKeyJustPressed(com.badlogic.gdx.Input.Keys.A)) {
-            if (camera.zoom < 200) {
-                camera.zoom += 10;
-            }
-        }
-        if (Gdx.input.isKeyJustPressed(com.badlogic.gdx.Input.Keys.Q)) {
-            if (camera.zoom > 20) {
-                camera.zoom -= 10;
-                System.out.println(camera.zoom);
-            }
-        }
         if (Gdx.input.isKeyPressed(com.badlogic.gdx.Input.Keys.LEFT)) {
             camera.translate(-10, 0, 0);
             System.out.println(camera.position.x);
@@ -50,6 +39,19 @@ public class CameraHandler {
 
     public Camera getCamera() {
         return this.camera;
+    }
+
+    public void zoom(float value) {
+        if (value > 0) {
+            if (camera.zoom < 200) {
+                camera.zoom += 10;
+            }
+        } else {
+            if (camera.zoom > 20) {
+                camera.zoom -= 10;
+            }
+        }
+
     }
 
     public void update() {

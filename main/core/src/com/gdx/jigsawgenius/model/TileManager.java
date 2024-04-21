@@ -298,6 +298,83 @@ public class TileManager {
         tile.setY(y);
     }
 
+    public void updateTilesFromBackend(Tile tile, int x, int y) {
+
+        if (((x + y) % 2) != 0) {
+            throw new IllegalArgumentException("Illegal tile placement.");
+        }
+
+        boolean isExtended = false;
+        // Extends in negative x and y
+        if (x < (-lowestx) && y < (-lowesty)
+                && (!isExtended)) {
+            negativeExtension(1, 1);
+            isExtended = true;
+        }
+
+        // Extends in negative x positive y
+        if (x < (-lowestx) && (y + lowesty) > (columns - 1)
+                && (!isExtended)) {
+            negativeExtension(1, 0);
+            positiveExtension(0, 1);
+            isExtended = true;
+        }
+
+        // Extend if positive x and y
+        if ((x + lowestx) > (rows - 1) && (y + lowesty) > (columns - 1)
+                && (!isExtended)) {
+            positiveExtension(1, 1);
+            isExtended = true;
+        }
+
+        // Extend in positive x, negative y
+        if ((x + lowestx) > (rows - 1) && (y < -lowesty)
+                && (!isExtended)) {
+            positiveExtension(1, 0);
+            negativeExtension(0, 1);
+            isExtended = true;
+        }
+
+        // Extends in negative x
+        if (x < (-lowestx)
+                && (!isExtended)) {
+            negativeExtension(1, 0);
+            isExtended = true;
+        }
+
+        // Extend in positive x
+        if ((x + lowestx) > (rows - 1)
+                && (!isExtended)) {
+            positiveExtension(1, 0);
+            isExtended = true;
+        }
+        // Extends in negative y
+        if (y < (-lowesty) && (!isExtended)) {
+            negativeExtension(0, 1);
+            isExtended = true;
+        }
+        // Extend in positive y
+        if ((y + lowesty) > (columns - 1)
+                && (!isExtended)) {
+            positiveExtension(0, 1);
+            isExtended = true;
+        }
+        try {
+
+            board[x + lowestx][y + lowesty] = tile;
+            System.out.println("Placed tile in position: " + (x + lowestx)
+                    + ", " + (y + lowesty));
+            System.out.println("Board dimensions: " + this.rows
+                    + ", " + this.columns);
+        } catch (Exception e) {
+            this.updateTilesFromBackend(tile, x, y);
+        }
+        tile.setXCoord(x * Assets.pieceHeight);
+        tile.setYCoord((float) (y * Assets.pieceHeight * 1.732));
+        tile.setX(x);
+        tile.setY(y);
+    }
+
     private void positiveExtension(final int x, final int y) {
         if (x >= 0 && x <= 1 && y >= 0 && y <= 1) {
             Tile[][] newBoard = new Tile[rows + x][columns + y];
