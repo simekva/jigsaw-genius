@@ -95,11 +95,12 @@ Here is the folder structure for JigsawGenius:
 The *main\core\JigsawGenius.java* is our main class being called in one of the launcher classes. This file is what initializes the whole game, and starts by creating the MainMenuScreen object (which is our home screen).
 
 
-
-
 ## How to run/compile the project
 
 There are several ways a player can download to try our game. One can simply *Download ZIP* to get all the raw code, or *Clone* the project using HTTPS or SSH. From there navigate to one of the *Launchers* to start the game from the code. 
+
+- If you have opened the code in android studios, power up an android emulator to run the code. 
+- If you have opened the code in a code editor like vscode, you can also open the desktop launcher to try our game. Navigate to *\main\desktop\DesktopLauncher.java*, and press run. From here you can try out the game as intended. TIP: You can start the game twice (open two times) if you want to test out multiplayer with yourself. One screen can host the game, while the other joins. 
 
 
 ### Launchers
