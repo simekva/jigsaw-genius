@@ -21,6 +21,7 @@ import com.gdx.jigsawgenius.model.Assets;
 import com.badlogic.gdx.graphics.g2d.NinePatch;
 import com.badlogic.gdx.scenes.scene2d.utils.NinePatchDrawable;
 
+
 public class pinMenu extends ScreenAdapter {
 
     private Assets assets;
@@ -51,6 +52,11 @@ public class pinMenu extends ScreenAdapter {
         this.isHost = isHost;
     }
 
+
+    /**
+     * General function to display different object on screen.
+     * 
+     */
     @Override
     public void show() {
         batch = new SpriteBatch();
@@ -71,25 +77,28 @@ public class pinMenu extends ScreenAdapter {
         skin.add("default-font", font);
         skin.add("background", new Texture("rectangle.png"));
 
+        //Defines general button style
         TextButton.TextButtonStyle buttonStyle = new TextButton.TextButtonStyle();
         buttonStyle.up = skin.getDrawable("background");
         buttonStyle.down = skin.newDrawable("background", Color.DARK_GRAY);
         buttonStyle.font = skin.getFont("default-font");
 
+        //defines Host button
         TextButton hostButton = new TextButton("Start game", buttonStyle);
         hostButton.setSize(200, 50);
         hostButton.setPosition(Gdx.graphics.getWidth() / 2 - hostButton.getWidth() / 2, Gdx.graphics.getHeight() / 2);
         hostButton.addListener(new ClickListener() {
             @Override
             public void clicked(InputEvent event, float x, float y) {
-                boolean isHost = true; // For example, you can set it based on some condition
+                boolean isHost = true;
 
                 // Start the SinglePlayerScreen and pass the pin and isHost variables
                 game.setScreen(new MultiPlayerScreen(assets, game, pin, isHost));
             }
         });
 
-        Texture backgroundTexture = new Texture("pinBackground.png");
+
+        Texture backgroundTexture = new Texture("pinBackground.png");                               //Set background
         NinePatch backgroundPatch = new NinePatch(backgroundTexture, 12, 12, 12, 12);
         NinePatchDrawable backgroundDrawable = new NinePatchDrawable(backgroundPatch);
 
@@ -98,12 +107,15 @@ public class pinMenu extends ScreenAdapter {
         labelStyle.fontColor = Color.BLACK;
         labelStyle.background = backgroundDrawable; // Set the background
 
+        //Configures new label object
         Label codeLabel = new Label("Tell the joining player to \n enter this 4-digit code: " + pin, labelStyle);
         codeLabel.setSize(220, 100);
         codeLabel.setPosition(Gdx.graphics.getWidth() / 2 - codeLabel.getWidth() / 2,
                 Gdx.graphics.getHeight() / 2 - 150);
         codeLabel.setAlignment(Align.center);
 
+
+        //Configures button to go back to MultiPlayerMenu
         TextButton backButton = new TextButton("Go back", buttonStyle);
         backButton.setSize(100, 120);
         backButton.setPosition(50, Gdx.graphics.getHeight() - backButton.getHeight() - 50);
@@ -114,8 +126,12 @@ public class pinMenu extends ScreenAdapter {
             }
         });
 
-        stage.addActor(backButton);
 
+        /**
+        * Show previously defined actors on screen
+        * 
+        */
+        stage.addActor(backButton);
         stage.addActor(hostButton);
         stage.addActor(codeLabel);
 
