@@ -35,7 +35,37 @@ Here is the folder structure for JigsawGenius:
 |    |    |
 |    |    |__src\com\gdx\jigsawgenius
 |    |    |               |
-|    |    |
+|    |    |               |__controller
+|    |    |               |       |__DrawerController.java
+|    |    |               |       |__GameInputController.java
+|    |    |               |       |__GameInputControllerMultiPlayer.java
+|    |    |               |       |__GameLogicController.java
+|    |    |               |
+|    |    |               |
+|    |    |               |__model
+|    |    |               |     |__Assets.java
+|    |    |               |     |__Biome.java
+|    |    |               |     |__Config.java
+|    |    |               |     |__FirebaseHost.java
+|    |    |               |     |__FirebaseReader.java
+|    |    |               |     |__FirebaseSender.java
+|    |    |               |     |__Player.java
+|    |    |               |     |__Tile.java
+|    |    |               |     |__TileManager.java
+|    |    |               |       
+|    |    |               |       
+|    |    |               |__view
+|    |    |                   |__BiomeDrawer.java
+|    |    |                   |__Button.java
+|    |    |                   |__CameraHandler.java
+|    |    |                   |__helpScreen.java
+|    |    |                   |__MainMenuScreen.java
+|    |    |                   |__MultiPlayerMenu.java
+|    |    |                   |__MultiPlayerScreen.java
+|    |    |                   |__pinMenu.java
+|    |    |                   |__ScreenInterface.java
+|    |    |                   |__SinglePlayerScreen.java
+|    |    |                   |__TileDrawer.java
 |    |    |
 |    |    |_JigsawGenius.java
 |    |    
@@ -62,7 +92,7 @@ Here is the folder structure for JigsawGenius:
 
 ### Description
 
-The *main\core\JigsawGenius.java* is our main class being called in one of the launcher classes. This file is what initializes the whole game.
+The *main\core\JigsawGenius.java* is our main class being called in one of the launcher classes. This file is what initializes the whole game, and starts by creating the MainMenuScreen object (which is our home screen).
 
 
 
