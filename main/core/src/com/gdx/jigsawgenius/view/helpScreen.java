@@ -36,11 +36,18 @@ public class helpScreen extends ScreenAdapter {
     private TextButton prevTutorialButton;
     private TextButton backButton;
 
+
+    /**
+     * Creates helpScreen Object
+     * 
+     * @param game
+     */
     public helpScreen(JigsawGenius game) {
         this.game = game;
         stage = new Stage(new StretchViewport(Gdx.graphics.getWidth(), Gdx.graphics.getHeight()));
         tutorialImages = new ArrayList<Image>();
         
+        //Adds images from assets to be displayed
         tutorialImages.add(new Image(new Texture("tutorialSlide1.png")));
         tutorialImages.add(new Image(new Texture("tutorialSlide2.png")));
         tutorialImages.add(new Image(new Texture("tutorialSlide3.png")));
@@ -51,6 +58,10 @@ public class helpScreen extends ScreenAdapter {
         display.setPosition(120, 120);
        }
 
+    /**
+     * Changes which image is shown
+     * 
+     */
     private void setDisplay() {
         display = tutorialImages.get(currentTutorial);
         display.setSize(Gdx.graphics.getWidth() - 200, Gdx.graphics.getHeight() - 200);
@@ -58,6 +69,10 @@ public class helpScreen extends ScreenAdapter {
         updateStage();
     }
     
+    /**
+     * Button functionality to go to next tutorial
+     * 
+     */
     private void nextTutorial() {
         prevTutorialButton.setTouchable(Touchable.enabled);
         prevTutorialButton.setDisabled(false);
@@ -69,6 +84,11 @@ public class helpScreen extends ScreenAdapter {
         }
     }
 
+
+    /**
+     * Button functionality to go to previous tutorial
+     * 
+     */
     private void prevTutorial() {
         nextTutorialButton.setTouchable(Touchable.enabled);
         nextTutorialButton.setDisabled(false);
@@ -80,6 +100,11 @@ public class helpScreen extends ScreenAdapter {
         }
     }
 
+
+    /**
+     * Defining buttons used for the helpScreen 
+     * 
+     */
     @Override
     public void show() {
         batch = new SpriteBatch();
@@ -95,6 +120,8 @@ public class helpScreen extends ScreenAdapter {
         skin.add("backArrow", new Texture("arrow.png"));
         skin.add("rectangle", new Texture("rectangle.png"));
 
+
+        //defining both nextTutorial and prevTutorial buttons
         TextButton.TextButtonStyle buttonStyle = new TextButton.TextButtonStyle();
         buttonStyle.up = skin.newDrawable("rectangle", Color.SKY);
         buttonStyle.down = skin.newDrawable("rectangle", Color.BLUE);
@@ -105,23 +132,31 @@ public class helpScreen extends ScreenAdapter {
         prevTutorialButton = new TextButton("<", buttonStyle);
         nextTutorialButton.setSize(50, 50);
         prevTutorialButton.setSize(50, 50);
+
         int screenCenter = Gdx.graphics.getWidth()/2;
+
         nextTutorialButton.setPosition(screenCenter + 50, 50 );
         prevTutorialButton.setPosition(screenCenter - 100, 50 );
         prevTutorialButton.setTouchable(Touchable.disabled);
         prevTutorialButton.setDisabled(true);
+
+        //Listener for button click
         nextTutorialButton.addListener(new ClickListener() {
             @Override
             public void clicked(InputEvent event, float x, float y) {
                 nextTutorial();
             }
         });
+
+        //listener for button click
         prevTutorialButton.addListener(new ClickListener() {
             @Override
             public void clicked(InputEvent event, float x, float y) {
                 prevTutorial();
             }
         });
+
+        //Define back button
         TextButton.TextButtonStyle buttonStyle2 = new TextButton.TextButtonStyle();
         buttonStyle2.up = skin.getDrawable("rectangle");
         buttonStyle2.down = skin.newDrawable("rectangle", Color.DARK_GRAY);
@@ -139,6 +174,10 @@ public class helpScreen extends ScreenAdapter {
         updateStage();
     }
 
+    /**
+     * Show previously defined actors on screen
+     * 
+     */
     private void updateStage(){
         stage.clear();
         stage.addActor(display);

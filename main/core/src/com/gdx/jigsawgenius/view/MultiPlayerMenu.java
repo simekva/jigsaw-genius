@@ -17,8 +17,7 @@ import com.badlogic.gdx.utils.Align;
 import com.badlogic.gdx.utils.viewport.StretchViewport;
 import com.gdx.jigsawgenius.JigsawGenius;
 import com.gdx.jigsawgenius.model.Assets;
-
-import com.gdx.jigsawgenius.firebase.FirebaseHost;
+import com.gdx.jigsawgenius.model.FirebaseHost;
 
 public class MultiPlayerMenu extends ScreenAdapter {
 
@@ -33,6 +32,12 @@ public class MultiPlayerMenu extends ScreenAdapter {
     private TextField codeField;
     private boolean isHost = false;
     private String pin;
+
+    /**
+     * Creates MultiPlayerMenu Object
+     * 
+     * @param game
+     */
 
     public MultiPlayerMenu(JigsawGenius game) {
         this.game = game;

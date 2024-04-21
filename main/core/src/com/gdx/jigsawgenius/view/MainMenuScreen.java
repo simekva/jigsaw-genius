@@ -29,6 +29,12 @@ public class MainMenuScreen extends ScreenAdapter {
     private Skin skin;
     private BitmapFont font;
 
+
+    /**
+     * Creates MainMenuScreen Object
+     * 
+     * @param game
+     */
     public MainMenuScreen(JigsawGenius game) {
         this.game = game;
     }

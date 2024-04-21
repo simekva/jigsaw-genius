@@ -36,6 +36,13 @@ public class pinMenu extends ScreenAdapter {
     private String pin;
     private boolean isHost;
 
+    /**
+     * Creates pinMenu Object
+     * 
+     * @param game
+     * @param pin
+     * @param isHost
+     */
     public pinMenu(JigsawGenius game, String pin, boolean isHost) {
         this.game = game;
 

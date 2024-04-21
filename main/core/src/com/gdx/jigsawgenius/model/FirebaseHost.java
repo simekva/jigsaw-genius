@@ -1,4 +1,4 @@
-package com.gdx.jigsawgenius.firebase;
+package com.gdx.jigsawgenius.model;
 
 import java.net.HttpURLConnection;
 import java.net.URI;
@@ -8,14 +8,25 @@ import java.util.Random;
 
 public class FirebaseHost {
     
-    private static int pin;
 
+    /**
+     * Pin for session
+     * url for Firebase url
+     * dataFormat for datatable
+     */
+    private static int pin;
+    private static String url = "https://jigsawgame-e855b-default-rtdb.europe-west1.firebasedatabase.app/";
+    private static String dataFormat = "{\"pin\": \"%d\", \"score\": \"0\", \"player1\": {\"tiles\": {\"init\": \"empty\"}}, \"player2\": {\"tiles\": {\"init\": \"empty\"}}}";
+
+    /**
+     * Function to initialize new session, and firebase Table. Creates a random game pin.
+     */
     public static void sendData() {
         try {
             pin = generatePin();
             String sessionName = "session" + pin;
-            // Proper Firebase URL with path and .json suffix
-            URI uri = new URI("https://jigsawgame-e855b-default-rtdb.europe-west1.firebasedatabase.app/" + sessionName + ".json");
+
+            URI uri = new URI(url + sessionName + ".json");      //Different URL based on what session pin is created
 
             // Convert URI to URL
             URL url = uri.toURL();
@@ -25,8 +36,8 @@ public class FirebaseHost {
             connection.setDoOutput(true);
             connection.setRequestProperty("Content-Type", "application/json");
 
-            // Initialize players with dummy data
-            String data = String.format("{\"pin\": \"%d\", \"score\": \"0\", \"player1\": {\"tiles\": {\"init\": \"empty\"}}, \"player2\": {\"tiles\": {\"init\": \"empty\"}}}", pin);
+            // Initialize table session with empty data
+            String data = String.format(dataFormat, pin);
 
             byte[] out = data.getBytes(StandardCharsets.UTF_8);
             connection.getOutputStream().write(out);
@@ -42,6 +53,12 @@ public class FirebaseHost {
         }
     }
 
+
+    /**
+     * Function to generate random 4-digit pin
+     *
+     * @return generatedPin
+     */
     public static int generatePin() {
         int min = 1000;
         int max = 9999;
@@ -49,6 +66,12 @@ public class FirebaseHost {
         return random.nextInt(max - min + 1) + min;
     }
 
+
+    /**
+     * Function to get Pin
+     *
+     * @return pin
+     */
     public static int getPin() {
         return pin;
     }

@@ -6,10 +6,10 @@ import com.badlogic.gdx.ScreenAdapter;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.utils.ScreenUtils;
 import com.gdx.jigsawgenius.controller.DrawerController;
-import com.gdx.jigsawgenius.controller.GameInputControllerMulti;
+import com.gdx.jigsawgenius.controller.GameInputControllerMultiPlayer;
 import com.gdx.jigsawgenius.controller.GameLogicController;
-import com.gdx.jigsawgenius.firebase.FirebaseReader;
 import com.gdx.jigsawgenius.model.Assets;
+import com.gdx.jigsawgenius.model.FirebaseReader;
 import com.gdx.jigsawgenius.model.Tile;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.Color;
@@ -21,7 +21,7 @@ public class MultiPlayerScreen extends ScreenAdapter implements ScreenInterface 
     Assets assets;
     Game game;
     GameLogicController gameLogicController;
-    GameInputControllerMulti inputProcessor;
+    GameInputControllerMultiPlayer inputProcessor;
     DrawerController drawerController;
     private boolean isHost;
     private String pin;
@@ -29,9 +29,16 @@ public class MultiPlayerScreen extends ScreenAdapter implements ScreenInterface 
     Tile topTile;
     TileDrawer topTileDrawer;
     BitmapFont font;
-
     FirebaseReader reader;
 
+    /**
+     * Creates MultiPlayerScreen Object
+     * 
+     * @param assets
+     * @param game
+     * @param pin
+     * @param isHost
+     */
     public MultiPlayerScreen(Assets assets, Game game, String pin, boolean isHost) {
         this.game = game;
         this.assets = assets;
@@ -45,7 +52,7 @@ public class MultiPlayerScreen extends ScreenAdapter implements ScreenInterface 
         batch2 = new SpriteBatch();
         cameraHandler = new CameraHandler();
         gameLogicController = new GameLogicController(2);
-        inputProcessor = new GameInputControllerMulti(this, isHost, pin);
+        inputProcessor = new GameInputControllerMultiPlayer(this, isHost, pin);
         drawerController = new DrawerController();
 
         topTile = gameLogicController.getPlayer(1).getTopTile();

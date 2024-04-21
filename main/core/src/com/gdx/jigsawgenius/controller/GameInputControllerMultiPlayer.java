@@ -5,12 +5,12 @@ import com.badlogic.gdx.InputProcessor;
 import com.badlogic.gdx.graphics.Camera;
 import com.badlogic.gdx.math.Vector3;
 import com.gdx.jigsawgenius.model.Assets;
+import com.gdx.jigsawgenius.model.FirebaseHost;
+import com.gdx.jigsawgenius.model.FirebaseSender;
 import com.gdx.jigsawgenius.view.ScreenInterface;
-import com.gdx.jigsawgenius.firebase.FirebaseSender;
-import com.gdx.jigsawgenius.firebase.FirebaseHost;
 import com.gdx.jigsawgenius.model.Tile;
 
-public class GameInputControllerMulti implements InputProcessor {
+public class GameInputControllerMultiPlayer implements InputProcessor {
 
     /**
      * Active screen in the game.
@@ -24,7 +24,7 @@ public class GameInputControllerMulti implements InputProcessor {
      *
      * @param screenInput
      */
-    public GameInputControllerMulti(final ScreenInterface screenInput, boolean isHost, String pin) {
+    public GameInputControllerMultiPlayer(final ScreenInterface screenInput, boolean isHost, String pin) {
         this.screen = screenInput;
         this.isHost = isHost;
         this.pin = pin;
@@ -54,6 +54,18 @@ public class GameInputControllerMulti implements InputProcessor {
         return false;
     }
 
+
+    /**
+     * Function for placing a tile or trying to place a tile. If a tile is placed succesfully, the data for this tile gets sent to the Firebase Database.
+     * 
+     * @param attempt - nr. of tiles placed (per player)
+     * @param screenX - X cordinations
+     * @param screenY- Y cordiantions
+     * @param pointer
+     * @param button
+     * @return boolean
+     */
+
     int attempt = 0;
 
     @Override
@@ -75,12 +87,11 @@ public class GameInputControllerMulti implements InputProcessor {
             screen.placeTile(this.convertToWorldCoords(worldX, worldY)[0],
                     this.convertToWorldCoords(worldX, worldY)[1]);
 
-            // Sends data to Firebase based on each click
-            attempt++;
-            int sessionPin = FirebaseHost.getPin();
+            //Sends data to Firebase based on each click:
 
-            // TODO: Må klare å importere hvordan tiles ser ut, i tileData, så dette kan
-            // sendes
+            attempt++;          //Counter for each tile that has been placed                      
+
+            int sessionPin = FirebaseHost.getPin();     //Session pin, belongs to database
 
             Tile tile = screen.getController().getBoard().getTile(this.convertToWorldCoords(worldX, worldY)[0],
                     this.convertToWorldCoords(worldX, worldY)[1]);
@@ -157,6 +168,15 @@ public class GameInputControllerMulti implements InputProcessor {
                 (int) (worldX / 172.5), (int) (worldY / 300)
         };
     }
+
+
+    /**
+     * Converts the world coordinates to TileManager coordinates. Same as the function above, with slightly different output.
+     *
+     * @param worldX
+     * @param worldY
+     * @return tile coordinates.
+     */
 
     public int[] convertToWorldCoords1(final float worldX, final float worldY) {
         // Calculate the coordinates based on the tile size and orientation
