@@ -1,6 +1,8 @@
 
 package com.gdx.jigsawgenius.view;
 
+import java.util.ArrayList;
+
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.ScreenAdapter;
 import com.badlogic.gdx.graphics.Color;
@@ -10,59 +12,123 @@ import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.Stage;
+import com.badlogic.gdx.scenes.scene2d.Touchable;
+import com.badlogic.gdx.scenes.scene2d.ui.Image;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
-import com.badlogic.gdx.scenes.scene2d.ui.TextField;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.badlogic.gdx.utils.viewport.StretchViewport;
 import com.gdx.jigsawgenius.JigsawGenius;
+
 import com.gdx.jigsawgenius.model.Assets;
 
 
 public class helpScreen extends ScreenAdapter {
 
-    private Assets assets;
     private final JigsawGenius game;
     private SpriteBatch batch;
     private Texture backgroundTexture;
-    private Texture ribbonTexture;
+    private Image display;
     private Stage stage;
     private Skin skin;
     private BitmapFont font;
-    private TextField codeField;
+    private ArrayList<Image> tutorialImages;
+    private int currentTutorial;
+    private TextButton nextTutorialButton;
+    private TextButton prevTutorialButton;
+    private TextButton backButton;
 
     public helpScreen(JigsawGenius game) {
         this.game = game;
+        stage = new Stage(new StretchViewport(Gdx.graphics.getWidth(), Gdx.graphics.getHeight()));
+        tutorialImages = new ArrayList<Image>();
+        
+        tutorialImages.add(new Image(new Texture("tutorialSlide1.png")));
+        tutorialImages.add(new Image(new Texture("tutorialSlide2.png")));
+        tutorialImages.add(new Image(new Texture("tutorialSlide3.png")));
+        tutorialImages.add(new Image(new Texture("tutorialSlide4.png")));
+        currentTutorial = 0;
+        display = tutorialImages.get(currentTutorial);
+        display.setSize(Gdx.graphics.getWidth() - 200, Gdx.graphics.getHeight() - 200);
+        display.setPosition(120, 120);
+       }
+
+    private void setDisplay() {
+        display = tutorialImages.get(currentTutorial);
+        display.setSize(Gdx.graphics.getWidth() - 200, Gdx.graphics.getHeight() - 200);
+        display.setPosition(120, 120);
+        updateStage();
+    }
+    
+    private void nextTutorial() {
+        prevTutorialButton.setTouchable(Touchable.enabled);
+        prevTutorialButton.setDisabled(false);
+        currentTutorial++;
+        setDisplay();
+        if(currentTutorial >= tutorialImages.size() - 1){
+            nextTutorialButton.setTouchable(Touchable.disabled);
+            nextTutorialButton.setDisabled(true);
+        }
+    }
+
+    private void prevTutorial() {
+        nextTutorialButton.setTouchable(Touchable.enabled);
+        nextTutorialButton.setDisabled(false);
+        currentTutorial--;
+        setDisplay();
+        if(currentTutorial == 0) {
+            prevTutorialButton.setTouchable(Touchable.disabled);
+            prevTutorialButton.setDisabled(true);
+        }
     }
 
     @Override
     public void show() {
         batch = new SpriteBatch();
 
-        assets = game.getAssets();
-
         backgroundTexture = new Texture("background.png");
-        ribbonTexture = new Texture("ribbon.png");
-        ribbonTexture.setFilter(Texture.TextureFilter.Linear, Texture.TextureFilter.Linear);
-        ribbonTexture.setWrap(Texture.TextureWrap.Repeat, Texture.TextureWrap.Repeat);
 
-        stage = new Stage(new StretchViewport(Gdx.graphics.getWidth(), Gdx.graphics.getHeight()));
         Gdx.input.setInputProcessor(stage);
 
         skin = new Skin();
         font = new BitmapFont();
 
         skin.add("default-font", font);
-        skin.add("background", new Texture("arrow.png"));
+        skin.add("backArrow", new Texture("arrow.png"));
+        skin.add("rectangle", new Texture("rectangle.png"));
 
         TextButton.TextButtonStyle buttonStyle = new TextButton.TextButtonStyle();
-        buttonStyle.up = skin.getDrawable("background");
-        buttonStyle.down = skin.newDrawable("background", Color.DARK_GRAY);
+        buttonStyle.up = skin.newDrawable("rectangle", Color.SKY);
+        buttonStyle.down = skin.newDrawable("rectangle", Color.BLUE);
         buttonStyle.font = skin.getFont("default-font");
-
+        buttonStyle.disabled = skin.newDrawable("rectangle", Color.GRAY);
         
-
-        TextButton backButton = new TextButton("Go back", buttonStyle);
+        nextTutorialButton = new TextButton(">", buttonStyle);
+        prevTutorialButton = new TextButton("<", buttonStyle);
+        nextTutorialButton.setSize(50, 50);
+        prevTutorialButton.setSize(50, 50);
+        int screenCenter = Gdx.graphics.getWidth()/2;
+        nextTutorialButton.setPosition(screenCenter + 50, 50 );
+        prevTutorialButton.setPosition(screenCenter - 100, 50 );
+        prevTutorialButton.setTouchable(Touchable.disabled);
+        prevTutorialButton.setDisabled(true);
+        nextTutorialButton.addListener(new ClickListener() {
+            @Override
+            public void clicked(InputEvent event, float x, float y) {
+                nextTutorial();
+            }
+        });
+        prevTutorialButton.addListener(new ClickListener() {
+            @Override
+            public void clicked(InputEvent event, float x, float y) {
+                prevTutorial();
+            }
+        });
+        TextButton.TextButtonStyle buttonStyle2 = new TextButton.TextButtonStyle();
+        buttonStyle2.up = skin.getDrawable("rectangle");
+        buttonStyle2.down = skin.newDrawable("rectangle", Color.DARK_GRAY);
+        buttonStyle2.font = skin.getFont("default-font");
+        backButton = new TextButton("Go back", buttonStyle2);
         backButton.setSize(100, 100);
         backButton.setPosition(50, Gdx.graphics.getHeight() - backButton.getHeight() - 50);
         backButton.addListener(new ClickListener() {
@@ -71,7 +137,15 @@ public class helpScreen extends ScreenAdapter {
                 game.setScreen(new MainMenuScreen(game));
             }
         });
+        
+        updateStage();
+    }
 
+    private void updateStage(){
+        stage.clear();
+        stage.addActor(display);
+        stage.addActor(nextTutorialButton);
+        stage.addActor(prevTutorialButton);
         stage.addActor(backButton);
     }
 
