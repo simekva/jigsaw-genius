@@ -1,6 +1,6 @@
 # JigsawGenius
 
-Welcome to the repository for the *JigsawGenius* Android Game. This project was developed for the course **TDT4240 Programvarearkitektur**, for the Spring of 2024. 
+Welcome to the repository for the *JigsawGenius* Android Game. This project was developed for the course **TDT4240 Programvarearkitektur**, for the Spring of 2024. This project is the work of **Group 12**.
 
 ## Description of game
 
